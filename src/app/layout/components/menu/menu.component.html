@@ -1,0 +1,46 @@
+<div class="menu">
+    <div class="logo">
+        <img src="/assets/images/logoformare.png" alt="" width="53" />
+    </div>
+
+    <ul class="nav">
+        <ng-container *ngFor="let menuItem of menu">
+            <li class="nav__item" [ngClass]="{ isActive: isMenuActive(menuItem) }" (click)="openMenu(menuItem, $event)" *ngIf="menuItem.mostrar">
+                <a class="nav__link">
+                    <mat-icon class="nav__icon">{{ menuItem.icon }}</mat-icon>
+                    <span class="nav__label">{{ menuItem.label }}</span>
+                </a>
+            </li>
+        </ng-container>
+    </ul>
+
+    <div class="avatar">
+        <img class="avatar__img" src="/assets/images/avatarNull.png" alt="" />
+        <span class="avatar__name">Portifólio</span>
+    </div>
+
+    <div class="logout">
+        <a class="logout__link" (click)="logout()">  Sair </a>
+    </div>
+</div>
+
+<div *ngIf="menuOpened" (clickOutside)="closeMenu()" class="sub-menu slide-in-left">
+    <div class="sub-menu-header">
+        <button mat-icon-button (click)="closeMenu()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="sub-menu-header__title"> {{ activeMenu.label }} </span>
+    </div>
+    <ul class="sub-nav" *ngIf="!mostrarCalendario">
+        <ng-container *ngFor="let menuItem of activeMenu.submenus">
+            <li class="sub-nav__item" (click)="goToPage(menuItem)" *ngIf="menuItem.mostrar">
+                <a class="sub-nav__link">
+                    <mat-icon class="sub-nav__icon">{{ menuItem.icon }}</mat-icon>
+                    <span class="sub-nav__label">{{ menuItem.label }}</span>
+                </a>
+            </li>
+        </ng-container>
+    </ul>
+
+    <!-- <app-calendario *ngIf="mostrarCalendario"></app-calendario> -->
+</div>
