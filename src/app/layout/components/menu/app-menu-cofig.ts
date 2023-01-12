@@ -7,7 +7,7 @@ export class AppMenuConfig {
         new MenuItem({
             label: 'Dashboard',
             icon: 'dashboard',
-            link: '',
+            link: 'dashboard',
             // permissao: PermissaoType.ACESSO_PAGINA_DASHBOARD,
             // authService: this.authService,
         }),

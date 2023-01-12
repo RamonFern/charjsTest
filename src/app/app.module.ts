@@ -10,6 +10,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DadosModule } from './dados/dados.module';
+import { DadosRoutingModule } from './dados/dados-routing.module';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,7 @@ import { DadosModule } from './dados/dados.module';
         LayoutComponent,
         MenuComponent,
         DashboardComponent
-   ],
+    ],
     providers: [],
     bootstrap: [AppComponent],
     imports: [
@@ -26,6 +27,7 @@ import { DadosModule } from './dados/dados.module';
       BrowserAnimationsModule,
       MatSlideToggleModule,
       MatIconModule,
+      DadosRoutingModule,
       DadosModule
     ]
 })

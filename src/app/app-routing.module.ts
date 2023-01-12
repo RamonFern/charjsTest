@@ -9,15 +9,15 @@ const routes: Routes = [
     component: DashboardComponent,
 
     children: [
-        // {
-        //     path: 'dashboard',
-        //     component: DashboardComponent,
-        //     // canActivate: [AuthGuard],
-        //     // canLoad: [AuthGuard],
-        //     // data: {
-        //     //     permissao: PermissaoType.ACESSO_PAGINA_DASHBOARD,
-        //     // },
-        // },
+        {
+            path: 'dashboard',
+            component: DashboardComponent,
+            // canActivate: [AuthGuard],
+            // canLoad: [AuthGuard],
+            // data: {
+            //     permissao: PermissaoType.ACESSO_PAGINA_DASHBOARD,
+            // },
+        },
         { path: 'dados', loadChildren: () => import('./dados/dados.module').then((m) => m.DadosModule) }
 
     ],
@@ -26,6 +26,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  bootstrap: [DashboardComponent]///testar isso
 })
 export class AppRoutingModule { }
