@@ -42,9 +42,9 @@ export class EnderecoComponent implements OnInit {
   listarAgentes() {
     this.agenteService.listar()
     .pipe(take(1))
-    .subscribe((agentes) => {
-      // this.agentes = agentes; 
-      console.log(agentes);
+    .subscribe((ag) => {
+      this.agentes = ag;
+      console.log(this.agentes);
     })
   }
 

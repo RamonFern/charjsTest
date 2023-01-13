@@ -5,3 +5,13 @@ export interface AgenteUser{
     codigo: number
 }
 
+// export type Agentes = Agente[]
+
+// export interface Agente {
+//   id: number
+//   nome: string
+//   funcao: string
+//   codigo: number
+// }
+
+

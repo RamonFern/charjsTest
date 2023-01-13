@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.shadow-light {
+  background: #ffffff !important;
+  padding: 30px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05) !important;
+}

@@ -2,12 +2,12 @@
   <mat-step label="Step 1" state="phone">
     <div class="form__agentes">
       <h4>Selecione os agentes de plantão</h4>
-      <mat-form-field appearance="fill">
-        <mat-label>Favorite animal</mat-label>
+      <mat-form-field appearance="outline">
+        <mat-label>Agente</mat-label>
         <mat-select required>
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let animal of animals" [value]="animal">
-            {{animal.name}}
+          <mat-option *ngFor="let agente of agentes" [value]="agente">
+            {{ agente.nome }}
           </mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>

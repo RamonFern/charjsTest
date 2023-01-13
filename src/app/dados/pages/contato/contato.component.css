@@ -1,0 +1,60 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.main__form {
+  display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+
+.button {
+  min-width: 50px;
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+.list {
+  margin-top: 32px;
+}
+
+.list__card {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.list__card-column--paciente {
+  flex: 1;
+  margin-right: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.list__card-column--action {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.list__card-column--avatar {
+  display: flex;
+  width: 80px;
+  align-items: center;
+  align-content: center;
+}
+
+.paciente-avatar {
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+}
+
