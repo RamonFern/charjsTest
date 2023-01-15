@@ -5,3 +5,15 @@
 .mat-mdc-form-field {
   margin-top: 16px;
 }
+
+.margin {
+  margin-left: 16px;
+}
+
+.form__chips {
+  margin-bottom: 20px;
+}
+
+.form__permulta {
+  margin-top: 20px;
+}

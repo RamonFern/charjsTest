@@ -5,11 +5,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { pipe, take } from 'rxjs';
 
-interface Animal {
-  name: string;
-  sound: string;
-}
-
 @Component({
   selector: 'app-endereco',
   templateUrl: './endereco.component.html',
@@ -22,16 +17,13 @@ interface Animal {
   ],
 })
 export class EnderecoComponent implements OnInit {
-  //animalControl = new FormControl<Animal>(null, Validators.required);
-  agentes: AgenteUser[] = [];
-  selectFormControl = new FormControl('', Validators.required);
-  animals: Animal[] = [
-    {name: 'Dog', sound: 'Woof!'},
-    {name: 'Cat', sound: 'Meow!'},
-    {name: 'Cow', sound: 'Moo!'},
-    {name: 'Fox', sound: 'Wa-pa-pa-pa-pa-pa-pow!'},
-  ];
 
+  agentes: AgenteUser[] = [];
+  agentesSelecionados: AgenteUser[] = [];
+  agentesPermulta: AgenteUser[] = [];
+  escolha!: string;
+
+  permulta: string[] = ['sim', 'nao'];
 
   constructor(private agenteService: AgenteService) { }
 
@@ -46,6 +38,18 @@ export class EnderecoComponent implements OnInit {
       this.agentes = ag;
       console.log(this.agentes);
     })
+  }
+
+  selecionar(agente: AgenteUser) {
+    this.agentesSelecionados.push(agente);
+  }
+
+  selecionarPermulta(agente: AgenteUser) {
+    this.agentesPermulta.push(agente);
+  }
+
+  verificar(){
+    console.log(this.escolha);
   }
 
 }

@@ -58,3 +58,11 @@
   object-fit: cover;
 }
 
+.add-btn {
+  position: fixed;
+  right: 2%;
+  bottom: 20px;
+  z-index: 999;
+}
+
+

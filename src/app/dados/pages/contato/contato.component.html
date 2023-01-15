@@ -1,29 +1,33 @@
-<header>
-  <h1>Cadastro de agente de trânsito</h1>
-</header>
-<div class="main shadow-light">
+<div class="main shadow-light" *ngIf="add">
+  <header>
+    <h1>Cadastro de agente de trânsito</h1>
+  </header>
   <form [formGroup]="agenteForm">
     <div class="main__form">
       <mat-form-field appearance="outline">
         <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" name="nome" placeholder="Ex.: Jair Messias">
+        <input matInput formControlName="nome" name="nome" required placeholder="Ex.: Jair Messias">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Função</mat-label>
-        <input matInput formControlName="funcao" name="funcao" placeholder="Ex.: Agente de trânsito">
+        <input matInput formControlName="funcao" name="funcao" required placeholder="Ex.: Agente de trânsito">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Código</mat-label>
-        <input matInput formControlName="codigo" name="codigo" placeholder="Ex.: 2407">
+        <input matInput formControlName="codigo" name="codigo" required placeholder="Ex.: 2407">
       </mat-form-field>
       <div class="button">
         <button mat-button color="primary" (click)="salvarAgente()">Adicionar</button>
+        <button mat-button color="warn" (click)="limparCampos()">Cancelar</button>
       </div>
     </div>
   </form>
 </div>
+<button mat-fab color="primary" (click)="addAgente()" class="add-btn" matTooltip="Adicionar agente">
+  <mat-icon>add</mat-icon>
+</button>
 
-<div class="agentes">
+<div class="agentes" *ngIf="agentes">
   <section class="list">
     <ng-container *ngFor="let agente of agentes">
         <div class="list__card shadow-light">

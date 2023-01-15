@@ -2,7 +2,7 @@ import { AgenteUser } from './../../../models/AgenteUser';
 import { AgenteService } from './../../../services/agente.service';
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contato',
@@ -12,17 +12,19 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ContatoComponent implements OnInit {
 
   agenteForm = new FormGroup({
-    nome: new FormControl(''),
-    funcao: new FormControl(''),
-    codigo: new FormControl(0)
+    nome: new FormControl('', Validators.required),
+    funcao: new FormControl('', Validators.required),
+    codigo: new FormControl(0, Validators.required)
   })
+
+  add = false;
 
   agentes: AgenteUser[] = [];
 
   constructor(private agenteService: AgenteService) { }
 
   ngOnInit() {
-
+    this.listarTodos();
   }
 
   salvarAgente() {
@@ -36,6 +38,8 @@ export class ContatoComponent implements OnInit {
         .pipe(take(1))
         .subscribe((a) => {
           console.log(a);
+          this.limparCampos();
+          this.add = false;
           this.listarTodos();
         })
   }
@@ -46,6 +50,15 @@ export class ContatoComponent implements OnInit {
         .subscribe((a) => {
           this.agentes = a;
         })
+  }
+
+  addAgente() {
+    this.add = true;
+  }
+
+  limparCampos() {
+    this.agenteForm.reset();
+    this.add = false;
   }
 
 }

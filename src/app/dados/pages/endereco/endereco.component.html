@@ -1,18 +1,59 @@
 <mat-stepper>
   <mat-step label="Step 1" state="phone">
     <div class="form__agentes">
-      <h4>Selecione os agentes de plantão</h4>
+      <h2>Selecione os agentes de plantão</h2>
       <mat-form-field appearance="outline">
         <mat-label>Agente</mat-label>
         <mat-select required>
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let agente of agentes" [value]="agente">
+          <mat-option *ngFor="let agente of agentes" [value]="agente" (click)="selecionar(agente)">
             {{ agente.nome }}
           </mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-        <mat-hint>{{animalControl.value?.sound}}</mat-hint> -->
+        <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
       </mat-form-field>
+      <div class="form__chips" *ngIf="agentesSelecionados">
+        <mat-chip-list aria-label="Agentes-Selecionados">
+          <mat-chip *ngFor="let itemSel of agentesSelecionados">
+            <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+            {{ itemSel.nome }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <mat-divider></mat-divider>
+      <div class="form__permulta">
+        <h2>Houve permulta</h2>
+
+          <mat-radio-group [(ngModel)]="escolha" (change)="verificar()">
+            <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
+            <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
+          </mat-radio-group>
+
+          <div *ngIf="escolha === 'sim'">
+            <h3>Selecione os agentes</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Agente</mat-label>
+              <mat-select required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let agente of agentes" [value]="agente" (click)="selecionarPermulta(agente)">
+                  {{ agente.nome }}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+              <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+            </mat-form-field>
+            <div class="form__chips" *ngIf="agentesPermulta">
+              <mat-chip-list aria-label="Agentes-Selecionados">
+                <mat-chip *ngFor="let itemSel of agentesPermulta">
+                  <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                  {{ itemSel.nome }}
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+      </div>
     </div>
     <div>
       <button mat-button matStepperNext>Next</button>
