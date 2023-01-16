@@ -25,6 +25,11 @@ export class EnderecoComponent implements OnInit {
 
   permulta: string[] = ['sim', 'nao'];
 
+  // range = new FormGroup({
+  //   start: new FormControl<Date | null>(null),
+  //   end: new FormControl<Date | null>(null),
+  // });
+
   constructor(private agenteService: AgenteService) { }
 
   ngOnInit() {

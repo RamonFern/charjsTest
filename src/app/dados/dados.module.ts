@@ -14,6 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatDividerModule } from '@angular/material/divider';
     ReactiveFormsModule,
     MatChipsModule,
     MatRadioModule,
+    MatDatepickerModule,
     MatCheckboxModule,
     MatDividerModule,
     MatButtonModule,

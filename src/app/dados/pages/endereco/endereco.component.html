@@ -60,7 +60,50 @@
     </div>
   </mat-step>
   <mat-step label="Step 2" state="chat">
-    <p>Socialize with each other.</p>
+    <p>Detalhes do serviço diário</p>
+
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Relatório de serviço</mat-label>
+      <textarea matInput
+                #message1
+                maxlength="256"
+                placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
+      </textarea>
+      <mat-hint align="start"><strong>Caso o tamanho seja insuficiente, adicione novo input.</strong> </mat-hint>
+      <mat-hint align="end">{{message1.value.length}} / 256</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Relatório de serviço</mat-label>
+      <textarea matInput
+                #message2
+                maxlength="256"
+                placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
+      </textarea>
+      <mat-hint align="start"><strong>Caso o tamanho seja insuficiente, adicione novo input.</strong> </mat-hint>
+      <mat-hint align="end">{{message2.value.length}} / 256</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Relatório de serviço</mat-label>
+      <textarea matInput
+                #message3
+                maxlength="256"
+                placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
+      </textarea>
+      <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
+      <mat-hint align="end">{{message3.value.length}} / 256</mat-hint>
+    </mat-form-field>
+
+    <!-- <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Message</mat-label>
+        <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
+        <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      </mat-form-field>
+    </form> -->
+
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
@@ -68,6 +111,18 @@
   </mat-step>
   <mat-step label="Step 3">
     <p>You're welcome.</p>
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date">
+        <input matEndDate placeholder="End date">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field> -->
+
+
   </mat-step>
 
   <!-- Icon overrides. -->
