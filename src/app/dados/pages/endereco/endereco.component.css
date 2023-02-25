@@ -27,3 +27,12 @@
 .example-full-width {
   width: 100%;
 }
+
+.agentes__plantao {
+  display: flex;
+  justify-content: space-around;
+}
+
+.agente__permulta {
+  margin-top: 20px;
+}

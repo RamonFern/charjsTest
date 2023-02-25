@@ -1,5 +1,19 @@
+<div class="form__chips" *ngIf="agentesSelecionados">
+  <mat-chip-list aria-label="Agentes-Selecionados">
+    <mat-chip *ngFor="let itemSel of agentesSelecionados">
+      <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+      {{ itemSel.nome }}
+    </mat-chip>
+  </mat-chip-list>
+</div>
+
+<button mat-fab color="primary" class="add-btn" matTooltip="Adicionar agente">
+  <mat-icon>add</mat-icon>
+</button>
+
+
 <div class="main shadow-light" *ngIf="add">
-  <header>
+  <header class="header">
     <h1>Cadastro de agente de trânsito</h1>
   </header>
   <form [formGroup]="agenteForm">
@@ -27,7 +41,7 @@
   <mat-icon>add</mat-icon>
 </button>
 
-<div class="agentes" *ngIf="agentes">
+<div class="agentes" *ngIf="agentes && !add">
   <section class="list">
     <ng-container *ngFor="let agente of agentes">
         <div class="list__card shadow-light">

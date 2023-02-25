@@ -17,9 +17,11 @@ export class ContatoComponent implements OnInit {
     codigo: new FormControl(0, Validators.required)
   })
 
+
   add = false;
 
   agentes: AgenteUser[] = [];
+  agentesSelecionados: AgenteUser[] = [];
 
   constructor(private agenteService: AgenteService) { }
 
@@ -60,5 +62,13 @@ export class ContatoComponent implements OnInit {
     this.agenteForm.reset();
     this.add = false;
   }
+
+  selecionar(agente: AgenteUser) {
+    this.agentesSelecionados.push(agente);
+    // this.agentesDeFolga.slice(, 1);
+    // console.log(this.agentesDeFolga)
+    console.log(this.agentesSelecionados);
+  }
+
 
 }

@@ -3,16 +3,11 @@
   flex-direction: column;
 }
 
-.header {
-  display: flex;
-  justify-content: center;
-}
-
 .main__form {
   display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: auto;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
 }
 
 .button {
@@ -20,9 +15,10 @@
   color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: flex-end;
+  height: 30px;
+  margin-top: 26px;
+  gap: 9px;
 }
-
-
 
 .list {
   margin-top: 32px;
@@ -71,4 +67,24 @@
   margin-bottom: 30px;
 }
 
+.dim_input {
+  padding: 12px;
+}
+
+.example-card {
+  max-width: 200px;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+}
 

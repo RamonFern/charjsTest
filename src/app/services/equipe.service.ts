@@ -1,0 +1,23 @@
+import { EquipeRequest, EquipeResponse } from 'src/app/models/EquipeRequest';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EquipeService {
+
+  constructor(private http: HttpClient) { }
+
+
+  criarEquipe(equipe: EquipeRequest) {
+      return this.http.post<EquipeResponse>('http://localhost:8080/api/v2/equipe', equipe);
+  }
+  listar() {
+    return this.http.get<EquipeResponse[]>('http://localhost:8080/api/v2/equipe');
+  }
+
+  // adicionar(agenteUser: AgenteUser) {
+  //   return this.http.post<any>('http://localhost:8080/api/v2/agenteUser', agenteUser);
+  // }
+}

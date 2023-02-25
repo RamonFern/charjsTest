@@ -19,19 +19,26 @@ export class AppMenuConfig {
 
             submenus: [
                 new MenuItem({
-                    label: 'Endereço',
+                    label: 'Novo Relatório',
                     icon: 'people',
                     link: 'dados/endereco',
                     // permissao: PermissaoType.ACESSO_PAGINA_PACIENTES,
                     // authService: this.authService,
                 }),
                 new MenuItem({
-                    label: 'Contato',
+                    label: 'Agentes',
                     icon: 'event_available',
                     link: 'dados/contato',
                     // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
                     // authService: this.authService,
                 }),
+                new MenuItem({
+                  label: 'Equipes',
+                  icon: 'event_available',
+                  link: 'dados/equipe',
+                  // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
+                  // authService: this.authService,
+              }),
 
 
             ],

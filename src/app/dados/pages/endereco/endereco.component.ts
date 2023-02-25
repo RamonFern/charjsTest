@@ -21,6 +21,8 @@ export class EnderecoComponent implements OnInit {
   agentes: AgenteUser[] = [];
   agentesSelecionados: AgenteUser[] = [];
   agentesPermulta: AgenteUser[] = [];
+  agentesDeFolga: AgenteUser[] = [];
+  agentesSubstituto: AgenteUser[] = [];
   escolha!: string;
 
   permulta: string[] = ['sim', 'nao'];
@@ -41,16 +43,20 @@ export class EnderecoComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
-      console.log(this.agentes);
+      this.agentesDeFolga = ag;
+     // console.log(this.agentes);
     })
   }
 
   selecionar(agente: AgenteUser) {
     this.agentesSelecionados.push(agente);
+    // this.agentesDeFolga.slice(, 1);
+    console.log(this.agentesDeFolga)
+    console.log(this.agentesSelecionados);
   }
 
   selecionarPermulta(agente: AgenteUser) {
-    this.agentesPermulta.push(agente);
+    this.agentesDeFolga.push(agente);
   }
 
   verificar(){
