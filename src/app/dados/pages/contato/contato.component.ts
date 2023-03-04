@@ -14,7 +14,8 @@ export class ContatoComponent implements OnInit {
   agenteForm = new FormGroup({
     nome: new FormControl('', Validators.required),
     funcao: new FormControl('', Validators.required),
-    codigo: new FormControl(0, Validators.required)
+    codigo: new FormControl(0, Validators.required),
+    equipe_id : new FormControl(0, Validators.required),
   })
 
 
@@ -34,7 +35,8 @@ export class ContatoComponent implements OnInit {
       nome: this.agenteForm.controls['nome'].value,
       funcao: this.agenteForm.controls['funcao'].value,
       codigo: this.agenteForm.controls['codigo'].value,
-      id: ''
+      id: '',
+      equipe_id: 0,
     };
     this.agenteService.adicionar(request)
         .pipe(take(1))

@@ -9,10 +9,30 @@
         <mat-label>Nome</mat-label>
         <input matInput formControlName="nomeEquipe" name="nomeEquipe" required placeholder="Ex.: vaca h">
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-label>Agentes</mat-label>
         <input matInput formControlName="id_agentes" name="id_agentes" required placeholder="Ex.: Agentes de trânsito">
-      </mat-form-field>
+      </mat-form-field> -->
+      <h3>Selecione o agente</h3>
+            <mat-form-field appearance="outline">
+              <mat-label>Agente</mat-label>
+              <mat-select required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let agente of agentes" [value]="agente" (click)="selecionarPermulta(agente)">
+                  {{ agente.nome }}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+              <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+            </mat-form-field>
+            <div class="form__chips" *ngIf="agentesSubstituto">
+              <mat-chip-list aria-label="Agentes-Selecionados">
+                <mat-chip *ngFor="let itemSel of agentesSubstituto">
+                  <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                  {{ itemSel.nome }}
+                </mat-chip>
+              </mat-chip-list>
+            </div>
       <div class="button">
         <button mat-button color="primary" (click)="salvarEquipe()">Adicionar</button>
         <button mat-button color="warn" (click)="limparCampos()">Cancelar</button>
@@ -29,7 +49,7 @@
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{ equipe.nomeEquipe }}</mat-card-title>
-      <mat-card-subtitle>{{ equipe.id_agentes }}</mat-card-subtitle>
+      <mat-card-subtitle> equipe.id_agentes }}</mat-card-subtitle>
     </mat-card-header>
     <!-- <mat-card-actions>
       <button mat-button>LIKE</button>

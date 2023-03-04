@@ -2,23 +2,23 @@
 
   <mat-step label="Step 1" state="phone">
     <div class="form__agentes">
-      <h2>Selecione os agentes de plantão</h2>
+      <h2>Selecione a equipe de plantão</h2>
       <mat-form-field appearance="outline">
         <mat-label>Agente</mat-label>
         <mat-select required>
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let agente of agentes" [value]="agente" (click)="selecionar(agente)">
-            {{ agente.nome }}
+          <mat-option *ngFor="let equipe of equipes" [value]="equipe" (click)="selecionarEquipe(equipe)">
+            {{ equipe.nomeEquipe }}
           </mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
         <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
       </mat-form-field>
-      <div class="form__chips" *ngIf="agentesSelecionados">
+      <div class="form__chips" *ngIf="equipesSelecionadas">
         <mat-chip-list aria-label="Agentes-Selecionados">
-          <mat-chip *ngFor="let itemSel of agentesSelecionados">
+          <mat-chip *ngFor="let itemSel of equipesSelecionadas">
             <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-            {{ itemSel.nome }}
+            {{ itemSel.nomeEquipe }}
           </mat-chip>
         </mat-chip-list>
       </div>

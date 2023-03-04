@@ -1,3 +1,5 @@
+import { EquipeResponse } from 'src/app/models/EquipeRequest';
+import { EquipeService } from './../../../services/equipe.service';
 import { AgenteUser } from './../../../models/AgenteUser';
 import { AgenteService } from './../../../services/agente.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,6 +26,9 @@ export class EnderecoComponent implements OnInit {
   agentesDeFolga: AgenteUser[] = [];
   agentesSubstituto: AgenteUser[] = [];
   escolha!: string;
+  equipes: EquipeResponse[] = [];
+  equipesSelecionadas: EquipeResponse[] = [];
+  equipe!: EquipeResponse;
 
   permulta: string[] = ['sim', 'nao'];
 
@@ -32,10 +37,11 @@ export class EnderecoComponent implements OnInit {
   //   end: new FormControl<Date | null>(null),
   // });
 
-  constructor(private agenteService: AgenteService) { }
+  constructor(private agenteService: AgenteService, private equipeService: EquipeService) { }
 
   ngOnInit() {
     this.listarAgentes();
+    this.listarEquipes();
   }
 
   listarAgentes() {
@@ -51,8 +57,14 @@ export class EnderecoComponent implements OnInit {
   selecionar(agente: AgenteUser) {
     this.agentesSelecionados.push(agente);
     // this.agentesDeFolga.slice(, 1);
-    console.log(this.agentesDeFolga)
-    console.log(this.agentesSelecionados);
+    // console.log(this.agentesDeFolga)
+    // console.log(this.agentesSelecionados);
+  }
+
+  selecionarEquipe(equipe: EquipeResponse) {
+    console.log(equipe);
+    this.equipesSelecionadas.push(equipe);
+
   }
 
   selecionarPermulta(agente: AgenteUser) {
@@ -62,5 +74,14 @@ export class EnderecoComponent implements OnInit {
   verificar(){
     console.log(this.escolha);
   }
+
+  listarEquipes() {
+    this.equipeService.listar()
+        .pipe(take(1))
+        .subscribe((data) => {
+          this.equipes = data
+        })
+  }
+
 
 }
