@@ -71,17 +71,6 @@
   padding: 12px;
 }
 
-.example-card {
-  max-width: 200px;
-  margin-top: 40px;
-  cursor: pointer;
-}
-
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
-
 .card {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

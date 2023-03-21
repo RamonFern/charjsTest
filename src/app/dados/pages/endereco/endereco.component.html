@@ -4,21 +4,22 @@
     <div class="form__agentes">
       <h2>Selecione a equipe de plantão</h2>
       <mat-form-field appearance="outline">
-        <mat-label>Agente</mat-label>
+        <mat-label>Equipe</mat-label>
         <mat-select required>
           <mat-option>--</mat-option>
           <mat-option *ngFor="let equipe of equipes" [value]="equipe" (click)="selecionarEquipe(equipe)">
             {{ equipe.nomeEquipe }}
           </mat-option>
         </mat-select>
+
         <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
         <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
       </mat-form-field>
-      <div class="form__chips" *ngIf="equipesSelecionadas">
-        <mat-chip-list aria-label="Agentes-Selecionados">
-          <mat-chip *ngFor="let itemSel of equipesSelecionadas">
-            <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-            {{ itemSel.nomeEquipe }}
+      <div class="form__chips" *ngIf="agentesDaEquipe">
+        <mat-chip-list aria-label="Agentes-Selecionados" *ngFor="let agente of agentesDaEquipe">
+          <mat-chip >
+            <img matChipAvatar src="/assets/images/avatarNull.png" alt="Agente da Equipe"/>
+            {{ agente.nome }}
           </mat-chip>
         </mat-chip-list>
       </div>
@@ -33,7 +34,7 @@
     <div class="form__permulta">
       <h2>Houve permulta</h2>
 
-        <mat-radio-group [(ngModel)]="escolha" (change)="verificar()">
+        <mat-radio-group [(ngModel)]="escolha" (change)="ouvePermulta()">
           <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
           <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
         </mat-radio-group>
@@ -45,16 +46,16 @@
               <mat-label>Agente</mat-label>
               <mat-select required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let agente of agentesSelecionados" [value]="agente" (click)="selecionarPermulta(agente)">
+                <mat-option *ngFor="let agente of agentesDaEquipe" [value]="agente" (click)="selecionarPermulta(agente)">
                   {{ agente.nome }}
                 </mat-option>
               </mat-select>
               <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
               <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
             </mat-form-field>
-            <div class="form__chips" *ngIf="agentesSubstituto">
+            <div class="form__chips" *ngIf="agenteParaPermulta">
               <mat-chip-list aria-label="Agentes-Selecionados">
-                <mat-chip *ngFor="let itemSel of agentesSubstituto">
+                <mat-chip *ngFor="let itemSel of agenteParaPermulta">
                   <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
                   {{ itemSel.nome }}
                 </mat-chip>
@@ -68,16 +69,16 @@
               <mat-label>Agente</mat-label>
               <mat-select required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let agente of agentesDeFolga" [value]="agente" (click)="selecionarPermulta(agente)">
+                <mat-option *ngFor="let agente of agentesDeFolga" [value]="agente" (click)="selecionarAgenteDeFolga(agente)">
                   {{ agente.nome }}
                 </mat-option>
               </mat-select>
               <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
               <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
             </mat-form-field>
-            <div class="form__chips" *ngIf="agentesPermulta">
+            <div class="form__chips" *ngIf="agentesDeFolgaEscolhidoParaPermulta">
               <mat-chip-list aria-label="Agentes-Selecionados">
-                <mat-chip *ngFor="let itemSel of agentesPermulta">
+                <mat-chip *ngFor="let itemSel of agentesDeFolgaEscolhidoParaPermulta">
                   <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
                   {{ itemSel.nome }}
                 </mat-chip>

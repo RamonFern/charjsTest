@@ -1,3 +1,4 @@
+import { CardEquipeComponent } from './../layout/components/card-equipe/card-equipe.component';
 import { EquipeComponent } from './pages/equipe/equipe.component';
 import { EnderecoComponent } from './pages/endereco/endereco.component';
 import { ContatoComponent } from './pages/contato/contato.component';
@@ -23,6 +24,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ContatoComponent,
     EnderecoComponent,
     EquipeComponent,
+    CardEquipeComponent
   ],
   imports: [
     CommonModule,

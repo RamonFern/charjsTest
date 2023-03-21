@@ -1,3 +1,4 @@
+import { CardEquipeComponent } from './layout/components/card-equipe/card-equipe.component';
 import { LayoutComponent } from './layout/components/layout.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';

@@ -1,0 +1,19 @@
+<mat-card class="example-card">
+  <mat-card-header class="mat-card">
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title> {{ equipe.nomeEquipe }} </mat-card-title>
+
+    <div class="form__chips">
+      <mat-chip-list aria-label="Agentes-Selecionados">
+        <mat-chip *ngFor="let agente of agentesDaEquipe">
+          <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+           {{ agente.nome }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-card-header>
+  <!-- <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions> -->
+</mat-card>

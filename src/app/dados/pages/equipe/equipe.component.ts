@@ -14,9 +14,11 @@ import { take } from 'rxjs';
 export class EquipeComponent implements OnInit {
   add = false;
   equipes: EquipeResponse[] = [];
+  equipeCriada!: EquipeResponse;
   agentes: AgenteUser[] = [];
-  agentesDeFolga: AgenteUser[] = [];
-  agentesSubstituto: AgenteUser[] = [];
+  agentesSemEquipe: AgenteUser[] = [];
+  agentesDaEquipe: AgenteUser[] = [];
+  agentesDaEquipeRetornado: AgenteUser[] = [];
 
   equipeForm = new FormGroup({
     nomeEquipe: new FormControl('', Validators.required),
@@ -30,26 +32,34 @@ export class EquipeComponent implements OnInit {
   }
 
   salvarEquipe() {
+
     const request: EquipeRequest = {
       nomeEquipe: this.equipeForm.controls['nomeEquipe'].value,
-      //id_agentes: this.equipeForm.controls['id_agentes'].value,
     };
 
     this.equipeService.criarEquipe(request)
         .pipe(take(1))
         .subscribe((equipe) => {
-          //console.log(equipe);
-          this.limparCampos();
-          this.add = false;
-          this.buscarEquipes();
-          this.agentesSubstituto.forEach((a) => {
-            a.equipe_id = equipe.id
-            this.atualizarAgente(a, a.equipe_id);
-          })
+           this.equipeCriada = equipe;
+           this.adicionarAgenteEmEquipe(this.equipeCriada);
         })
-
-
   }
+
+  adicionarAgenteEmEquipe(equipe: EquipeResponse) {
+    this.agentesDaEquipe.forEach((ag) => {
+      if(ag.equipe_id === 0) {
+        ag.equipe_id = equipe.id;
+        this.atualizarAgente(ag, ag.id);
+      } else {
+        console.log("Agente já possui uma equipe!");
+      }
+    })
+    this.limparCampos();
+    this.add = false;
+    this.agentesDaEquipe = [];
+    this.buscarEquipes();
+  }
+
 
   atualizarAgente(agente: AgenteUser, id: number) {
     this.agenteService.atualizarAgente(agente, id)
@@ -64,14 +74,19 @@ export class EquipeComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
-
+      this.agentesSemEquipe = ag.filter((a) => a.equipe_id === 0);
     })
   }
 
-  selecionarPermulta(agente: AgenteUser) {
-    this.agentesSubstituto.push(agente);
+  listarAgentesDaEquipe(equipe: EquipeResponse) {
+    this.agentes.filter((a) => {
+      a.equipe_id === equipe.id ? this.agentesDaEquipeRetornado.push(a) : null
+    })
   }
 
+  selecionarAgenteParaEquipe(agente: AgenteUser) {
+    this.agentesDaEquipe.push(agente);
+  }
 
   buscarEquipes() {
     this.equipeService.listar()
@@ -83,6 +98,7 @@ export class EquipeComponent implements OnInit {
 
   addAgente() {
     this.add = true;
+    this.agentesSemEquipe = this.agentes.filter((a) => a.equipe_id === 0);
   }
 
   limparCampos() {
