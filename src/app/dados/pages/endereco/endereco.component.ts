@@ -22,14 +22,17 @@ export class EnderecoComponent implements OnInit {
 
   agentes: AgenteUser[] = [];
   agentesSelecionados: AgenteUser[] = [];
-  agenteParaPermulta: AgenteUser[] = [];
+  agentesParaPermulta: AgenteUser[] = [];
   agentesDaEquipe: AgenteUser[] = [];
   agentesDeFolga: AgenteUser[] = [];
   agentesDeFolgaEscolhidoParaPermulta: AgenteUser[] = [];
+  agenteDeFolga!: AgenteUser;
+  agenteParaPermulta!: AgenteUser;
   escolha!: string;
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
+
 
   permulta: string[] = ['sim', 'nao'];
 
@@ -50,44 +53,44 @@ export class EnderecoComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
-
-     //console.log(this.agentes);
     })
   }
 
   selecionar(agente: AgenteUser) {
     this.agentesSelecionados.push(agente);
-    // this.agentesDeFolga.slice(, 1);
-    // console.log(this.agentesDeFolga)
-    // console.log(this.agentesSelecionados);
   }
 
   selecionarEquipe(equipe: EquipeResponse) {
     console.log(equipe);
     this.equipeSelecionada = equipe;
+  }
 
+  escolherOutraEquipe() {
+    this.agentesDaEquipe = [];
+  }
+
+  adicionarEquipeAoRelatorio() {
     this.agentes.filter((a) => {
       a.equipe_id === this.equipeSelecionada.id ? this.agentesDaEquipe.push(a) : this.agentesDeFolga.push(a);
     })
-    // this.agentesDaEquipe = this.agentes.filter((a) => a.equipe_id === this.equipeSelecionada.id)
-    // this.agentesDeFolga = this.agentes.filter((a) => a.equipe_id !== this.equipeSelecionada.id)
+  }
 
-    console.log(this.agentesDaEquipe);
-    console.log(this.agentesDeFolga);
+  selecionarPermulta(agenteParaPermulta: AgenteUser) {
+    this.agenteParaPermulta = agenteParaPermulta;
 
   }
 
-  selecionarPermulta(agente: AgenteUser) {
-   this.agenteParaPermulta.push(agente);
+  selecionarAgenteDeFolga(agentefolga: AgenteUser) {
+    this.agenteDeFolga = agentefolga;
   }
 
-  selecionarAgenteDeFolga(agente: AgenteUser) {
-    this.agentesDeFolgaEscolhidoParaPermulta.push(agente);
+  criarPermulta() {
+    this.agentesParaPermulta.push(this.agenteParaPermulta);
+    this.agentesDeFolgaEscolhidoParaPermulta.push(this.agenteDeFolga);
   }
 
   ouvePermulta(){
     console.log(this.escolha);
-
   }
 
   listarEquipes() {
@@ -97,6 +100,4 @@ export class EnderecoComponent implements OnInit {
           this.equipes = data
         })
   }
-
-
 }
