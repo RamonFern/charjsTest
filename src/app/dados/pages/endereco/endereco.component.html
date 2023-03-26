@@ -79,7 +79,7 @@
               </mat-form-field>
             </div>
           </div>
-          <div class="botao" *ngIf="escolha === 'sim'">
+          <div *ngIf="escolha === 'sim'">
             <button mat-button color="primary" (click)="criarPermulta()">add</button>
           </div>
         </div>
@@ -87,25 +87,33 @@
           <h2>Permultas</h2>
           <div class="permultas">
             <div class="equipe__agentes">
-              <div class="form__chips" >
-                <mat-chip-list aria-label="Agentes-Selecionados">
-                  <mat-chip *ngFor="let itemSel of agentesDeFolgaEscolhidoParaPermulta">
-                    <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                    {{ itemSel.nome }}
-                  </mat-chip>
+              <div class="form__chips" *ngIf="agenteParaPermulta">
+                <span>agente que vai permultar:</span>
+                <mat-chip-list>
+                  <div class="chip__list">
+                    <mat-chip *ngFor="let itemSel of agentesParaPermulta">
+                      <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                      {{ itemSel.nome }}
+                    </mat-chip>
+                  </div>
                 </mat-chip-list>
               </div>
 
-              <div class="form__chips" *ngIf="agenteParaPermulta">
-                <mat-chip-list aria-label="Agentes-Selecionados">
-                  <mat-chip *ngFor="let itemSel of agentesParaPermulta">
-                    <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                    {{ itemSel.nome }}
-                  </mat-chip>
+              <div class="form__chips" >
+                <span>substituto:</span>
+                <mat-chip-list>
+                  <div class="chip__list">
+                    <mat-chip *ngFor="let itemSel of agentesDeFolgaEscolhidoParaPermulta2">
+                      <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                      {{ itemSel.nome }}
+                    </mat-chip>
+                  </div>
                 </mat-chip-list>
               </div>
             </div>
-            <button mat-button >Voltar</button>
+            <div>
+              <button mat-button (click)="adicionarMaisPermulta()">Add mais permulta</button>
+            </div>
           </div>
         </div>
         <mat-divider></mat-divider>
@@ -116,7 +124,41 @@
     </div>
   </mat-step>
 
-  <mat-step label="Step 3" state="chat">
+  <mat-step label="Step 3" state="phone">
+    <div class="form__permulta">
+      <h2>Houve Reforço</h2>
+
+        <mat-radio-group [(ngModel)]="escolha2" (change)="ouveReforco()" >
+          <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
+          <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
+        </mat-radio-group>
+
+        <div class="agente__permulta" *ngIf="escolha2 === 'sim'">
+          <h3>Selecione o reforço</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Agente</mat-label>
+            <mat-select required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let agente of agentesDeFolga" [value]="agente" (click)="selecionarAgenteDeFolgaParaReforco(agente)">
+                {{ agente.nome }}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+            <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+          </mat-form-field>
+        </div>
+
+
+
+        <mat-divider></mat-divider>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </div>
+  </mat-step>
+
+  <mat-step label="Step 4" state="chat">
     <p>Detalhes do serviço diário</p>
 
     <mat-form-field appearance="outline" class="example-full-width">
@@ -166,7 +208,7 @@
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Step 4">
+  <mat-step label="Step 5">
     <p>You're welcome.</p>
     <!-- <mat-form-field appearance="fill">
       <mat-label>Enter a date range</mat-label>

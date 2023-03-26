@@ -18,7 +18,7 @@
 
 .equipe__agentes {
   display: flex;
-  gap: 10px;
+  gap: 70px;
 }
 
 .form__equipe {
@@ -58,13 +58,23 @@
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
+  align-items: center;
 }
 
 .permultas {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .agente__permulta {
   margin-top: 20px;
+}
+
+.chip__list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
 }

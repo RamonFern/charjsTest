@@ -26,9 +26,12 @@ export class EnderecoComponent implements OnInit {
   agentesDaEquipe: AgenteUser[] = [];
   agentesDeFolga: AgenteUser[] = [];
   agentesDeFolgaEscolhidoParaPermulta: AgenteUser[] = [];
+  agentesDeFolgaEscolhidoParaPermulta2: AgenteUser[] = [];
+  agentesDeFolgaParaReforco: AgenteUser[] = [];
   agenteDeFolga!: AgenteUser;
   agenteParaPermulta!: AgenteUser;
   escolha!: string;
+  escolha2!: string;
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
@@ -44,6 +47,7 @@ export class EnderecoComponent implements OnInit {
   constructor(private agenteService: AgenteService, private equipeService: EquipeService) { }
 
   ngOnInit() {
+
     this.listarAgentes();
     this.listarEquipes();
   }
@@ -84,13 +88,26 @@ export class EnderecoComponent implements OnInit {
     this.agenteDeFolga = agentefolga;
   }
 
+  adicionarMaisPermulta() {
+    this.agentesDeFolgaEscolhidoParaPermulta = [];
+  }
+
   criarPermulta() {
     this.agentesParaPermulta.push(this.agenteParaPermulta);
     this.agentesDeFolgaEscolhidoParaPermulta.push(this.agenteDeFolga);
+    this.agentesDeFolgaEscolhidoParaPermulta2.push(this.agenteDeFolga);
+  }
+
+  selecionarAgenteDeFolgaParaReforco(agente: AgenteUser) {
+    this.agentesDeFolgaParaReforco.push(agente);
   }
 
   ouvePermulta(){
     console.log(this.escolha);
+  }
+
+  ouveReforco() {
+
   }
 
   listarEquipes() {
