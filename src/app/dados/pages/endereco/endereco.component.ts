@@ -21,15 +21,20 @@ import { pipe, take } from 'rxjs';
 export class EnderecoComponent implements OnInit {
 
   agentes: AgenteUser[] = [];
+  agenteEncontrado!: AgenteUser | undefined;
   agentesSelecionados: AgenteUser[] = [];
   agentesParaPermulta: AgenteUser[] = [];
   agentesDaEquipe: AgenteUser[] = [];
   agentesDeFolga: AgenteUser[] = [];
+  agentesDeFolga2: AgenteUser[] = [];
   agentesDeFolgaEscolhidoParaPermulta: AgenteUser[] = [];
   agentesDeFolgaEscolhidoParaPermulta2: AgenteUser[] = [];
   agentesDeFolgaParaReforco: AgenteUser[] = [];
+  agentesDeFolgaParaReforco2: AgenteUser[] = [];
   agenteDeFolga!: AgenteUser;
   agenteParaPermulta!: AgenteUser;
+  agenteEscolhidoParaReforco!: AgenteUser;
+  // agentesDeReforco2: AgenteUser[] = [];
   escolha!: string;
   escolha2!: string;
   equipes: EquipeResponse[] = [];
@@ -65,7 +70,7 @@ export class EnderecoComponent implements OnInit {
   }
 
   selecionarEquipe(equipe: EquipeResponse) {
-    console.log(equipe);
+    // console.log(equipe);
     this.equipeSelecionada = equipe;
   }
 
@@ -90,6 +95,7 @@ export class EnderecoComponent implements OnInit {
 
   adicionarMaisPermulta() {
     this.agentesDeFolgaEscolhidoParaPermulta = [];
+
   }
 
   criarPermulta() {
@@ -99,7 +105,12 @@ export class EnderecoComponent implements OnInit {
   }
 
   selecionarAgenteDeFolgaParaReforco(agente: AgenteUser) {
-    this.agentesDeFolgaParaReforco.push(agente);
+    this.agenteEscolhidoParaReforco = agente;
+  }
+
+  addAgenteReforco() {
+    this.agentesDeFolgaParaReforco.push(this.agenteEscolhidoParaReforco);
+    this.agentesDeFolgaParaReforco2.push(this.agenteEscolhidoParaReforco);
   }
 
   ouvePermulta(){
@@ -107,7 +118,7 @@ export class EnderecoComponent implements OnInit {
   }
 
   ouveReforco() {
-
+    this.agentesDeFolga2 = this.agentesDeFolga.filter( a => !this.agentesDeFolgaEscolhidoParaPermulta2.includes( a ));
   }
 
   listarEquipes() {
@@ -116,5 +127,12 @@ export class EnderecoComponent implements OnInit {
         .subscribe((data) => {
           this.equipes = data
         })
+  }
+
+  verificarSeAgenteEstaDeDisponivel() {
+
+
+    //console.log(this.agentesDaEquipe.some(this.agenteParaPermulta.id));
+
   }
 }

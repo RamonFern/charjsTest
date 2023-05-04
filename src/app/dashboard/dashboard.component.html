@@ -1,3 +1,36 @@
-<p>
-  dashboard works!
-</p>
+<div class="dashboard">
+  <div class="dia-sem" *ngFor="let diaSem of namesOfDays">
+    <span>{{ diaSem }}</span>
+  </div>
+  <ng-container *ngFor="let escalaDia of escalasResponse">
+    <app-dia [dia]="escalaDia"></app-dia>
+  </ng-container>
+</div>
+<div>
+  <h2>Equipe do dia</h2>
+</div>
+<div *ngIf="escalaResponse">
+  <app-equipe-plantao [escalaResponse]="escalaResponse"></app-equipe-plantao>
+</div>
+<button mat-fab color="primary" (click)="criarEscalaDeServico()" class="add-btn" matTooltip="Criar escala de serviço">
+  <mat-icon>add</mat-icon>
+</button>
+
+<!-- <div>
+  <div>
+    <label for="placa">Placa:</label>
+    <input type="text" id="placa" [(ngModel)]="placa">
+    <button (click)="consultarPlaca()">Consultar</button>
+  </div>
+
+  <div *ngIf="mensagemErro">
+    <p>{{ mensagemErro }}</p>
+  </div>
+
+  <div *ngIf="dadosVeiculo">
+    <p>Marca: {{ dadosVeiculo.marca }}</p>
+    <p>Modelo: {{ dadosVeiculo.modelo }}</p>
+    <p>Ano: {{ dadosVeiculo.ano }}</p>
+    <p>Cor: {{ dadosVeiculo.cor }}</p>
+  </div>
+</div> -->

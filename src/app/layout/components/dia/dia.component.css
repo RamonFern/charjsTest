@@ -1,0 +1,21 @@
+.dia {
+  width: 100px;
+  height: 100px;
+  background-color: darkgrey;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.dia_hoje {
+  width: 100px;
+  height: 100px;
+  background-color: #00FF00;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+}

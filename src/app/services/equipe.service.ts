@@ -17,7 +17,9 @@ export class EquipeService {
     return this.http.get<EquipeResponse[]>('http://localhost:8080/api/v2/equipe');
   }
 
-  // adicionar(agenteUser: AgenteUser) {
-  //   return this.http.post<any>('http://localhost:8080/api/v2/agenteUser', agenteUser);
-  // }
+  buscarPorId(id: number) {
+    return this.http.get<EquipeResponse>(`http://localhost:8080/api/v2/equipe/${id}`);
+  }
+
+
 }

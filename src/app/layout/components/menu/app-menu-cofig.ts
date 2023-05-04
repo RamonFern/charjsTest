@@ -12,29 +12,29 @@ export class AppMenuConfig {
             // authService: this.authService,
         }),
         new MenuItem({
-            label: 'Dados',
-            icon: 'people',
+            label: 'Ferramentas',
+            icon: 'account_tree',
             link: '',
             // authService: this.authService,
 
             submenus: [
                 new MenuItem({
-                    label: 'Novo Relatório',
-                    icon: 'people',
+                    label: 'Relatório',
+                    icon: 'receipt_long',
                     link: 'dados/endereco',
                     // permissao: PermissaoType.ACESSO_PAGINA_PACIENTES,
                     // authService: this.authService,
                 }),
                 new MenuItem({
                     label: 'Agentes',
-                    icon: 'event_available',
+                    icon: 'groups_2',
                     link: 'dados/contato',
                     // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
                     // authService: this.authService,
                 }),
                 new MenuItem({
                   label: 'Equipes',
-                  icon: 'event_available',
+                  icon: 'group_work',
                   link: 'dados/equipe',
                   // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
                   // authService: this.authService,

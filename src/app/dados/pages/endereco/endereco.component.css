@@ -78,3 +78,14 @@
   align-items: center;
   margin-top: 10px;
 }
+
+.reforco {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.agente__reforco {
+  display: flex;
+}
