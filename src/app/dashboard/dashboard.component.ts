@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EscalaServicoService } from '../services/escala-servico.service';
 import { take } from 'rxjs';
 import { EscalaServicoResponse } from '../models/escala-servico';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -75,18 +75,5 @@ export class DashboardComponent implements OnInit {
   //     });
   // }
 
-
-  /**novoAtendimento(): void {
-        const dialogRef = this.dialog.open(AtendimentoPacienteComponent, {
-            width: '550px',
-            data: this.idPaciente,
-        });
-
-        dialogRef.afterClosed().subscribe((result: DialogReturn) => {
-            if (result?.hasDataChanged) {
-                this.listarAtendimentos();
-            }
-        });
-    } */
 
 }

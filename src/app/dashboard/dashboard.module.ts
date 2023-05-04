@@ -15,13 +15,14 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatOptionModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CriarEscalaComponent,
     DiaComponent,
-    EquipePlantaoComponent
+    EquipePlantaoComponent,
   ],
   providers: [],
   imports: [
@@ -35,6 +36,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTooltipModule,
     MatInputModule,
     MatSelectModule,
+    ScrollingModule,
     MatDatepickerModule,
     MatOptionModule,
     MatButtonModule,

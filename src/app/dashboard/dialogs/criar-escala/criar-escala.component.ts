@@ -1,6 +1,6 @@
-import { EscalaServicoRequest, EscalaServicoResponse } from 'src/app/models/escala-servico';
+import { EscalaServicoRequest } from 'src/app/models/escala-servico';
 import { Component, OnInit } from '@angular/core';
-import { from, take } from 'rxjs';
+import { take } from 'rxjs';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { EquipeService } from 'src/app/services/equipe.service';
 import { EscalaServicoService } from 'src/app/services/escala-servico.service';
@@ -8,8 +8,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogReturn } from 'src/app/layout/components/dialog-return';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse } from '@angular/common/http';
 //import { sinesp } from 'sinesp-api';
+
 
 @Component({
   selector: 'app-criar-escala',
@@ -36,7 +36,6 @@ export class CriarEscalaComponent implements OnInit {
               private escalaService: EscalaServicoService,
               private notification: MatSnackBar,) { }
 
-  // private escalaServicoService: EscalaServicoService
   ngOnInit(): void {
     this.listaEquipes();
     //this.escalaServicoService.pesquisaVeiculo(this.placa).pipe(take(1)).subscribe((data) => console.log(data));
@@ -47,13 +46,12 @@ export class CriarEscalaComponent implements OnInit {
       data: this.escalaForm.controls['data'].value,
       equipe_id: this.escalaForm.controls['equipe_id'].value,
     };
-    //console.log(request);
     this.escalaService.criarEscalaServico(request)
         .pipe(take(1))
         .subscribe((escala) => {
           const dialogReturn: DialogReturn = { hasDataChanged: true };
           this.dialogRef.close(dialogReturn);
-          this.notification.open(`Escala do dia ${ escala.data } Cadastrada`, 'Sucesso');
+          this.notification.open(`Escala do dia ${ escala.data } Cadastrada`, 'Sucesso', { duration: 3000 });
           console.log(escala);
         // }, (erro: HttpErrorResponse) => {
         //   // this.loadRequisicao = false
