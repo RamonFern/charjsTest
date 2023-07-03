@@ -58,6 +58,7 @@ export class ContatoComponent implements OnInit {
 
   addAgente() {
     this.add = true;
+    console.log(this.add);
   }
 
   limparCampos() {
@@ -67,8 +68,6 @@ export class ContatoComponent implements OnInit {
 
   selecionar(agente: AgenteUser) {
     this.agentesSelecionados.push(agente);
-    // this.agentesDeFolga.slice(, 1);
-    // console.log(this.agentesDeFolga)
     console.log(this.agentesSelecionados);
   }
 

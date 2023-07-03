@@ -16,6 +16,8 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NoResultsComponent } from "../layout/components/no-results/no-results.component";
+import { EstacionamentoComponent } from './dialogs/estacionamento/estacionamento.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     CriarEscalaComponent,
     DiaComponent,
     EquipePlantaoComponent,
+    NoResultsComponent,
+    EstacionamentoComponent
   ],
   providers: [],
   imports: [

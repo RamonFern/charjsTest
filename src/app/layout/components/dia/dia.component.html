@@ -1,6 +1,8 @@
 <div class="dia" *ngIf="dataAtual !== dia.data">
   <span>{{ equipe?.nomeEquipe }}</span>
+  <span>{{ dia?.data || 'EEEE, MMMM d, y' }}</span>
 </div>
 <div class="dia_hoje" *ngIf="dataAtual === dia.data">
   <span>{{ equipe?.nomeEquipe }}</span>
+  <span>{{ dia?.data || 'EEEE, MMMM d, y' }}</span>
 </div>

@@ -8,6 +8,8 @@ import { DialogReturn } from '../layout/components/dialog-return';
 import { SinespService } from '../services/sinesp.service';
 
 import * as moment from 'moment';
+import { VeiculoService } from '../services/veiculo.service';
+import { EstacionamentoComponent } from './dialogs/estacionamento/estacionamento.component';
 
 
 @Component({
@@ -17,10 +19,6 @@ import * as moment from 'moment';
 })
 export class DashboardComponent implements OnInit {
 
-  // placa!: string;
-  // dadosVeiculo: any;
-  // mensagemErro!: string;
-
   dataHora!: string;
 
   namesOfDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
@@ -28,7 +26,7 @@ export class DashboardComponent implements OnInit {
   escalaResponse!: EscalaServicoResponse;
 
   constructor(private escalaServicoService: EscalaServicoService,
-              // private sinespService: SinespService,
+
               public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -42,9 +40,22 @@ export class DashboardComponent implements OnInit {
         .subscribe((escala) => {
           this.escalasResponse = escala;
           this.escalasResponse.filter((a) => {
+            console.log(a);
             a.data === this.dataHora ? this.escalaResponse = a : null
           })
         });
+  }
+
+  criarEstacionamento() {
+    const dialogRef = this.dialog.open(EstacionamentoComponent, {
+      width: '550px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+      if (result?.hasDataChanged) {
+
+      }
+  });
   }
 
 

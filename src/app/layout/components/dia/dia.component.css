@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 60px;
+  flex-direction: column;
 }
 
 .dia_hoje {
@@ -18,4 +19,5 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 60px;
+  flex-direction: column;
 }

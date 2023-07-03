@@ -18,13 +18,15 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NoResultsComponent } from '../layout/components/no-results/no-results.component';
 
 @NgModule({
   declarations: [
     ContatoComponent,
     EnderecoComponent,
     EquipeComponent,
-    CardEquipeComponent
+    CardEquipeComponent,
+    // NoResultsComponent
   ],
   imports: [
     CommonModule,

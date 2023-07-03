@@ -1,66 +1,72 @@
-<div class="form__chips" *ngIf="agentesSelecionados">
-  <mat-chip-list aria-label="Agentes-Selecionados">
-    <mat-chip *ngFor="let itemSel of agentesSelecionados">
-      <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-      {{ itemSel.nome }}
-    </mat-chip>
-  </mat-chip-list>
-</div>
+<!-- <div *ngIf="agentes.length"> -->
+  <div class="form__chips" *ngIf="agentesSelecionados">
+    <mat-chip-list aria-label="Agentes-Selecionados">
+      <mat-chip *ngFor="let itemSel of agentesSelecionados">
+        <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+        {{ itemSel.nome }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
 
-<button mat-fab color="primary" class="add-btn" matTooltip="Adicionar agente">
-  <mat-icon>add</mat-icon>
-</button>
+  <button mat-fab color="primary" class="add-btn" (click)="addAgente()" matTooltip="Adicionar agente">
+    <mat-icon>add</mat-icon>
+  </button>
 
 
-<div class="main shadow-light" *ngIf="add">
-  <header class="header">
-    <h1>Cadastro de agente de trânsito</h1>
-  </header>
-  <form [formGroup]="agenteForm">
-    <div class="main__form">
-      <mat-form-field appearance="outline">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" name="nome" required placeholder="Ex.: Jair Messias">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Função</mat-label>
-        <input matInput formControlName="funcao" name="funcao" required placeholder="Ex.: Agente de trânsito">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Código</mat-label>
-        <input matInput formControlName="codigo" name="codigo" required placeholder="Ex.: 2407">
-      </mat-form-field>
-      <div class="button">
-        <button mat-button color="primary" (click)="salvarAgente()">Adicionar</button>
-        <button mat-button color="warn" (click)="limparCampos()">Cancelar</button>
-      </div>
-    </div>
-  </form>
-</div>
-<button mat-fab color="primary" (click)="addAgente()" class="add-btn" matTooltip="Adicionar agente">
-  <mat-icon>add</mat-icon>
-</button>
-
-<div class="agentes" *ngIf="agentes && !add">
-  <section class="list">
-    <ng-container *ngFor="let agente of agentes">
-        <div class="list__card shadow-light">
-            <div class="list__card-column list__card-column--avatar">
-                <img class="paciente-avatar" src="https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png" alt="Foto Paciente" />
-            </div>
-
-            <div class="list__card-column list__card-column--paciente">
-                <span class="subtitle-2">{{ agente.nome }}</span>
-                <span class="body-2">{{ agente.funcao }}</span>
-            </div>
-            <div class="list__card-column list__card-column--action">
-                <button mat-icon-button>
-                    <mat-icon>chevron_right</mat-icon>
-                </button>
-            </div>
+  <div class="main shadow-light" *ngIf="add">
+    <header class="header">
+      <h1>Cadastro de agente de trânsito</h1>
+    </header>
+    <form [formGroup]="agenteForm">
+      <div class="main__form">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" name="nome" required placeholder="Ex.: Jair Messias">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Função</mat-label>
+          <input matInput formControlName="funcao" name="funcao" required placeholder="Ex.: Agente de trânsito">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="codigo" name="codigo" required placeholder="Ex.: 2407">
+        </mat-form-field>
+        <div class="button">
+          <button mat-button color="primary" (click)="salvarAgente()">Adicionar</button>
+          <button mat-button color="warn" (click)="limparCampos()">Cancelar</button>
         </div>
-    </ng-container>
-</section>
+      </div>
+    </form>
+  </div>
 
+  <div class="agentes" *ngIf="agentes.length && !add">
+    <section class="list">
+      <ng-container *ngFor="let agente of agentes">
+        <div class="list__card shadow-light">
+          <div class="list__card-column list__card-column--avatar">
+            <img class="paciente-avatar" src="https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png" alt="Foto Paciente" />
+          </div>
+
+          <div class="list__card-column list__card-column--paciente">
+            <span class="subtitle-2">{{ agente.nome }}</span>
+            <span class="body-2">{{ agente.funcao }}</span>
+          </div>
+          <div class="list__card-column list__card-column--action">
+            <button mat-icon-button>
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </section>
+  </div>
+<!-- </div> -->
+<!-- <button mat-fab color="primary"  class="add-btn" matTooltip="Adicionar agente">
+  <mat-icon>add</mat-icon>
+</button> -->
+
+<div *ngIf="!agentes.length && !add">
+  <span>não existe nenhum agente cadastrado!</span>
+    <!-- <app-no-results></app-no-results> -->
 </div>
 

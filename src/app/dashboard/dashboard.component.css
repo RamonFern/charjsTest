@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   justify-items: center;
+  margin-top: 50px;
 }
 
 .dia-sem {
@@ -11,6 +12,13 @@
 
 .add-btn {
   position: fixed;
+  right: 2%;
+  bottom: 20px;
+  z-index: 999;
+  margin-bottom: 30px;
+}
+
+.add-btn-vei {
   right: 2%;
   bottom: 20px;
   z-index: 999;

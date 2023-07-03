@@ -7,10 +7,6 @@
       <mat-label>Data inicial</mat-label>
       <input matInput formControlName="data" name="data" required placeholder="Ex.: 12/09/2023">
     </mat-form-field>
-    <!-- <mat-form-field appearance="outline">
-      <mat-label>Data final</mat-label>
-      <input matInput name="nome" required placeholder="Ex.: 12/09/2023">
-    </mat-form-field> -->
   </div>
   <div class="form__agentes" >
     <h2>Selecione a equipe</h2>
@@ -26,7 +22,9 @@
         <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
           <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
       </mat-form-field>
-      <button mat-button class="botao" color="primary" (click)="criarEscala()" >Add</button>
+      <button mat-fab color="primary" (click)="criarEscala()" class="add-btn" matTooltip="Criar escala de serviço">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
   </div>
 </form>

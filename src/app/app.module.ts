@@ -23,11 +23,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DashboardModule } from './dashboard/dashboard.module';
 
+
 @NgModule({
     declarations: [
         AppComponent,
         LayoutComponent,
         MenuComponent,
+        // NoResultsComponent
         // DashboardComponent,
         // DiaComponent,
         // EquipePlantaoComponent
@@ -50,6 +52,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
       DadosRoutingModule,
       DashboardModule,
       DadosModule
-    ]
+    ],
+
 })
 export class AppModule { }

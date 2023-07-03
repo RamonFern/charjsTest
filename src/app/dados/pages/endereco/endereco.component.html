@@ -15,7 +15,9 @@
           <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
             <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
         </mat-form-field>
-        <button mat-button class="botao" color="primary" (click)="adicionarEquipeAoRelatorio()">Add</button>
+        <button mat-fab color="primary" class="add-btn" (click)="adicionarEquipeAoRelatorio()" matTooltip="Adicionar equipe">
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
     </div>
     <div class="form__chips" *ngIf="agentesDaEquipe.length">
@@ -80,7 +82,9 @@
             </div>
           </div>
           <div *ngIf="escolha === 'sim'">
-            <button mat-button color="primary" (click)="criarPermulta()">add</button>
+            <button mat-fab color="primary" class="add-btn" (click)="criarPermulta()" matTooltip="Criar permulta">
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
         </div>
         <div *ngIf="escolha === 'sim' && agentesDeFolgaEscolhidoParaPermulta.length">
@@ -112,7 +116,9 @@
               </div>
             </div>
             <div>
-              <button mat-button (click)="adicionarMaisPermulta()">Add mais permulta</button>
+              <button mat-fab color="primary" class="add-btn" (click)="adicionarMaisPermulta()" matTooltip="Adicionar permulta">
+                <mat-icon>add</mat-icon>
+              </button>
             </div>
           </div>
         </div>
@@ -136,34 +142,35 @@
         <div class="reforco" *ngIf="escolha2 === 'sim'">
           <h3>Selecione o reforço</h3>
           <div class="agente__reforco">
-            <div>
-              <mat-form-field appearance="outline">
-                <mat-label>Agente</mat-label>
-                <mat-select required>
-                  <mat-option>--</mat-option>
-                  <mat-option *ngFor="let agente of agentesDeFolga2" [value]="agente" (click)="selecionarAgenteDeFolgaParaReforco(agente)">
-                    {{ agente.nome }}
-                  </mat-option>
-                </mat-select>
-                <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-                <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
-              </mat-form-field>
-            </div>
-            <div>
-              <button mat-button (click)="addAgenteReforco()">Add reforço</button>
-            </div>
-          </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Agente</mat-label>
+              <mat-select required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let agente of agentesDeFolga2" [value]="agente" (click)="selecionarAgenteDeFolgaParaReforco(agente)">
+                  {{ agente.nome }}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+              <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+            </mat-form-field>
 
-          <mat-chip-list *ngIf="agentesDeFolgaParaReforco.length" >
-            <div class="chip__list">
-              <mat-chip *ngFor="let itemSel of agentesDeFolgaParaReforco">
-                <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                {{ itemSel.nome }}
-              </mat-chip>
-            </div>
-          </mat-chip-list>
-
+            <button mat-fab color="primary" class="add-btn" (click)="addAgenteReforco()" matTooltip="Adicionar agente de reforço">
+              <mat-icon>add</mat-icon>
+            </button>
+          <div>
         </div>
+      </div>
+
+      <mat-chip-list *ngIf="agentesDeFolgaParaReforco.length" >
+        <div class="chip__list">
+          <mat-chip *ngFor="let itemSel of agentesDeFolgaParaReforco">
+            <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+            {{ itemSel.nome }}
+          </mat-chip>
+        </div>
+      </mat-chip-list>
+
+    </div>
 
 
 
@@ -226,7 +233,7 @@
     </div>
   </mat-step>
   <mat-step label="Step 5">
-    <p>You're welcome.</p>
+    <p>MOSTRAR RELATÓRIO PARA CONFERENCIA E SALVAR</p>
     <!-- <mat-form-field appearance="fill">
       <mat-label>Enter a date range</mat-label>
       <mat-date-range-input [rangePicker]="picker">

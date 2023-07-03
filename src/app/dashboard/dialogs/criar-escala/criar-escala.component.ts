@@ -10,6 +10,8 @@ import { DialogReturn } from 'src/app/layout/components/dialog-return';
 import { MatSnackBar } from '@angular/material/snack-bar';
 //import { sinesp } from 'sinesp-api';
 
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-criar-escala',
@@ -22,6 +24,8 @@ export class CriarEscalaComponent implements OnInit {
     data: new FormControl('', Validators.required),
     equipe_id: new FormControl(0, Validators.required)
   })
+
+  dataFim!: string;
 
   // equipe!: EquipeResponse;
   equipe_id!: number
@@ -38,8 +42,11 @@ export class CriarEscalaComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaEquipes();
-    //this.escalaServicoService.pesquisaVeiculo(this.placa).pipe(take(1)).subscribe((data) => console.log(data));
+    this.dataFim = moment().format("DD/MM/YYYY");
+    console.log(this.dataFim);
+
   }
+
 
   criarEscala() {
     const request: EscalaServicoRequest = {
@@ -52,10 +59,8 @@ export class CriarEscalaComponent implements OnInit {
           const dialogReturn: DialogReturn = { hasDataChanged: true };
           this.dialogRef.close(dialogReturn);
           this.notification.open(`Escala do dia ${ escala.data } Cadastrada`, 'Sucesso', { duration: 3000 });
-          console.log(escala);
-        // }, (erro: HttpErrorResponse) => {
-        //   // this.loadRequisicao = false
-       //   this.notification.open(erro.error.details ? erro.error.details : 'Consulte o time de suporte para maiores informações.', 'Erro')
+
+          this.removerObjeto(escala);
     })
   }
 
@@ -66,6 +71,13 @@ export class CriarEscalaComponent implements OnInit {
           console.log(data);
           this.equipes = data;
         })
+  }
+//CONTINUAR RACIOCÍNIO EM CRIAR ESCALA
+  removerObjeto(objeto: any) {
+    const index = this.equipes.indexOf(objeto);
+    if (index !== -1) {
+      this.equipes.splice(index, 1);
+    }
   }
 
 }
