@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
   escalaResponse!: EscalaServicoResponse;
 
   constructor(private escalaServicoService: EscalaServicoService,
-
               public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -40,28 +39,31 @@ export class DashboardComponent implements OnInit {
         .subscribe((escala) => {
           this.escalasResponse = escala;
           this.escalasResponse.filter((a) => {
-            console.log(a);
+            // console.log(a);
             a.data === this.dataHora ? this.escalaResponse = a : null
           })
         });
   }
 
-  criarEstacionamento() {
-    const dialogRef = this.dialog.open(EstacionamentoComponent, {
-      width: '550px',
-    });
+  // criarEstacionamento() {
+  //   const dialogRef = this.dialog.open(EstacionamentoComponent, {
+  //     width: '550px',
+  //   });
 
-    dialogRef.afterClosed().subscribe((result: DialogReturn) => {
-      if (result?.hasDataChanged) {
+  //   dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+  //     if (result?.hasDataChanged) {
 
-      }
-  });
-  }
+  //     }
+  // });
+  // }
 
 
   criarEscalaDeServico() {
+    const ultimaEscala = this.escalasResponse[this.escalasResponse.length - 1];
+    const ultimaData = ultimaEscala.data;
     const dialogRef = this.dialog.open(CriarEscalaComponent, {
       width: '550px',
+      data: ultimaData,
     });
 
     dialogRef.afterClosed().subscribe((result: DialogReturn) => {
