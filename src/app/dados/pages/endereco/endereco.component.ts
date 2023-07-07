@@ -34,7 +34,6 @@ export class EnderecoComponent implements OnInit {
   agenteDeFolga!: AgenteUser;
   agenteParaPermulta!: AgenteUser;
   agenteEscolhidoParaReforco!: AgenteUser;
-  // agentesDeReforco2: AgenteUser[] = [];
   escolha!: string;
   escolha2!: string;
   equipes: EquipeResponse[] = [];
@@ -52,7 +51,6 @@ export class EnderecoComponent implements OnInit {
   constructor(private agenteService: AgenteService, private equipeService: EquipeService) { }
 
   ngOnInit() {
-
     this.listarAgentes();
     this.listarEquipes();
   }
@@ -70,7 +68,6 @@ export class EnderecoComponent implements OnInit {
   }
 
   selecionarEquipe(equipe: EquipeResponse) {
-    // console.log(equipe);
     this.equipeSelecionada = equipe;
   }
 
@@ -95,13 +92,18 @@ export class EnderecoComponent implements OnInit {
 
   adicionarMaisPermulta() {
     this.agentesDeFolgaEscolhidoParaPermulta = [];
-
   }
 
   criarPermulta() {
     this.agentesParaPermulta.push(this.agenteParaPermulta);
     this.agentesDeFolgaEscolhidoParaPermulta.push(this.agenteDeFolga);
     this.agentesDeFolgaEscolhidoParaPermulta2.push(this.agenteDeFolga);
+  }
+
+  refazerPermultas() {
+    this.agentesParaPermulta = [];
+    this.agentesDeFolgaEscolhidoParaPermulta = [];
+    this.agentesDeFolgaEscolhidoParaPermulta2 = [];
   }
 
   selecionarAgenteDeFolgaParaReforco(agente: AgenteUser) {
@@ -129,11 +131,4 @@ export class EnderecoComponent implements OnInit {
         })
   }
 
-
-  verificarSeAgenteEstaDeDisponivel() {
-
-
-    //console.log(this.agentesDaEquipe.some(this.agenteParaPermulta.id));
-
-  }
 }

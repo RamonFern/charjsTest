@@ -18,7 +18,13 @@
 
 .equipe__agentes {
   display: flex;
-  gap: 70px;
+  gap: 20px;
+}
+
+.equipe__sel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .form__equipe {
@@ -34,10 +40,6 @@
 
 .margin {
   margin-left: 16px;
-}
-
-.form__chips {
-  margin-bottom: 20px;
 }
 
 .form__permulta {
@@ -65,6 +67,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+}
+
+.permultas__esq {
+  display: flex;
+  flex-direction: column;
 }
 
 .agente__permulta {
@@ -84,10 +92,39 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
+  margin-top: 20px;
+}
+
+.divider {
+  margin-top: 20px;
 }
 
 .agente__reforco {
   display: flex;
   justify-content: space-between;
   width: -webkit-fill-available;
+}
+
+.form__header {
+  display: flex;
+  flex-direction: column;
+}
+
+.relatorio__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.relatorio {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.relatorio__main {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
 }

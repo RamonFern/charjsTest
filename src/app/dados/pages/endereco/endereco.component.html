@@ -21,9 +21,13 @@
       </div>
     </div>
     <div class="form__chips" *ngIf="agentesDaEquipe.length">
-      <h2>Equipe:</h2>
+      <header class="form__header">
+        <span>Nome da equipe:</span>
+        <h2>{{ equipeSelecionada.nomeEquipe }}</h2>
+      </header>
       <div class="form__equipe">
-        <div class="equipe__agentes">
+        <div class="equipe__sel">
+          <span>Agentes da equipe:</span>
           <mat-chip-list *ngFor="let agente of agentesDaEquipe">
               <mat-chip>
                 <img matChipAvatar src="/assets/images/avatarNull.png" alt="Agente da Equipe"/>
@@ -34,7 +38,9 @@
         <button mat-button (click)="escolherOutraEquipe()">Voltar</button>
       </div>
     </div>
-    <mat-divider></mat-divider>
+    <div class="divider">
+      <mat-divider></mat-divider>
+    </div>
     <div>
       <button mat-button matStepperNext>Next</button>
     </div>
@@ -88,41 +94,46 @@
           </div>
         </div>
         <div *ngIf="escolha === 'sim' && agentesDeFolgaEscolhidoParaPermulta.length">
-          <h2>Permultas</h2>
           <div class="permultas">
-            <div class="equipe__agentes">
-              <div class="form__chips" *ngIf="agenteParaPermulta">
-                <span>agente que vai permultar:</span>
-                <mat-chip-list>
-                  <div class="chip__list">
-                    <mat-chip *ngFor="let itemSel of agentesParaPermulta">
-                      <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                      {{ itemSel.nome }}
-                    </mat-chip>
-                  </div>
-                </mat-chip-list>
-              </div>
+            <div class="permultas__esq">
+              <h2>Permultas</h2>
+              <div class="equipe__agentes">
+                <div class="form__chips" *ngIf="agenteParaPermulta">
+                  <span>agente que vai permultar:</span>
+                  <mat-chip-list>
+                    <div class="chip__list">
+                      <mat-chip *ngFor="let itemSel of agentesParaPermulta">
+                        <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                        {{ itemSel.nome }}
+                      </mat-chip>
+                    </div>
+                  </mat-chip-list>
+                </div>
 
-              <div class="form__chips" >
-                <span>substituto:</span>
-                <mat-chip-list>
-                  <div class="chip__list">
-                    <mat-chip *ngFor="let itemSel of agentesDeFolgaEscolhidoParaPermulta2">
-                      <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                      {{ itemSel.nome }}
-                    </mat-chip>
-                  </div>
-                </mat-chip-list>
+                <div class="form__chips" >
+                  <span>substituto:</span>
+                  <mat-chip-list>
+                    <div class="chip__list">
+                      <mat-chip *ngFor="let itemSel of agentesDeFolgaEscolhidoParaPermulta2">
+                        <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                        {{ itemSel.nome }}
+                      </mat-chip>
+                    </div>
+                  </mat-chip-list>
+                </div>
               </div>
             </div>
             <div>
+              <button mat-button (click)="refazerPermultas()">Cancelar</button>
               <button mat-fab color="primary" class="add-btn" (click)="adicionarMaisPermulta()" matTooltip="Adicionar permulta">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
           </div>
         </div>
-        <mat-divider></mat-divider>
+        <div class="divider">
+          <mat-divider></mat-divider>
+        </div>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -134,7 +145,7 @@
     <div class="form__permulta">
       <h2>Houve Reforço</h2>
 
-        <mat-radio-group [(ngModel)]="escolha2" (change)="ouveReforco()" >
+        <mat-radio-group [(ngModel)]="escolha2" (change)="ouveReforco()">
           <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
           <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
         </mat-radio-group>
@@ -174,7 +185,9 @@
 
 
 
-        <mat-divider></mat-divider>
+    <div class="divider">
+      <mat-divider></mat-divider>
+    </div>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -233,17 +246,24 @@
     </div>
   </mat-step>
   <mat-step label="Step 5">
-    <p>MOSTRAR RELATÓRIO PARA CONFERENCIA E SALVAR</p>
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date">
-        <input matEndDate placeholder="End date">
-      </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field> -->
+    <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
+    <div class="relatorio">
+      <header class="relatorio__header">
+        <span>**************ESTADO DO MARANHÃO******************</span>
+        <span>**********PREFEITURA MUNICIPAL DE ROSÁRIO*********</span>
+        <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
+      </header>
+      <main class="relatorio__main">
+        <span>RELATÓRIO DO DIA 12/04/2023</span>
+        <span>NOME DA EQUIPE:</span>
+        <span>SENNA</span>
+        <span>AGENTES:</span>
+        <div class="equipe__rel">
+          <span>Adelmo dos santos,</span>
+          <span>Augusto de sousa</span>
+        </div>
+      </main>
+    </div>
 
 
   </mat-step>
