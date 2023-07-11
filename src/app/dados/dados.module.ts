@@ -19,6 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NoResultsComponent } from '../layout/components/no-results/no-results.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NoResultsComponent } from '../layout/components/no-results/no-results.c
     MatCheckboxModule,
     MatDividerModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule
   ]
 })
 

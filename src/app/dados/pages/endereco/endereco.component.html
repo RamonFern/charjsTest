@@ -1,6 +1,17 @@
 <mat-stepper>
-
   <mat-step label="Step 1" state="phone">
+    <div>
+      <h2>Selecione a data do relatório</h2>
+      <form [formGroup]="dataForm">
+        <mat-form-field>
+          <mat-label>Selecione a data</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataRelatorio" (ngModelChange)="atualizaControlDeDatas()">
+          <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+    </div>
     <div class="form__agentes" *ngIf="!agentesDaEquipe.length">
       <h2>Selecione a equipe de plantão</h2>
       <div class="equipe">
@@ -230,73 +241,62 @@
       <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
       <mat-hint align="end">{{message3.value.length}} / 256</mat-hint>
     </mat-form-field>
-
-    <!-- <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Message</mat-label>
-        <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
-        <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
-        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-      </mat-form-field>
-    </form> -->
-
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
+
   <mat-step label="Step 5">
     <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
-    <div class="relatorio">
-      <header class="relatorio__header">
-        <span>**************ESTADO DO MARANHÃO******************</span>
-        <span>**********PREFEITURA MUNICIPAL DE ROSÁRIO*********</span>
-        <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
-      </header>
-      <main class="relatorio__main">
-        <span>RELATÓRIO DO DIA 12/04/2023</span>
-        <span>NOME DA EQUIPE:</span>
-        <span>Senna</span>
-        <span>INSPETOR:</span>
-        <div class="equipe__insp">
-          <span>Marcio dos Santos</span>
-        </div>
-        <span>AGENTES:</span>
-        <div class="equipe__rel">
-          <span>Adelmo dos santos, </span>
-          <span> Augusto de sousa</span>
-        </div>
-        <span>PERMULTAS:</span>
-        <div class="equipe__per">
-          <span>Adelmo dos santos, </span>
-          <span> permultar com </span>
-          <span> João pedro</span>
-        </div>
-        <span>REFORÇO:</span>
-        <div class="equipe__reforco">
-          <span>Manuel Castilho</span>
-        </div>
-        <div class="relatorio__principal">
-          <p>Durante o dia de trabalho, como guarda de trânsito, desempenhei diversas
-             responsabilidades para garantir a segurança e a fluidez do tráfego em
-             Rosário. Ao patrulhar as ruas, controlar interseções, responder a ocorrências
-              e promover a educação para o trânsito, busquei cumprir as obrigações
-              atribuídas à minha função. Estou comprometido em desempenhar meu trabalho
-              com diligência e dedicação, contribuindo para um ambiente de trânsito mais
-              seguro e eficiente.</p>
-
+    <div class="step5">
+      <div class="relatorio">
+        <header class="relatorio__header">
+          <span>**************ESTADO DO MARANHÃO******************</span>
+          <span>**********PREFEITURA MUNICIPAL DE ROSÁRIO*********</span>
+          <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
+        </header>
+        <main class="relatorio__main">
+          <span>RELATÓRIO DO DIA 12/04/2023</span>
+          <span>NOME DA EQUIPE:</span>
+          <span>Senna</span>
+          <span>INSPETOR:</span>
+          <div class="equipe__insp">
+            <span>Marcio dos Santos</span>
+          </div>
+          <span>AGENTES:</span>
+          <div class="equipe__rel">
+            <span>Adelmo dos santos, </span>
+            <span> Augusto de sousa</span>
+          </div>
+          <span>PERMULTAS:</span>
+          <div class="equipe__per">
+            <span>Adelmo dos santos, </span>
+            <span> permultar com </span>
+            <span> João pedro</span>
+          </div>
+          <span>REFORÇO:</span>
+          <div class="equipe__reforco">
+            <span>Manuel Castilho</span>
+          </div>
+          <div class="relatorio__principal">
+            <p>Durante o dia de trabalho, como guarda de trânsito, desempenhei diversas
+               responsabilidades para garantir a segurança e a fluidez do tráfego em
+               Rosário. Ao patrulhar as ruas, controlar interseções, responder a ocorrências
+                e promover a educação para o trânsito, busquei cumprir as obrigações
+                atribuídas à minha função. Estou comprometido em desempenhar meu trabalho
+                com diligência e dedicação, contribuindo para um ambiente de trânsito mais
+                seguro e eficiente.</p>
 
             <div class="assinatura">
               <p> Assinatura: </p>
               <p>Marcio dos Santos </p>
               <p>Guarda de Trânsito</p>
             </div>
-
-        </div>
-      </main>
+          </div>
+        </main>
+      </div>
     </div>
-
-
   </mat-step>
 
   <!-- Icon overrides. -->

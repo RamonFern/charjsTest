@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { pipe, take } from 'rxjs';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-endereco',
@@ -42,17 +44,26 @@ export class EnderecoComponent implements OnInit {
 
 
   permulta: string[] = ['sim', 'nao'];
+  dataForm = new FormGroup({
+    dataRelatorio: new FormControl('', Validators.required)
+  })
 
-  // range = new FormGroup({
-  //   start: new FormControl<Date | null>(null),
-  //   end: new FormControl<Date | null>(null),
-  // });
+  dataRelatorio!: string
+
+
+
 
   constructor(private agenteService: AgenteService, private equipeService: EquipeService) { }
 
   ngOnInit() {
+
     this.listarAgentes();
     this.listarEquipes();
+  }
+
+  atualizaControlDeDatas() {
+    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    this.dataRelatorio = data.format("DD/MM/YYYY");
   }
 
   listarAgentes() {
