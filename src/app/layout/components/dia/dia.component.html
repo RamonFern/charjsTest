@@ -1,8 +1,15 @@
-<div class="dia" *ngIf="dataAtual !== dia.data">
-  <span>{{ equipe?.nomeEquipe }}</span>
-  <span>{{ dia?.data || 'EEEE, MMMM d, y' }}</span>
-</div>
-<div class="dia_hoje" *ngIf="dataAtual === dia.data">
-  <span>{{ equipe?.nomeEquipe }}</span>
-  <span>{{ dia?.data || 'EEEE, MMMM d, y' }}</span>
+<div class="container">
+  <header>
+    <h3>{{ diaSemana | uppercase }}</h3>
+  </header>
+  <div class="dia" *ngIf="dataAtual != dia.data">
+    <span>NOME DA EQUIPE: </span>
+    <span>{{ equipe?.nomeEquipe }}</span>
+    <span>{{ dia?.data }}</span>
+  </div>
+  <div class="dia_hoje" *ngIf="dataAtual === dia.data">
+    <span>NOME DA EQUIPE: </span>
+    <span>{{ equipe?.nomeEquipe }}</span>
+    <span>{{ dia?.data }}</span>
+  </div>
 </div>

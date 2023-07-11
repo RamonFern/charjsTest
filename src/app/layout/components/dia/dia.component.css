@@ -1,5 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .dia {
-  width: 100px;
+  width: 125px;
   height: 100px;
   background-color: darkgrey;
   border-radius: 12px;
@@ -11,7 +17,7 @@
 }
 
 .dia_hoje {
-  width: 100px;
+  width: 125px;
   height: 100px;
   background-color: #00FF00;
   border-radius: 12px;

@@ -16,10 +16,14 @@ export class DiaComponent implements OnInit {
   equipe!: EquipeResponse;
   id!: number;
   dataAtual!: string;
+  diaSemana!: string;
 
   constructor(private equipeService: EquipeService) { }
 
   ngOnInit(): void {
+    const dateDia = moment(this.dia.data, "DD/MM/YYYY").locale('pt-br');
+    this.diaSemana = dateDia.format('dddd');
+    console.log(dateDia.format('dd'))
     this.dataAtual = moment().format("DD/MM/YYYY");
     this.dia.equipe_id ? this.id = this.dia.equipe_id : null;
     this.buscarEquipe();
