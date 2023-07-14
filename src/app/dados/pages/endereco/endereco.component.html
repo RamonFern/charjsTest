@@ -3,14 +3,14 @@
     <div>
       <h2>Selecione a data do relatório</h2>
       <form [formGroup]="dataForm">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Selecione a data</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="dataRelatorio" (ngModelChange)="atualizaControlDeDatas()">
-          <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </form>
+
     </div>
     <div class="form__agentes" *ngIf="!agentesDaEquipe.length">
       <h2>Selecione a equipe de plantão</h2>
@@ -113,7 +113,7 @@
                   <span>agente que vai permultar:</span>
                   <mat-chip-list>
                     <div class="chip__list">
-                      <mat-chip *ngFor="let itemSel of agentesParaPermulta">
+                      <mat-chip *ngFor="let itemSel of agentesParaPermulta" skjhakha>
                         <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
                         {{ itemSel.nome }}
                       </mat-chip>
@@ -191,10 +191,7 @@
           </mat-chip>
         </div>
       </mat-chip-list>
-
     </div>
-
-
 
     <div class="divider">
       <mat-divider></mat-divider>
@@ -257,32 +254,43 @@
           <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
         </header>
         <main class="relatorio__main">
-          <span>RELATÓRIO DO DIA 12/04/2023</span>
+          <span>RELATÓRIO DO DIA {{ dataRelatorio }}</span>
           <span>NOME DA EQUIPE:</span>
-          <span>Senna</span>
+          <span>{{ equipeSelecionada?.nomeEquipe }}</span>
           <span>INSPETOR:</span>
           <div class="equipe__insp">
             <span>Marcio dos Santos</span>
           </div>
           <span>AGENTES:</span>
-          <div class="equipe__rel">
-            <span>Adelmo dos santos, </span>
-            <span> Augusto de sousa</span>
+          <div class="equipe__rel" *ngFor="let agente of agentesDaEquipe">
+            <span>{{ agente.nome }}, </span>
           </div>
-          <span>PERMULTAS:</span>
-          <div class="equipe__per">
-            <span>Adelmo dos santos, </span>
-            <span> permultar com </span>
-            <span> João pedro</span>
-          </div>
-          <span>REFORÇO:</span>
-          <div class="equipe__reforco">
-            <span>Manuel Castilho</span>
-          </div>
+          <ng-container *ngIf="agentesParaPermulta.length">
+            <span>PERMULTAS:</span>
+            <div class="equipe__per">
+              <div class="equipe__agentes-permulta">
+                <span *ngFor="let agente of agentesParaPermulta">{{ agente.nome }}, </span>
+              </div>
+              <span> PERMULTA COM </span>
+              <div class="equipe__agentes-permulta">
+                <span *ngFor="let agenteFolga of agentesDeFolgaEscolhidoParaPermulta2">{{ agenteFolga.nome }}, </span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="agentesDeFolgaParaReforco.length">
+            <span>REFORÇO:</span>
+            <div class="equipe__reforco">
+              <span *ngFor="let item of agentesDeFolgaParaReforco">
+                {{ item.nome }},
+              </span>
+            </div>
+          </ng-container>
+
           <div class="relatorio__principal">
             <p>Durante o dia de trabalho, como guarda de trânsito, desempenhei diversas
-               responsabilidades para garantir a segurança e a fluidez do tráfego em
-               Rosário. Ao patrulhar as ruas, controlar interseções, responder a ocorrências
+                responsabilidades para garantir a segurança e a fluidez do tráfego em
+                Rosário. Ao patrulhar as ruas, controlar interseções, responder a ocorrências
                 e promover a educação para o trânsito, busquei cumprir as obrigações
                 atribuídas à minha função. Estou comprometido em desempenhar meu trabalho
                 com diligência e dedicação, contribuindo para um ambiente de trânsito mais

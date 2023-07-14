@@ -21,7 +21,7 @@ export class CriarEscalaComponent implements OnInit {
 
   escalaForm = new FormGroup({
     data: new FormControl('', Validators.required),
-    equipe_id: new FormControl(0, Validators.required)
+    equipe_id: new FormControl(null, Validators.required)
   })
 
   equipe_id!: number
@@ -48,24 +48,29 @@ export class CriarEscalaComponent implements OnInit {
 
 
   criarEscala() {
-    const request: EscalaServicoRequest = {
-      data: this.escalaForm.controls['data'].value,
-      equipe_id: this.escalaForm.controls['equipe_id'].value,
-    };
-    this.escalaService.criarEscalaServico(request)
-        .pipe(take(1))
-        .subscribe((escala) => {
-          const dialogReturn: DialogReturn = { hasDataChanged: true };
-          this.dialogRef.close(dialogReturn);
-          this.notification.open(`Escala do dia ${ escala.data } Cadastrada`, 'Sucesso', { duration: 3000 });
-    })
+    if(!this.escalaForm.valid) {
+      this.notification.open(`Preencha todos os campos obrigatórios`, 'Erro', { duration: 3000 });
+    } else {
+      const request: EscalaServicoRequest = {
+        data: this.escalaForm.controls['data'].value,
+        equipe_id: this.escalaForm.controls['equipe_id'].value,
+      };
+      this.escalaService.criarEscalaServico(request)
+          .pipe(take(1))
+          .subscribe((escala) => {
+            const dialogReturn: DialogReturn = { hasDataChanged: true };
+            this.dialogRef.close(dialogReturn);
+            this.notification.open(`Escala do dia ${ escala.data } Cadastrada`, 'Sucesso', { duration: 3000 });
+      })
+    }
+
   }
 
   listaEquipes() {
     this.equipeService.listar()
         .pipe(take(1))
         .subscribe((data) => {
-          console.log(data);
+          // console.log(data);
           this.equipes = data;
         })
   }

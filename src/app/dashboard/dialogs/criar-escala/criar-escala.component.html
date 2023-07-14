@@ -15,7 +15,7 @@
         <mat-label>Equipe</mat-label>
         <mat-select required formControlName="equipe_id">
           <mat-option>--</mat-option>
-          <mat-option  *ngFor="let equipe of equipes" [value]="equipe.id" name="equipe_id">
+          <mat-option  *ngFor="let equipe of equipes" [value]="equipe.id" name="equipe_id" required >
             {{ equipe.nomeEquipe }}
           </mat-option>
         </mat-select>

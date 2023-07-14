@@ -5,6 +5,7 @@ import { AgenteUser } from 'src/app/models/AgenteUser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EquipeRequest, EquipeResponse } from 'src/app/models/EquipeRequest';
 import { take } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-equipe',
@@ -24,7 +25,9 @@ export class EquipeComponent implements OnInit {
     nomeEquipe: new FormControl('', Validators.required),
     id_agentes: new FormControl('', Validators.required)
   })
-  constructor(private equipeService: EquipeService, private agenteService: AgenteService) { }
+  constructor(private equipeService: EquipeService,
+              private agenteService: AgenteService,
+              private notification: MatSnackBar) { }
 
   ngOnInit() {
     this.buscarEquipes();
@@ -51,7 +54,8 @@ export class EquipeComponent implements OnInit {
         ag.equipe_id = equipe.id;
         this.atualizarAgente(ag, ag.id);
       } else {
-        console.log("Agente já possui uma equipe!");
+        this.notification.open(`Agente já possui uma equipe!`, 'Erro', { duration: 3000 });
+        // console.log("Agente já possui uma equipe!");
       }
     })
     this.limparCampos();

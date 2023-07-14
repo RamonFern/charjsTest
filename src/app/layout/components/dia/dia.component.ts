@@ -23,7 +23,7 @@ export class DiaComponent implements OnInit {
   ngOnInit(): void {
     const dateDia = moment(this.dia.data, "DD/MM/YYYY").locale('pt-br');
     this.diaSemana = dateDia.format('dddd');
-    console.log(dateDia.format('dd'))
+    // console.log(dateDia.format('dd'))
     this.dataAtual = moment().format("DD/MM/YYYY");
     this.dia.equipe_id ? this.id = this.dia.equipe_id : null;
     this.buscarEquipe();

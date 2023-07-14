@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { pipe, take } from 'rxjs';
 import * as moment from 'moment';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 @Component({
@@ -18,6 +19,7 @@ import * as moment from 'moment';
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: {displayDefaultIndicatorType: false},
     },
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   ],
 })
 export class EnderecoComponent implements OnInit {
@@ -42,7 +44,6 @@ export class EnderecoComponent implements OnInit {
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
 
-
   permulta: string[] = ['sim', 'nao'];
   dataForm = new FormGroup({
     dataRelatorio: new FormControl('', Validators.required)
@@ -50,13 +51,9 @@ export class EnderecoComponent implements OnInit {
 
   dataRelatorio!: string
 
-
-
-
   constructor(private agenteService: AgenteService, private equipeService: EquipeService) { }
 
   ngOnInit() {
-
     this.listarAgentes();
     this.listarEquipes();
   }
@@ -94,7 +91,6 @@ export class EnderecoComponent implements OnInit {
 
   selecionarPermulta(agenteParaPermulta: AgenteUser) {
     this.agenteParaPermulta = agenteParaPermulta;
-
   }
 
   selecionarAgenteDeFolga(agentefolga: AgenteUser) {

@@ -16,6 +16,18 @@
   justify-content: space-around;
 }
 
+.equipe__per {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.equipe__agentes-permulta {
+  display: flex;
+  flex-direction: column;
+}
+
 .equipe__agentes {
   display: flex;
   gap: 20px;
@@ -133,6 +145,10 @@
   flex-direction: column;
   margin-top: 40px;
   width: 85%;
+}
+
+.relatorio__principal {
+  margin-top: 20px;
 }
 
 .relatorio__main {
