@@ -5,12 +5,8 @@ import { EscalaServicoResponse } from '../models/escala-servico';
 import { MatDialog } from '@angular/material/dialog';
 import { CriarEscalaComponent } from './dialogs/criar-escala/criar-escala.component';
 import { DialogReturn } from '../layout/components/dialog-return';
-import { SinespService } from '../services/sinesp.service';
 
 import * as moment from 'moment';
-import { VeiculoService } from '../services/veiculo.service';
-import { EstacionamentoComponent } from './dialogs/estacionamento/estacionamento.component';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +17,7 @@ export class DashboardComponent implements OnInit {
 
   dataHora!: string;
 
-  namesOfDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
+  // namesOfDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
   escalasResponse: EscalaServicoResponse[] = [];
   escalaResponse!: EscalaServicoResponse;
 

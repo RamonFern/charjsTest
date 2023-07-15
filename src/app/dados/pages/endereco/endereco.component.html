@@ -2,13 +2,17 @@
   <mat-step label="Step 1" state="phone">
     <div>
       <h2>Selecione a data do relatório</h2>
-      <form [formGroup]="dataForm">
+      <form [formGroup]="dataForm" class="equipe">
         <mat-form-field appearance="outline">
           <mat-label>Selecione a data</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="dataRelatorio" (ngModelChange)="atualizaControlDeDatas()">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+        <div class="dir-data" *ngIf="dataRelatorio">
+          <h3>Data do Relatório:</h3>
+          <span>{{ dataRelatorio }}</span>
+        </div>
       </form>
 
     </div>
@@ -99,6 +103,7 @@
             </div>
           </div>
           <div *ngIf="escolha === 'sim'">
+            <button mat-button (click)="voltar()">Voltar</button>
             <button mat-fab color="primary" class="add-btn" (click)="criarPermulta()" matTooltip="Criar permulta">
               <mat-icon>add</mat-icon>
             </button>
@@ -113,9 +118,9 @@
                   <span>agente que vai permultar:</span>
                   <mat-chip-list>
                     <div class="chip__list">
-                      <mat-chip *ngFor="let itemSel of agentesParaPermulta" skjhakha>
+                      <mat-chip *ngFor="let agentePermulta of agentesParaPermulta" skjhakha>
                         <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                        {{ itemSel.nome }}
+                        {{ agentePermulta.nome }}
                       </mat-chip>
                     </div>
                   </mat-chip-list>
@@ -125,9 +130,9 @@
                   <span>substituto:</span>
                   <mat-chip-list>
                     <div class="chip__list">
-                      <mat-chip *ngFor="let itemSel of agentesDeFolgaEscolhidoParaPermulta2">
+                      <mat-chip *ngFor="let agenteDeFolga of agentesDeFolgaEscolhidoParaPermulta2">
                         <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                        {{ itemSel.nome }}
+                        {{ agenteDeFolga.nome }}
                       </mat-chip>
                     </div>
                   </mat-chip-list>
@@ -262,7 +267,7 @@
             <span>Marcio dos Santos</span>
           </div>
           <span>AGENTES:</span>
-          <div class="equipe__rel" *ngFor="let agente of agentesDaEquipe">
+          <div class="equipe__rel" *ngFor="let agente of agentesDaEquipeParaSalvar">
             <span>{{ agente.nome }}, </span>
           </div>
           <ng-container *ngIf="agentesParaPermulta.length">

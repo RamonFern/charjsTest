@@ -23,6 +23,11 @@
   gap: 30px;
 }
 
+.dir-data {
+  display: flex;
+  flex-direction: column;
+}
+
 .equipe__agentes-permulta {
   display: flex;
   flex-direction: column;

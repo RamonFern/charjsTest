@@ -19,7 +19,6 @@ export class CardEquipeComponent implements OnInit {
   constructor(private agenteservice: AgenteService) { }
 
   ngOnInit() {
-    console.log(this.equipe);
     this.buscarAgentesDaEquipe(this.equipe);
   }
 

@@ -5,7 +5,7 @@ import { AgenteService } from './../../../services/agente.service';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { pipe, take } from 'rxjs';
+import { take } from 'rxjs';
 import * as moment from 'moment';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -29,6 +29,7 @@ export class EnderecoComponent implements OnInit {
   agentesSelecionados: AgenteUser[] = [];
   agentesParaPermulta: AgenteUser[] = [];
   agentesDaEquipe: AgenteUser[] = [];
+  agentesDaEquipeParaSalvar: AgenteUser[] = [];
   agentesDeFolga: AgenteUser[] = [];
   agentesDeFolga2: AgenteUser[] = [];
   agentesDeFolgaEscolhidoParaPermulta: AgenteUser[] = [];
@@ -85,8 +86,15 @@ export class EnderecoComponent implements OnInit {
 
   adicionarEquipeAoRelatorio() {
     this.agentes.filter((a) => {
-      a.equipe_id === this.equipeSelecionada.id ? this.agentesDaEquipe.push(a) : this.agentesDeFolga.push(a);
-    })
+      a.equipe_id === this.equipeSelecionada.id ?
+        this.operacoes(a) :
+        this.agentesDeFolga.push(a);
+    });
+  }
+
+  operacoes(a: AgenteUser) {
+    this.agentesDaEquipe.push(a);
+    this.agentesDaEquipeParaSalvar.push(a);
   }
 
   selecionarPermulta(agenteParaPermulta: AgenteUser) {
@@ -97,8 +105,17 @@ export class EnderecoComponent implements OnInit {
     this.agenteDeFolga = agentefolga;
   }
 
+  removerObjeto(objeto: AgenteUser, objs: AgenteUser[]) {
+    const index = objs.indexOf(objeto);
+    if (index !== -1) {
+      objs.splice(index, 1);
+    }
+  }
+
   adicionarMaisPermulta() {
     this.agentesDeFolgaEscolhidoParaPermulta = [];
+    this.removerObjeto(this.agenteParaPermulta, this.agentesDaEquipe);
+    this.removerObjeto(this.agenteDeFolga, this.agentesDeFolga);
   }
 
   criarPermulta() {
@@ -108,7 +125,14 @@ export class EnderecoComponent implements OnInit {
   }
 
   refazerPermultas() {
+    this.agentesParaPermulta.forEach((a) => {
+      this.agentesDaEquipe.push(a);
+    })
     this.agentesParaPermulta = [];
+
+    this.agentesDeFolgaEscolhidoParaPermulta.forEach((af) => {
+      this.agentesDeFolga.push(af);
+    })
     this.agentesDeFolgaEscolhidoParaPermulta = [];
     this.agentesDeFolgaEscolhidoParaPermulta2 = [];
   }
@@ -124,6 +148,12 @@ export class EnderecoComponent implements OnInit {
 
   ouvePermulta(){
     console.log(this.escolha);
+  }
+
+  voltar() {
+    this.agentesParaPermulta.forEach((a) => {
+      this.agentesDeFolgaEscolhidoParaPermulta.push(a);
+    });
   }
 
   ouveReforco() {
