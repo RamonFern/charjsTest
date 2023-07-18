@@ -6,7 +6,7 @@
     <app-equipe-plantao [escalaResponse]="escalaResponse"></app-equipe-plantao>
   </div>
   <div class="dashboard">
-    <ng-container *ngFor="let escalaDia of escalasResponse">
+    <ng-container *ngFor="let escalaDia of escalasFiltradas">
       <app-dia [dia]="escalaDia"></app-dia>
     </ng-container>
   </div>

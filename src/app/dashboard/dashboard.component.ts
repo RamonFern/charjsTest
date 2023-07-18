@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EscalaServicoService } from '../services/escala-servico.service';
 import { take } from 'rxjs';
 import { EscalaServicoResponse } from '../models/escala-servico';
@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   // namesOfDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
   escalasResponse: EscalaServicoResponse[] = [];
   escalaResponse!: EscalaServicoResponse;
+  escalasFiltradas: EscalaServicoResponse[] = [];
 
   constructor(private escalaServicoService: EscalaServicoService,
               public dialog: MatDialog) { }
@@ -34,25 +35,22 @@ export class DashboardComponent implements OnInit {
         .pipe(take(1))
         .subscribe((escala) => {
           this.escalasResponse = escala;
+          const dataHoraInicio = moment(this.dataHora, 'DD/MM/YYYY').subtract(7,'day');
+          const dataHoraFim = moment(this.dataHora, 'DD/MM/YYYY').add(7, 'day');
+
+          this.escalasResponse.filter((es) => {
+            const data = moment(es.data, 'DD/MM/YYYY');
+            const dataNum = data.dayOfYear()
+            if(dataNum > dataHoraInicio.dayOfYear() && dataNum < dataHoraFim.dayOfYear()) {
+              this.escalasFiltradas.push(es);
+            }
+          })
+
           this.escalasResponse.filter((a) => {
-            // console.log(a);
             a.data === this.dataHora ? this.escalaResponse = a : null
           })
         });
   }
-
-  // criarEstacionamento() {
-  //   const dialogRef = this.dialog.open(EstacionamentoComponent, {
-  //     width: '550px',
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result: DialogReturn) => {
-  //     if (result?.hasDataChanged) {
-
-  //     }
-  // });
-  // }
-
 
   criarEscalaDeServico() {
     const ultimaEscala = this.escalasResponse[this.escalasResponse.length - 1];
@@ -68,21 +66,5 @@ export class DashboardComponent implements OnInit {
       }
   });
   }
- // consultarPlaca() {
-  //   this.sinespService.consultarPlaca(this.placa)
-  //     .then(response => {
-  //       console.log(response)
-  //       if (response.data.situacao === 'ERRO') {
-  //         this.mensagemErro = response.data.mensagem;
-  //       } else {
-  //         this.dadosVeiculo = response.data;
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       this.mensagemErro = `Ocorreu um erro ao consultar a placa. ERRO -> ${error}`;
-  //     });
-  // }
-
 
 }
