@@ -14,8 +14,8 @@
           <span>{{ dataRelatorio }}</span>
         </div>
       </form>
-
     </div>
+    <mat-divider></mat-divider>
     <div class="form__agentes" *ngIf="!agentesDaEquipe.length">
       <h2>Selecione a equipe de plantão</h2>
       <div class="equipe">
@@ -38,7 +38,7 @@
     <div class="form__chips" *ngIf="agentesDaEquipe.length">
       <header class="form__header">
         <span>Nome da equipe:</span>
-        <h2>{{ equipeSelecionada.nomeEquipe }}</h2>
+        <h2 class="nome__equipe">{{ equipeSelecionada.nomeEquipe }}</h2>
       </header>
       <div class="form__equipe">
         <div class="equipe__sel">
@@ -210,42 +210,60 @@
 
   <mat-step label="Step 4" state="chat">
     <p>Detalhes do serviço diário</p>
+    <form [formGroup]="textRelatorioForm">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Relatório de serviço</mat-label>
+        <textarea matInput
+                  class="text-area"
+                  formControlName="text1" name="text1"
+                  #message1
+                  maxlength="256"
+                  placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
+        </textarea>
+        <mat-hint align="start">
+          <strong>
+            Caso o tamanho seja insuficiente aparecerá novo input abaixo.
+          </strong>
+        </mat-hint>
+        <mat-hint align="end">{{message1.value.length}} / 256</mat-hint>
+      </mat-form-field>
+      <!-- <button mat-button color="primary" (click)="teste()">Primary</button> -->
 
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>Relatório de serviço</mat-label>
-      <textarea matInput
-                #message1
-                maxlength="256"
-                placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
-      </textarea>
-      <mat-hint align="start"><strong>Caso o tamanho seja insuficiente, adicione novo input.</strong> </mat-hint>
-      <mat-hint align="end">{{message1.value.length}} / 256</mat-hint>
-    </mat-form-field>
+      <ng-container *ngIf="message1.value.length > 250">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Relatório de serviço</mat-label>
+          <textarea matInput
+                    id="text2"
+                    class="text-area"
+                    formControlName="text2" name="text2"
+                    #message2
+                    maxlength="256"
+                    placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
+          </textarea>
+          <mat-hint align="start"><strong>Caso o tamanho seja insuficiente aparecerá novo input abaixo.</strong> </mat-hint>
+          <mat-hint align="end">{{message2.value.length}} / 256</mat-hint>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>Relatório de serviço</mat-label>
-      <textarea matInput
-                #message2
-                maxlength="256"
-                placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
-      </textarea>
-      <mat-hint align="start"><strong>Caso o tamanho seja insuficiente, adicione novo input.</strong> </mat-hint>
-      <mat-hint align="end">{{message2.value.length}} / 256</mat-hint>
-    </mat-form-field>
+        <ng-container *ngIf="message2.value.length > 250">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>Relatório de serviço</mat-label>
+            <textarea matInput
+                      class="text-area"
+                      formControlName="text3" name="text3"
+                      #message3
+                      maxlength="256"
+                      placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
+            </textarea>
+            <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
+            <mat-hint align="end">{{message3.value.length}} / 256</mat-hint>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
 
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>Relatório de serviço</mat-label>
-      <textarea matInput
-                #message3
-                maxlength="256"
-                placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
-      </textarea>
-      <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
-      <mat-hint align="end">{{message3.value.length}} / 256</mat-hint>
-    </mat-form-field>
+    </form>
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperNext (click)="mostraRelatorio()">Next</button>
     </div>
   </mat-step>
 
@@ -264,7 +282,8 @@
           <span>{{ equipeSelecionada?.nomeEquipe }}</span>
           <span>INSPETOR:</span>
           <div class="equipe__insp">
-            <span>Marcio dos Santos</span>
+            <span>JOAQUIM MARTINS DA SILVA</span>
+            <!-- <span *ngFor="let item of agentesDaEquipeParaSalvar">{{ item.funcao === "INSPETOR" ? item.nome : null }}</span> -->
           </div>
           <span>AGENTES:</span>
           <div class="equipe__rel" *ngFor="let agente of agentesDaEquipeParaSalvar">
@@ -293,18 +312,14 @@
           </ng-container>
 
           <div class="relatorio__principal">
-            <p>Durante o dia de trabalho, como guarda de trânsito, desempenhei diversas
-                responsabilidades para garantir a segurança e a fluidez do tráfego em
-                Rosário. Ao patrulhar as ruas, controlar interseções, responder a ocorrências
-                e promover a educação para o trânsito, busquei cumprir as obrigações
-                atribuídas à minha função. Estou comprometido em desempenhar meu trabalho
-                com diligência e dedicação, contribuindo para um ambiente de trânsito mais
-                seguro e eficiente.</p>
+            <p>{{ text1 }}</p>
+            <p>{{ text2 }}</p>
+            <p>{{ text3 }}</p>
 
             <div class="assinatura">
               <p> Assinatura: </p>
               <p>Marcio dos Santos </p>
-              <p>Guarda de Trânsito</p>
+              <p>Agente de Trânsito</p>
             </div>
           </div>
         </main>

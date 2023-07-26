@@ -2,7 +2,7 @@ import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { EquipeService } from './../../../services/equipe.service';
 import { AgenteUser } from './../../../models/AgenteUser';
 import { AgenteService } from './../../../services/agente.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { take } from 'rxjs';
@@ -50,13 +50,38 @@ export class EnderecoComponent implements OnInit {
     dataRelatorio: new FormControl('', Validators.required)
   })
 
+  textRelatorioForm = new FormGroup({
+    text1: new FormControl(''),
+    text2: new FormControl(''),
+    text3: new FormControl(''),
+  })
+
+  text1!: string;
+  text2!: string;
+  text3!: string;
   dataRelatorio!: string
 
-  constructor(private agenteService: AgenteService, private equipeService: EquipeService) { }
+  constructor(private agenteService: AgenteService,
+              private equipeService: EquipeService,) { }
 
   ngOnInit() {
     this.listarAgentes();
     this.listarEquipes();
+  }
+
+  mostraRelatorio() {
+    this.text1 = this.textRelatorioForm.controls['text1'].value;
+    this.text2 = this.textRelatorioForm.controls['text2'].value;
+    this.text3 = this.textRelatorioForm.controls['text3'].value;
+  }
+
+  teste() {
+    this.text1 = this.textRelatorioForm.controls['text1'].value;
+    this.textRelatorioForm.controls['text1'].value;
+    // this.textRelatorioForm.controls['text2']
+    // document.getElementById('text2')?.focus();
+    // this.renderer.selectRootElement('message2').focus();
+    console.log(this.text1);
   }
 
   atualizaControlDeDatas() {
@@ -124,6 +149,12 @@ export class EnderecoComponent implements OnInit {
     this.agentesDeFolgaEscolhidoParaPermulta2.push(this.agenteDeFolga);
   }
 
+  removerPermulta() {
+    this.agentesParaPermulta = [];
+    this.agentesDeFolgaEscolhidoParaPermulta = [];
+    this.agentesDeFolgaEscolhidoParaPermulta2 = [];
+  }
+
   refazerPermultas() {
     this.agentesParaPermulta.forEach((a) => {
       this.agentesDaEquipe.push(a);
@@ -146,8 +177,14 @@ export class EnderecoComponent implements OnInit {
     this.agentesDeFolgaParaReforco2.push(this.agenteEscolhidoParaReforco);
   }
 
+  removerAgenteReforco() {
+    this.agentesDeFolgaParaReforco = [];
+    this.agentesDeFolgaParaReforco2 = [];
+  }
+
   ouvePermulta(){
     console.log(this.escolha);
+    this.escolha === "sim" ? null : this.removerPermulta();
   }
 
   voltar() {
@@ -158,6 +195,7 @@ export class EnderecoComponent implements OnInit {
 
   ouveReforco() {
     this.agentesDeFolga2 = this.agentesDeFolga.filter( a => !this.agentesDeFolgaEscolhidoParaPermulta2.includes( a ));
+    this.escolha2 === "sim" ? null : this.removerAgenteReforco();
   }
 
   listarEquipes() {

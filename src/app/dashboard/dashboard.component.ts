@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
   buscarTodasEscalasServicos() {
+    this.escalasFiltradas = [];
     this.escalaServicoService.listarEscala()
         .pipe(take(1))
         .subscribe((escala) => {

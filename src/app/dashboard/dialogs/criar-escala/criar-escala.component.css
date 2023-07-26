@@ -19,3 +19,9 @@
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.equipe {
+  display: flex;
+  justify-content: space-around;
+}
+
