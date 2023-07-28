@@ -206,4 +206,44 @@ export class EnderecoComponent implements OnInit {
         })
   }
 
+  salvarRelatorio() {
+    const agentesDaEquipe = this.agentesDaEquipeParaSalvar.map((a) => a.nome).join(", ");
+    const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
+    const agentesDeFolgaEscolhidoParaPermulta = this.agentesDeFolgaEscolhidoParaPermulta2.map((a) => a.nome).join(", ");
+    const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
+
+    const dataAtual = moment();
+    const request: relatorioServicoRequest = {
+      dataDoRelatorio: this.dataRelatorio,
+      dataDeHoje: dataAtual.format("DD/MM/YYYY"),
+      nomeEquipe: this.equipeSelecionada.nomeEquipe,
+      nomeInspetor: this.agentesDaEquipeParaSalvar[0].nome, ///CORRIGIR NOME INSPETOR
+      agentesDaEquipe: agentesDaEquipe,
+      agentesParaPermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
+      agenteDeFolgaParaPermultar: agentesDeFolgaEscolhidoParaPermulta ? agentesDeFolgaEscolhidoParaPermulta : "sem permulta",
+      agentesParaReforco: agentesDeFolgaParaReforco ? agentesDeFolgaParaReforco : "sem reforço",
+      texto1: this.text1,
+      texto2: this.text2 ? this.text2 : " ",
+      texto3: this.text3 ? this.text3 : " ",
+    }
+
+    console.log(request);
+
+  }
+
+}
+
+
+export interface relatorioServicoRequest {
+  dataDoRelatorio: string
+  dataDeHoje: string
+  nomeEquipe: string
+  nomeInspetor: string
+  agentesDaEquipe: string
+  agentesParaPermultar: string
+  agenteDeFolgaParaPermultar: string
+  agentesParaReforco: string
+  texto1: string
+  texto2: string
+  texto3: string
 }
