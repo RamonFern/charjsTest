@@ -209,15 +209,24 @@
   </mat-step>
 
   <mat-step label="Step 4" state="chat">
-    <p>Detalhes do serviço diário</p>
-    <form [formGroup]="textRelatorioForm">
+    <h2>Houve alteração</h2>
+    <mat-radio-group [(ngModel)]="alteracaoEscolha" aria-label="Select an option" color="primary" class="radio">
+      <mat-radio-button *ngFor="let item of alteracao" [value]="item">{{ item }}</mat-radio-button>
+      <!-- <mat-radio-button value="sim">Sim</mat-radio-button> -->
+    </mat-radio-group>
+    <div class="divider">
+      <mat-divider></mat-divider>
+    </div>
+    <form [formGroup]="textRelatorioForm" class="form__text">
+      <h2>Detalhes do serviço diário</h2>
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Relatório de serviço</mat-label>
         <textarea matInput
                   class="text-area"
                   formControlName="text1" name="text1"
                   #message1
-                  maxlength="256"
+                  maxlength="253"
+                  required
                   placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
         </textarea>
         <mat-hint align="start">
@@ -237,7 +246,7 @@
                     class="text-area"
                     formControlName="text2" name="text2"
                     #message2
-                    maxlength="256"
+                    maxlength="253"
                     placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
           </textarea>
           <mat-hint align="start"><strong>Caso o tamanho seja insuficiente aparecerá novo input abaixo.</strong> </mat-hint>
@@ -251,7 +260,7 @@
                       class="text-area"
                       formControlName="text3" name="text3"
                       #message3
-                      maxlength="256"
+                      maxlength="253"
                       placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
             </textarea>
             <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
@@ -278,6 +287,8 @@
         </header>
         <main class="relatorio__main">
           <span>RELATÓRIO DO DIA {{ dataRelatorio }}</span>
+          <span>HOUVE ALTERAÇÃO</span>
+          <span>{{ alteracaoEscolha }}</span> <!--CORRIGIR AQUI -->
           <span>NOME DA EQUIPE:</span>
           <span>{{ equipeSelecionada?.nomeEquipe }}</span>
           <span>INSPETOR:</span>

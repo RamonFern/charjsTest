@@ -8,6 +8,8 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { take } from 'rxjs';
 import * as moment from 'moment';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { RelatorioRequest } from 'src/app/models/relatorio-request';
+import { RelatorioService } from 'src/app/services/relatorio.service';
 
 
 @Component({
@@ -39,19 +41,21 @@ export class EnderecoComponent implements OnInit {
   agenteDeFolga!: AgenteUser;
   agenteParaPermulta!: AgenteUser;
   agenteEscolhidoParaReforco!: AgenteUser;
-  escolha!: string;
+  escolha!: string
   escolha2!: string;
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
 
+  alteracao: string[] = ['sim', 'não'];
+  alteracaoEscolha!: string;
   permulta: string[] = ['sim', 'nao'];
   dataForm = new FormGroup({
     dataRelatorio: new FormControl('', Validators.required)
   })
 
   textRelatorioForm = new FormGroup({
-    text1: new FormControl(''),
+    text1: new FormControl('', Validators.required),
     text2: new FormControl(''),
     text3: new FormControl(''),
   })
@@ -62,9 +66,11 @@ export class EnderecoComponent implements OnInit {
   dataRelatorio!: string
 
   constructor(private agenteService: AgenteService,
-              private equipeService: EquipeService,) { }
+              private equipeService: EquipeService,
+              private relatorioService: RelatorioService) { }
 
   ngOnInit() {
+    this.alteracaoEscolha = this.alteracao[1].toString();
     this.listarAgentes();
     this.listarEquipes();
   }
@@ -75,14 +81,14 @@ export class EnderecoComponent implements OnInit {
     this.text3 = this.textRelatorioForm.controls['text3'].value;
   }
 
-  teste() {
-    this.text1 = this.textRelatorioForm.controls['text1'].value;
-    this.textRelatorioForm.controls['text1'].value;
-    // this.textRelatorioForm.controls['text2']
-    // document.getElementById('text2')?.focus();
-    // this.renderer.selectRootElement('message2').focus();
-    console.log(this.text1);
-  }
+  // teste() {
+  //   this.text1 = this.textRelatorioForm.controls['text1'].value;
+  //   this.textRelatorioForm.controls['text1'].value;
+  //   // this.textRelatorioForm.controls['text2']
+  //   // document.getElementById('text2')?.focus();
+  //   // this.renderer.selectRootElement('message2').focus();
+  //   console.log(this.text1);
+  // }
 
   atualizaControlDeDatas() {
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
@@ -213,15 +219,16 @@ export class EnderecoComponent implements OnInit {
     const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
 
     const dataAtual = moment();
-    const request: relatorioServicoRequest = {
-      dataDoRelatorio: this.dataRelatorio,
-      dataDeHoje: dataAtual.format("DD/MM/YYYY"),
-      nomeEquipe: this.equipeSelecionada.nomeEquipe,
-      nomeInspetor: this.agentesDaEquipeParaSalvar[0].nome, ///CORRIGIR NOME INSPETOR
-      agentesDaEquipe: agentesDaEquipe,
-      agentesParaPermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
-      agenteDeFolgaParaPermultar: agentesDeFolgaEscolhidoParaPermulta ? agentesDeFolgaEscolhidoParaPermulta : "sem permulta",
-      agentesParaReforco: agentesDeFolgaParaReforco ? agentesDeFolgaParaReforco : "sem reforço",
+    const request: RelatorioRequest = {
+      datadorelatorio: this.dataRelatorio,
+      datadehoje: dataAtual.format("DD/MM/YYYY"),
+      nomeequipe: this.equipeSelecionada.nomeEquipe,
+      nomeinspetor: this.agentesDaEquipeParaSalvar[0].nome, ///CORRIGIR NOME INSPETOR
+      agentesdaequipe: agentesDaEquipe,
+      agentesparapermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
+      agentedefolgaparapermultar: agentesDeFolgaEscolhidoParaPermulta ? agentesDeFolgaEscolhidoParaPermulta : "sem permulta",
+      agentesparareforco: agentesDeFolgaParaReforco ? agentesDeFolgaParaReforco : "sem reforço",
+      alteracao: this.alteracaoEscolha ? "não" : "sim" , // CORRIGIR
       texto1: this.text1,
       texto2: this.text2 ? this.text2 : " ",
       texto3: this.text3 ? this.text3 : " ",
@@ -229,21 +236,15 @@ export class EnderecoComponent implements OnInit {
 
     console.log(request);
 
+    this.relatorioService.salvarRelatorio(request)
+        .pipe(take(1))
+        .subscribe((rel) => {
+          console.log(rel);
+        })
+
   }
 
 }
 
 
-export interface relatorioServicoRequest {
-  dataDoRelatorio: string
-  dataDeHoje: string
-  nomeEquipe: string
-  nomeInspetor: string
-  agentesDaEquipe: string
-  agentesParaPermultar: string
-  agenteDeFolgaParaPermultar: string
-  agentesParaReforco: string
-  texto1: string
-  texto2: string
-  texto3: string
-}
+
