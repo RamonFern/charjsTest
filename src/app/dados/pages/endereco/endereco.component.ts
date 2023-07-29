@@ -65,6 +65,8 @@ export class EnderecoComponent implements OnInit {
   text3!: string;
   dataRelatorio!: string
 
+  relatorios: RelatorioRequest[] = [];
+
   constructor(private agenteService: AgenteService,
               private equipeService: EquipeService,
               private relatorioService: RelatorioService) { }
@@ -73,6 +75,7 @@ export class EnderecoComponent implements OnInit {
     this.alteracaoEscolha = this.alteracao[1].toString();
     this.listarAgentes();
     this.listarEquipes();
+    this.buscarRelatorios();
   }
 
   mostraRelatorio() {
@@ -212,6 +215,15 @@ export class EnderecoComponent implements OnInit {
         })
   }
 
+  buscarRelatorios() {
+    this.relatorioService.buscarTodos()
+        .pipe((take(1)))
+        .subscribe((rel) => {
+          this.relatorios = rel;
+          console.log(this.relatorios);
+        })
+  }
+
   salvarRelatorio() {
     const agentesDaEquipe = this.agentesDaEquipeParaSalvar.map((a) => a.nome).join(", ");
     const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
@@ -234,7 +246,7 @@ export class EnderecoComponent implements OnInit {
       texto3: this.text3 ? this.text3 : " ",
     }
 
-    console.log(request);
+    // console.log(request);
 
     this.relatorioService.salvarRelatorio(request)
         .pipe(take(1))
