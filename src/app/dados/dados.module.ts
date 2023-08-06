@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NoResultsComponent } from '../layout/components/no-results/no-results.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatChipsModule,
     MatCardModule,
     MatRadioModule,
+    MatExpansionModule,
     MatDatepickerModule,
     MatCheckboxModule,
     MatDividerModule,

@@ -2,8 +2,8 @@ import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { EquipeService } from './../../../services/equipe.service';
 import { AgenteUser } from './../../../models/AgenteUser';
 import { AgenteService } from './../../../services/agente.service';
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { take } from 'rxjs';
 import * as moment from 'moment';
@@ -15,7 +15,7 @@ import { RelatorioService } from 'src/app/services/relatorio.service';
 @Component({
   selector: 'app-endereco',
   templateUrl: './endereco.component.html',
-  styleUrls: ['./endereco.component.css'],
+  styleUrls: [ './endereco.component.css' ],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -66,6 +66,7 @@ export class EnderecoComponent implements OnInit {
   dataRelatorio!: string
 
   relatorios: RelatorioRequest[] = [];
+  addRelatorio = false;
 
   constructor(private agenteService: AgenteService,
               private equipeService: EquipeService,
@@ -84,14 +85,13 @@ export class EnderecoComponent implements OnInit {
     this.text3 = this.textRelatorioForm.controls['text3'].value;
   }
 
-  // teste() {
-  //   this.text1 = this.textRelatorioForm.controls['text1'].value;
-  //   this.textRelatorioForm.controls['text1'].value;
-  //   // this.textRelatorioForm.controls['text2']
-  //   // document.getElementById('text2')?.focus();
-  //   // this.renderer.selectRootElement('message2').focus();
-  //   console.log(this.text1);
-  // }
+  criarRelatorio() {
+    this.addRelatorio = true;
+  }
+
+  voltarListagemRelatorio() {
+    this.addRelatorio = false;
+  }
 
   atualizaControlDeDatas() {
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
@@ -192,7 +192,6 @@ export class EnderecoComponent implements OnInit {
   }
 
   ouvePermulta(){
-    console.log(this.escolha);
     this.escolha === "sim" ? null : this.removerPermulta();
   }
 
@@ -220,7 +219,7 @@ export class EnderecoComponent implements OnInit {
         .pipe((take(1)))
         .subscribe((rel) => {
           this.relatorios = rel;
-          console.log(this.relatorios);
+          // console.log(this.relatorios);
         })
   }
 
@@ -240,20 +239,35 @@ export class EnderecoComponent implements OnInit {
       agentesparapermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
       agentedefolgaparapermultar: agentesDeFolgaEscolhidoParaPermulta ? agentesDeFolgaEscolhidoParaPermulta : "sem permulta",
       agentesparareforco: agentesDeFolgaParaReforco ? agentesDeFolgaParaReforco : "sem reforço",
-      alteracao: this.alteracaoEscolha ? "não" : "sim" , // CORRIGIR
+      alteracao: this.alteracaoEscolha ? "não" : "sim" ,
       texto1: this.text1,
       texto2: this.text2 ? this.text2 : " ",
       texto3: this.text3 ? this.text3 : " ",
     }
 
-    // console.log(request);
-
     this.relatorioService.salvarRelatorio(request)
         .pipe(take(1))
         .subscribe((rel) => {
-          console.log(rel);
+          this.voltarListagemRelatorio();
+          this.buscarRelatorios();
+          this.limpar();
         })
+  }
 
+  limpar() {
+    this.dataForm.reset();
+    this.dataRelatorio = '';
+    this.agentesDaEquipe = [];
+    this.escolha = '';
+    this.equipeSelecionada.id = 0;
+    this.equipeSelecionada.nomeEquipe = '';
+    this.agentesDeFolgaEscolhidoParaPermulta = [];
+    this.agentesDeFolgaEscolhidoParaPermulta2 = [];
+    this.agentesDeFolgaParaReforco = [];
+    this.escolha2 = '';
+    this.agentesDaEquipeParaSalvar = [];
+    this.agentesParaPermulta = [];
+    this.textRelatorioForm.reset();
   }
 
 }

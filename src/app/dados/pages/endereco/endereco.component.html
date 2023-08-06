@@ -1,349 +1,371 @@
-<mat-stepper>
-  <mat-step label="Step 1" state="phone">
-    <div>
-      <h2>Selecione a data do relatório</h2>
-      <form [formGroup]="dataForm" class="equipe">
-        <mat-form-field appearance="outline">
-          <mat-label>Selecione a data</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dataRelatorio" (ngModelChange)="atualizaControlDeDatas()">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <div class="dir-data" *ngIf="dataRelatorio">
-          <h3>Data do Relatório:</h3>
-          <span>{{ dataRelatorio }}</span>
-        </div>
-      </form>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="form__agentes" *ngIf="!agentesDaEquipe.length">
-      <h2>Selecione a equipe de plantão</h2>
-      <div class="equipe">
-        <mat-form-field appearance="outline">
-          <mat-label>Equipe</mat-label>
-          <mat-select required>
-            <mat-option>--</mat-option>
-            <mat-option *ngFor="let equipe of equipes" [value]="equipe" (click)="selecionarEquipe(equipe)">
-              {{ equipe.nomeEquipe }}
-            </mat-option>
-          </mat-select>
-          <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-            <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
-        </mat-form-field>
-        <button mat-fab color="primary" class="add-btn" (click)="adicionarEquipeAoRelatorio()" matTooltip="Adicionar equipe">
-          <mat-icon>add</mat-icon>
-        </button>
+<ng-container *ngIf="addRelatorio">
+  <mat-stepper #stepper>
+    <mat-step label="Step 1" state="phone">
+      <div>
+        <h2>Selecione a data do relatório</h2>
+        <form [formGroup]="dataForm" class="equipe">
+          <mat-form-field appearance="outline">
+            <mat-label>Selecione a data</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataRelatorio" (ngModelChange)="atualizaControlDeDatas()">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div class="dir-data" *ngIf="dataRelatorio">
+            <h3>Data do Relatório:</h3>
+            <span>{{ dataRelatorio }}</span>
+          </div>
+        </form>
       </div>
-    </div>
-    <div class="form__chips" *ngIf="agentesDaEquipe.length">
-      <header class="form__header">
-        <span>Nome da equipe:</span>
-        <h2 class="nome__equipe">{{ equipeSelecionada.nomeEquipe }}</h2>
-      </header>
-      <div class="form__equipe">
-        <div class="equipe__sel">
-          <span>Agentes da equipe:</span>
-          <mat-chip-list *ngFor="let agente of agentesDaEquipe">
-              <mat-chip>
-                <img matChipAvatar src="/assets/images/avatarNull.png" alt="Agente da Equipe"/>
-                {{ agente.nome }}
-              </mat-chip>
-          </mat-chip-list>
-        </div>
-        <button mat-button (click)="escolherOutraEquipe()">Voltar</button>
-      </div>
-    </div>
-    <div class="divider">
       <mat-divider></mat-divider>
-    </div>
-    <div>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
+      <div class="form__agentes" *ngIf="!agentesDaEquipe.length">
+        <h2>Selecione a equipe de plantão</h2>
+        <div class="equipe">
+          <mat-form-field appearance="outline">
+            <mat-label>Equipe</mat-label>
+            <mat-select required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let equipe of equipes" [value]="equipe" (click)="selecionarEquipe(equipe)">
+                {{ equipe.nomeEquipe }}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+              <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+          </mat-form-field>
+          <button mat-fab color="primary" class="add-btn" (click)="adicionarEquipeAoRelatorio()" matTooltip="Adicionar equipe">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="form__chips" *ngIf="agentesDaEquipe.length">
+        <header class="form__header">
+          <span>Nome da equipe:</span>
+          <h2 class="nome__equipe">{{ equipeSelecionada.nomeEquipe }}</h2>
+        </header>
+        <div class="form__equipe">
+          <div class="equipe__sel">
+            <span>Agentes da equipe:</span>
+            <mat-chip-list *ngFor="let agente of agentesDaEquipe">
+                <mat-chip>
+                  <img matChipAvatar src="/assets/images/avatarNull.png" alt="Agente da Equipe"/>
+                  {{ agente.nome }}
+                </mat-chip>
+            </mat-chip-list>
+          </div>
+          <button mat-button (click)="escolherOutraEquipe()">Voltar</button>
+        </div>
+      </div>
+      <div class="divider">
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
 
-  <mat-step label="Step 2" state="phone">
-    <div class="form__permulta">
-      <h2>Houve permulta</h2>
+    <mat-step label="Step 2" state="phone">
+      <div class="form__permulta">
+        <h2>Houve permulta</h2>
 
-        <mat-radio-group [(ngModel)]="escolha" (change)="ouvePermulta()">
-          <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
-          <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
-        </mat-radio-group>
+          <mat-radio-group [(ngModel)]="escolha" (change)="ouvePermulta()">
+            <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
+            <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
+          </mat-radio-group>
 
-        <div class="agentes__plantao" *ngIf="!agentesDeFolgaEscolhidoParaPermulta.length">
-          <div>
-            <div class="agente__permulta" *ngIf="escolha === 'sim'">
-              <h3>Selecione o agente</h3>
-              <mat-form-field appearance="outline">
-                <mat-label>Agente</mat-label>
-                <mat-select required>
-                  <mat-option>--</mat-option>
-                  <mat-option *ngFor="let agente of agentesDaEquipe" [value]="agente" (click)="selecionarPermulta(agente)">
-                    {{ agente.nome }}
-                  </mat-option>
-                </mat-select>
-                <!-- <mat-error *ngIf="verificarSeAgenteEstaDeDisponivel()">Please choose an animal</mat-error> -->
-                <!-- <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
-              </mat-form-field>
+          <div class="agentes__plantao" *ngIf="!agentesDeFolgaEscolhidoParaPermulta.length">
+            <div>
+              <div class="agente__permulta" *ngIf="escolha === 'sim'">
+                <h3>Selecione o agente</h3>
+                <mat-form-field appearance="outline">
+                  <mat-label>Agente</mat-label>
+                  <mat-select required>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let agente of agentesDaEquipe" [value]="agente" (click)="selecionarPermulta(agente)">
+                      {{ agente.nome }}
+                    </mat-option>
+                  </mat-select>
+                  <!-- <mat-error *ngIf="verificarSeAgenteEstaDeDisponivel()">Please choose an animal</mat-error> -->
+                  <!-- <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+                </mat-form-field>
+              </div>
+
+              <div class="agente__permulta" *ngIf="escolha === 'sim'">
+                <h3>Selecione o substituto</h3>
+                <mat-form-field appearance="outline">
+                  <mat-label>Agente</mat-label>
+                  <mat-select required>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let agente of agentesDeFolga" [value]="agente" (click)="selecionarAgenteDeFolga(agente)">
+                      {{ agente.nome }}
+                    </mat-option>
+                  </mat-select>
+                  <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+                  <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+                </mat-form-field>
+              </div>
             </div>
+            <div *ngIf="escolha === 'sim'">
+              <button mat-button (click)="voltar()">Voltar</button>
+              <button mat-fab color="primary" class="add-btn" (click)="criarPermulta()" matTooltip="Criar permulta">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="escolha === 'sim' && agentesDeFolgaEscolhidoParaPermulta.length">
+            <div class="permultas">
+              <div class="permultas__esq">
+                <h2>Permultas</h2>
+                <div class="equipe__agentes">
+                  <div class="form__chips" *ngIf="agenteParaPermulta">
+                    <span>agente que vai permultar:</span>
+                    <mat-chip-list>
+                      <div class="chip__list">
+                        <mat-chip *ngFor="let agentePermulta of agentesParaPermulta" skjhakha>
+                          <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                          {{ agentePermulta.nome }}
+                        </mat-chip>
+                      </div>
+                    </mat-chip-list>
+                  </div>
 
-            <div class="agente__permulta" *ngIf="escolha === 'sim'">
-              <h3>Selecione o substituto</h3>
+                  <div class="form__chips" >
+                    <span>substituto:</span>
+                    <mat-chip-list>
+                      <div class="chip__list">
+                        <mat-chip *ngFor="let agenteDeFolga of agentesDeFolgaEscolhidoParaPermulta2">
+                          <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+                          {{ agenteDeFolga.nome }}
+                        </mat-chip>
+                      </div>
+                    </mat-chip-list>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button mat-button (click)="refazerPermultas()">Cancelar</button>
+                <button mat-fab color="primary" class="add-btn" (click)="adicionarMaisPermulta()" matTooltip="Adicionar permulta">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="divider">
+            <mat-divider></mat-divider>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+      </div>
+    </mat-step>
+
+    <mat-step label="Step 3" state="phone">
+      <div class="form__permulta">
+        <h2>Houve Reforço</h2>
+
+          <mat-radio-group [(ngModel)]="escolha2" (change)="ouveReforco()">
+            <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
+            <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
+          </mat-radio-group>
+
+          <div class="reforco" *ngIf="escolha2 === 'sim'">
+            <h3>Selecione o reforço</h3>
+            <div class="agente__reforco">
               <mat-form-field appearance="outline">
                 <mat-label>Agente</mat-label>
                 <mat-select required>
                   <mat-option>--</mat-option>
-                  <mat-option *ngFor="let agente of agentesDeFolga" [value]="agente" (click)="selecionarAgenteDeFolga(agente)">
+                  <mat-option *ngFor="let agente of agentesDeFolga2" [value]="agente" (click)="selecionarAgenteDeFolgaParaReforco(agente)">
                     {{ agente.nome }}
                   </mat-option>
                 </mat-select>
                 <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
                 <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
               </mat-form-field>
-            </div>
-          </div>
-          <div *ngIf="escolha === 'sim'">
-            <button mat-button (click)="voltar()">Voltar</button>
-            <button mat-fab color="primary" class="add-btn" (click)="criarPermulta()" matTooltip="Criar permulta">
-              <mat-icon>add</mat-icon>
-            </button>
-          </div>
-        </div>
-        <div *ngIf="escolha === 'sim' && agentesDeFolgaEscolhidoParaPermulta.length">
-          <div class="permultas">
-            <div class="permultas__esq">
-              <h2>Permultas</h2>
-              <div class="equipe__agentes">
-                <div class="form__chips" *ngIf="agenteParaPermulta">
-                  <span>agente que vai permultar:</span>
-                  <mat-chip-list>
-                    <div class="chip__list">
-                      <mat-chip *ngFor="let agentePermulta of agentesParaPermulta" skjhakha>
-                        <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                        {{ agentePermulta.nome }}
-                      </mat-chip>
-                    </div>
-                  </mat-chip-list>
-                </div>
 
-                <div class="form__chips" >
-                  <span>substituto:</span>
-                  <mat-chip-list>
-                    <div class="chip__list">
-                      <mat-chip *ngFor="let agenteDeFolga of agentesDeFolgaEscolhidoParaPermulta2">
-                        <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-                        {{ agenteDeFolga.nome }}
-                      </mat-chip>
-                    </div>
-                  </mat-chip-list>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button mat-button (click)="refazerPermultas()">Cancelar</button>
-              <button mat-fab color="primary" class="add-btn" (click)="adicionarMaisPermulta()" matTooltip="Adicionar permulta">
+              <button mat-fab color="primary" class="add-btn" (click)="addAgenteReforco()" matTooltip="Adicionar agente de reforço">
                 <mat-icon>add</mat-icon>
               </button>
-            </div>
+            <div>
           </div>
         </div>
-        <div class="divider">
-          <mat-divider></mat-divider>
-        </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-    </div>
-  </mat-step>
 
-  <mat-step label="Step 3" state="phone">
-    <div class="form__permulta">
-      <h2>Houve Reforço</h2>
-
-        <mat-radio-group [(ngModel)]="escolha2" (change)="ouveReforco()">
-          <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
-          <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
-        </mat-radio-group>
-
-        <div class="reforco" *ngIf="escolha2 === 'sim'">
-          <h3>Selecione o reforço</h3>
-          <div class="agente__reforco">
-            <mat-form-field appearance="outline">
-              <mat-label>Agente</mat-label>
-              <mat-select required>
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let agente of agentesDeFolga2" [value]="agente" (click)="selecionarAgenteDeFolgaParaReforco(agente)">
-                  {{ agente.nome }}
-                </mat-option>
-              </mat-select>
-              <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-              <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
-            </mat-form-field>
-
-            <button mat-fab color="primary" class="add-btn" (click)="addAgenteReforco()" matTooltip="Adicionar agente de reforço">
-              <mat-icon>add</mat-icon>
-            </button>
-          <div>
-        </div>
+        <mat-chip-list *ngIf="agentesDeFolgaParaReforco.length" >
+          <div class="chip__list">
+            <mat-chip *ngFor="let itemSel of agentesDeFolgaParaReforco">
+              <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+              {{ itemSel.nome }}
+            </mat-chip>
+          </div>
+        </mat-chip-list>
       </div>
 
-      <mat-chip-list *ngIf="agentesDeFolgaParaReforco.length" >
-        <div class="chip__list">
-          <mat-chip *ngFor="let itemSel of agentesDeFolgaParaReforco">
-            <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
-            {{ itemSel.nome }}
-          </mat-chip>
-        </div>
-      </mat-chip-list>
-    </div>
+      <div class="divider">
+        <mat-divider></mat-divider>
+      </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+      </div>
+    </mat-step>
 
-    <div class="divider">
-      <mat-divider></mat-divider>
-    </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-    </div>
-  </mat-step>
-
-  <mat-step label="Step 4" state="chat">
-    <h2>Houve alteração</h2>
-    <mat-radio-group [(ngModel)]="alteracaoEscolha" aria-label="Select an option" color="primary" class="radio">
-      <mat-radio-button *ngFor="let item of alteracao" [value]="item">{{ item }}</mat-radio-button>
-      <!-- <mat-radio-button value="sim">Sim</mat-radio-button> -->
-    </mat-radio-group>
-    <div class="divider">
-      <mat-divider></mat-divider>
-    </div>
-    <form [formGroup]="textRelatorioForm" class="form__text">
-      <h2>Detalhes do serviço diário</h2>
-      <mat-form-field appearance="outline" class="example-full-width">
-        <mat-label>Relatório de serviço</mat-label>
-        <textarea matInput
-                  class="text-area"
-                  formControlName="text1" name="text1"
-                  #message1
-                  maxlength="253"
-                  required
-                  placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
-        </textarea>
-        <mat-hint align="start">
-          <strong>
-            Caso o tamanho seja insuficiente aparecerá novo input abaixo.
-          </strong>
-        </mat-hint>
-        <mat-hint align="end">{{message1.value.length}} / 256</mat-hint>
-      </mat-form-field>
-      <!-- <button mat-button color="primary" (click)="teste()">Primary</button> -->
-
-      <ng-container *ngIf="message1.value.length > 250">
+    <mat-step label="Step 4" state="chat">
+      <h2>Houve alteração</h2>
+      <mat-radio-group [(ngModel)]="alteracaoEscolha" aria-label="Select an option" color="primary" class="radio">
+        <mat-radio-button *ngFor="let item of alteracao" [value]="item">{{ item }}</mat-radio-button>
+        <!-- <mat-radio-button value="sim">Sim</mat-radio-button> -->
+      </mat-radio-group>
+      <div class="divider">
+        <mat-divider></mat-divider>
+      </div>
+      <form [formGroup]="textRelatorioForm" class="form__text">
+        <h2>Detalhes do serviço diário</h2>
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Relatório de serviço</mat-label>
           <textarea matInput
-                    id="text2"
                     class="text-area"
-                    formControlName="text2" name="text2"
-                    #message2
+                    formControlName="text1" name="text1"
+                    #message1
                     maxlength="253"
+                    required
                     placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
           </textarea>
-          <mat-hint align="start"><strong>Caso o tamanho seja insuficiente aparecerá novo input abaixo.</strong> </mat-hint>
-          <mat-hint align="end">{{message2.value.length}} / 256</mat-hint>
+          <mat-hint align="start">
+            <strong>
+              Caso o tamanho seja insuficiente aparecerá novo input abaixo.
+            </strong>
+          </mat-hint>
+          <mat-hint align="end">{{message1.value.length}} / 256</mat-hint>
         </mat-form-field>
+        <!-- <button mat-button color="primary" (click)="teste()">Primary</button> -->
 
-        <ng-container *ngIf="message2.value.length > 250">
+        <ng-container *ngIf="message1.value.length > 250">
           <mat-form-field appearance="outline" class="example-full-width">
             <mat-label>Relatório de serviço</mat-label>
             <textarea matInput
+                      id="text2"
                       class="text-area"
-                      formControlName="text3" name="text3"
-                      #message3
+                      formControlName="text2" name="text2"
+                      #message2
                       maxlength="253"
                       placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
             </textarea>
-            <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
-            <mat-hint align="end">{{message3.value.length}} / 256</mat-hint>
+            <mat-hint align="start"><strong>Caso o tamanho seja insuficiente aparecerá novo input abaixo.</strong> </mat-hint>
+            <mat-hint align="end">{{message2.value.length}} / 256</mat-hint>
           </mat-form-field>
+
+          <ng-container *ngIf="message2.value.length > 250">
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-label>Relatório de serviço</mat-label>
+              <textarea matInput
+                        class="text-area"
+                        formControlName="text3" name="text3"
+                        #message3
+                        maxlength="253"
+                        placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
+              </textarea>
+              <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
+              <mat-hint align="end">{{message3.value.length}} / 256</mat-hint>
+            </mat-form-field>
+          </ng-container>
         </ng-container>
-      </ng-container>
 
-    </form>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext (click)="mostraRelatorio()">Next</button>
-    </div>
-  </mat-step>
-
-  <mat-step label="Step 5">
-    <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
-    <div class="step5">
-      <div class="relatorio">
-        <header class="relatorio__header">
-          <span>**************ESTADO DO MARANHÃO******************</span>
-          <span>**********PREFEITURA MUNICIPAL DE ROSÁRIO*********</span>
-          <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
-        </header>
-        <main class="relatorio__main">
-          <span>RELATÓRIO DO DIA {{ dataRelatorio }}</span>
-          <span>HOUVE ALTERAÇÃO</span>
-          <span>{{ alteracaoEscolha }}</span> <!--CORRIGIR AQUI -->
-          <span>NOME DA EQUIPE:</span>
-          <span>{{ equipeSelecionada?.nomeEquipe }}</span>
-          <span>INSPETOR:</span>
-          <div class="equipe__insp">
-            <span>JOAQUIM MARTINS DA SILVA</span>
-            <!-- <span *ngFor="let item of agentesDaEquipeParaSalvar">{{ item.funcao === "INSPETOR" ? item.nome : null }}</span> -->
-          </div>
-          <span>AGENTES:</span>
-          <div class="equipe__rel" *ngFor="let agente of agentesDaEquipeParaSalvar">
-            <span>{{ agente.nome }}, </span>
-          </div>
-          <ng-container *ngIf="agentesParaPermulta.length">
-            <span>PERMULTAS:</span>
-            <div class="equipe__per">
-              <div class="equipe__agentes-permulta">
-                <span *ngFor="let agente of agentesParaPermulta">{{ agente.nome }}, </span>
-              </div>
-              <span> PERMULTA COM </span>
-              <div class="equipe__agentes-permulta">
-                <span *ngFor="let agenteFolga of agentesDeFolgaEscolhidoParaPermulta2">{{ agenteFolga.nome }}, </span>
-              </div>
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="agentesDeFolgaParaReforco.length">
-            <span>REFORÇO:</span>
-            <div class="equipe__reforco">
-              <span *ngFor="let item of agentesDeFolgaParaReforco">
-                {{ item.nome }},
-              </span>
-            </div>
-          </ng-container>
-
-          <div class="relatorio__principal">
-            <p>{{ text1 }}</p>
-            <p>{{ text2 }}</p>
-            <p>{{ text3 }}</p>
-
-            <div class="assinatura">
-              <p> Assinatura: </p>
-              <p>Marcio dos Santos </p>
-              <p>Agente de Trânsito</p>
-            </div>
-          </div>
-        </main>
-        <button mat-raised-button color="primary" (click)="salvarRelatorio()">Salvar</button>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext (click)="mostraRelatorio()">Next</button>
       </div>
-    </div>
-  </mat-step>
+    </mat-step>
 
-  <!-- Icon overrides. -->
-  <ng-template matStepperIcon="phone">
-    <mat-icon>call_end</mat-icon>
-  </ng-template>
-  <ng-template matStepperIcon="chat">
-    <mat-icon>forum</mat-icon>
-  </ng-template>
-</mat-stepper>
+    <mat-step label="Step 5">
+      <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
+      <div class="step5">
+        <div class="relatorio">
+          <header class="relatorio__header">
+            <span>**************ESTADO DO MARANHÃO******************</span>
+            <span>**********PREFEITURA MUNICIPAL DE ROSÁRIO*********</span>
+            <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
+          </header>
+          <main class="relatorio__main">
+            <span>RELATÓRIO DO DIA {{ dataRelatorio }}</span>
+            <span>HOUVE ALTERAÇÃO</span>
+            <span>{{ alteracaoEscolha }}</span> <!--CORRIGIR AQUI -->
+            <span>NOME DA EQUIPE:</span>
+            <span>{{ equipeSelecionada?.nomeEquipe }}</span>
+            <span>INSPETOR:</span>
+            <div class="equipe__insp">
+              <span>JOAQUIM MARTINS DA SILVA</span>
+              <!-- <span *ngFor="let item of agentesDaEquipeParaSalvar">{{ item.funcao === "INSPETOR" ? item.nome : null }}</span> -->
+            </div>
+            <span>AGENTES:</span>
+            <div class="equipe__rel" *ngFor="let agente of agentesDaEquipeParaSalvar">
+              <span>{{ agente.nome }}, </span>
+            </div>
+            <ng-container *ngIf="agentesParaPermulta.length">
+              <span>PERMULTAS:</span>
+              <div class="equipe__per">
+                <div class="equipe__agentes-permulta">
+                  <span *ngFor="let agente of agentesParaPermulta">{{ agente.nome }}, </span>
+                </div>
+                <span> PERMULTA COM </span>
+                <div class="equipe__agentes-permulta">
+                  <span *ngFor="let agenteFolga of agentesDeFolgaEscolhidoParaPermulta2">{{ agenteFolga.nome }}, </span>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="agentesDeFolgaParaReforco.length">
+              <span>REFORÇO:</span>
+              <div class="equipe__reforco">
+                <span *ngFor="let item of agentesDeFolgaParaReforco">
+                  {{ item.nome }},
+                </span>
+              </div>
+            </ng-container>
+
+            <div class="relatorio__principal">
+              <p>{{ text1 }}</p>
+              <p>{{ text2 }}</p>
+              <p>{{ text3 }}</p>
+
+              <div class="assinatura">
+                <p> Assinatura: </p>
+                <p>Marcio dos Santos </p>
+                <p>Agente de Trânsito</p>
+              </div>
+            </div>
+          </main>
+          <button mat-raised-button (click)="stepper.reset()" color="primary" (click)="salvarRelatorio()">Salvar</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <!-- Icon overrides. -->
+    <ng-template matStepperIcon="phone">
+      <mat-icon>call_end</mat-icon>
+    </ng-template>
+    <ng-template matStepperIcon="chat">
+      <mat-icon>forum</mat-icon>
+    </ng-template>
+  </mat-stepper>
+</ng-container>
+
+<ng-container *ngIf="!addRelatorio">
+  <mat-accordion>
+    <mat-expansion-panel class="mat-expansion" *ngFor="let relatorio of relatorios">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Nome da equipe: {{ relatorio.nomeequipe }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Inspetor: {{ relatorio.nomeinspetor }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>{{ relatorio.texto1 }}</p>
+      <p>{{ relatorio.texto1 }}</p>
+      <p>{{ relatorio.texto1 }}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <button mat-button (click)="criarRelatorio()">Novo relatorio</button>
+</ng-container>
+<button mat-button *ngIf="addRelatorio" (click)="voltarListagemRelatorio()">Cancelar</button>
