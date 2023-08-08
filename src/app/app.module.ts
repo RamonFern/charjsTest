@@ -22,6 +22,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { NotificacoesModule } from './notificacoes/notificacoes.module';
+import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.module';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
       MatButtonModule,
       DadosRoutingModule,
       DashboardModule,
-      DadosModule
+      DadosModule,
+      NotificacoesModule,
+      NotificacoesRoutingModule
     ],
 
 })

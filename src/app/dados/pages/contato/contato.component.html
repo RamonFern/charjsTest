@@ -34,7 +34,9 @@
           <input matInput formControlName="codigo" name="codigo" required placeholder="Ex.: 2407">
         </mat-form-field>
         <div class="button">
-          <button mat-button color="primary" (click)="salvar ? salvarAgente() : atualizarAgente()" >Adicionar</button>
+          <button mat-button color="primary" (click)="salvar ? salvarAgente() : atualizarAgente()" >
+            {{ salvar ? 'Salvar' : 'Atualizar' }}
+          </button>
           <button mat-button color="warn" (click)="limparCampos()">Cancelar</button>
         </div>
       </div>

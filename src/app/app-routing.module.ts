@@ -18,7 +18,8 @@ const routes: Routes = [
             //     permissao: PermissaoType.ACESSO_PAGINA_DASHBOARD,
             // },
         },
-        { path: 'dados', loadChildren: () => import('./dados/dados.module').then((m) => m.DadosModule) }
+        { path: 'dados', loadChildren: () => import('./dados/dados.module').then((m) => m.DadosModule) },
+        { path: 'notificacoes', loadChildren: () => import('./notificacoes/notificacoes.module').then((m) => m.NotificacoesModule) }
 
     ],
   },
