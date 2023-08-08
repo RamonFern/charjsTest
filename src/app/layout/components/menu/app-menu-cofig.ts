@@ -44,27 +44,27 @@ export class AppMenuConfig {
             ],
         }),
         new MenuItem({
-            label: 'Fechamento',
+            label: 'Notificações',
             icon: 'assignment',
             link: '',
             // authService: this.authService,
             submenus: [
                 new MenuItem({
-                    label: 'Faturamento',
+                    label: 'Notificar',
                     icon: 'request_quote',
                     link: 'app/fechamento/faturamento',
                     // permissao: PermissaoType.ACESSO_PAGINA_FATURAMENTO,
                     // authService: this.authService,
                 }),
                 new MenuItem({
-                    label: 'Repasse',
+                    label: 'Listar',
                     icon: 'payments',
                     link: 'app/fechamento/repasse',
                     // permissao: PermissaoType.ACESSO_PAGINA_REPASSE,
                     // authService: this.authService,
                 }),
                 new MenuItem({
-                    label: 'Pagamento Fixo',
+                    label: 'Ranking',
                     icon: 'credit_score',
                     link: 'app/fechamento/pagamento-fixo',
                     // permissao: PermissaoType.ACESSO_PAGINA_REPASSE,

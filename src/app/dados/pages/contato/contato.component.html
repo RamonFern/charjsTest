@@ -7,6 +7,8 @@
       </mat-chip>
     </mat-chip-list>
   </div>
+  <!--
+   -->
 
   <button mat-fab color="primary" class="add-btn" (click)="addAgente()" matTooltip="Adicionar agente">
     <mat-icon>add</mat-icon>
@@ -32,7 +34,7 @@
           <input matInput formControlName="codigo" name="codigo" required placeholder="Ex.: 2407">
         </mat-form-field>
         <div class="button">
-          <button mat-button color="primary" (click)="salvarAgente()">Adicionar</button>
+          <button mat-button color="primary" (click)="salvar ? salvarAgente() : atualizarAgente()" >Adicionar</button>
           <button mat-button color="warn" (click)="limparCampos()">Cancelar</button>
         </div>
       </div>
@@ -52,9 +54,23 @@
             <span class="body-2">{{ agente.funcao }}</span>
           </div>
           <div class="list__card-column list__card-column--action">
-            <button mat-icon-button>
-                <mat-icon>chevron_right</mat-icon>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
             </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="adicionarParaAtualizarAgente(agente)">
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>voicemail</mat-icon>
+                <span>Check voice mail</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
+              </button>
+            </mat-menu>
           </div>
         </div>
       </ng-container>

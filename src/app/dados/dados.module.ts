@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NoResultsComponent } from '../layout/components/no-results/no-results.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatChipsModule,
     MatCardModule,
     MatRadioModule,
+    MatMenuModule,
     MatExpansionModule,
     MatDatepickerModule,
     MatCheckboxModule,

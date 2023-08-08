@@ -14,11 +14,11 @@ export class AgenteService {
   }
 
   adicionar(agenteUser: AgenteUser) {
-    return this.http.post<any>('http://localhost:8080/api/v2/agenteUser', agenteUser);
+    return this.http.post<AgenteUser>('http://localhost:8080/api/v2/agenteUser', agenteUser);
   }
 
   atualizarAgente(agenteUser: AgenteUser, id: number) {
-    return this.http.put<any>(`http://localhost:8080/api/v2/agenteUser/${id}`, agenteUser);
+    return this.http.put<AgenteUser>(`http://localhost:8080/api/v2/agenteUser/${id}`, agenteUser);
   }
 
 }
