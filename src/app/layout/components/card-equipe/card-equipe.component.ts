@@ -2,11 +2,11 @@ import { take } from 'rxjs';
 import { AgenteUser } from './../../../models/AgenteUser';
 import { AgenteService } from './../../../services/agente.service';
 import { EquipeResponse } from './../../../models/EquipeRequest';
-import { EquipeComponent } from './../../../dados/pages/equipe/equipe.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { DialogReturn } from '../dialog-return';
 import { MatDialog } from '@angular/material/dialog';
-import { CriarEditarEquipeComponent } from 'src/app/dashboard/dialogs/criar-editar-equipe/criar-editar-equipe.component';
+import { CriarEditarEquipeComponent } from 'src/app/dados/pages/equipe/dialogs/criar-editar-equipe/criar-editar-equipe.component';
+
 
 @Component({
   selector: 'app-card-equipe',
@@ -28,6 +28,7 @@ export class CardEquipeComponent implements OnInit {
   editarEquipe() {
       const dialogRef = this.dialog.open(CriarEditarEquipeComponent, {
         width: '550px',
+        data: { equipe: this.equipe, agentes: this.agentesDaEquipe }
       });
 
       dialogRef.afterClosed().subscribe((result: DialogReturn) => {

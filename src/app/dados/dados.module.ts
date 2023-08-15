@@ -22,6 +22,7 @@ import { NoResultsComponent } from '../layout/components/no-results/no-results.c
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { CriarEditarEquipeComponent } from './pages/equipe/dialogs/criar-editar-equipe/criar-editar-equipe.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatMenuModule } from '@angular/material/menu';
     EnderecoComponent,
     EquipeComponent,
     CardEquipeComponent,
+    CriarEditarEquipeComponent
     // NoResultsComponent
   ],
   imports: [
