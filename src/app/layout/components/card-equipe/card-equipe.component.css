@@ -1,7 +1,11 @@
 .example-card {
   max-width: 200px;
   margin-top: 40px;
-  cursor: pointer;
+  /* cursor: pointer; */
+}
+
+.mat-ponto {
+  display: flex;
 }
 
 .example-header-image {

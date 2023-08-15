@@ -1,6 +1,9 @@
 import { NgModule } from "@angular/core";
 import { NotificarComponent } from "./notificar/notificar.component";
 import { CommonModule } from "@angular/common";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
 
 
 @NgModule({
@@ -8,7 +11,10 @@ import { CommonModule } from "@angular/common";
     NotificarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ]
 })
 

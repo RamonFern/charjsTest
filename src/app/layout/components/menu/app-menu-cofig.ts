@@ -57,9 +57,9 @@ export class AppMenuConfig {
                     // authService: this.authService,
                 }),
                 new MenuItem({
-                    label: 'Listar',
+                    label: 'Pesquisar veiculo',
                     icon: 'payments',
-                    link: 'notificacoes/repasse',
+                    link: 'notificacoes/pesquisar',
                     // permissao: PermissaoType.ACESSO_PAGINA_REPASSE,
                     // authService: this.authService,
                 }),

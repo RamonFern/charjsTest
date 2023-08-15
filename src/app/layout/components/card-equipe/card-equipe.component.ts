@@ -4,6 +4,9 @@ import { AgenteService } from './../../../services/agente.service';
 import { EquipeResponse } from './../../../models/EquipeRequest';
 import { EquipeComponent } from './../../../dados/pages/equipe/equipe.component';
 import { Component, Input, OnInit } from '@angular/core';
+import { DialogReturn } from '../dialog-return';
+import { MatDialog } from '@angular/material/dialog';
+import { CriarEditarEquipeComponent } from 'src/app/dashboard/dialogs/criar-editar-equipe/criar-editar-equipe.component';
 
 @Component({
   selector: 'app-card-equipe',
@@ -16,10 +19,22 @@ export class CardEquipeComponent implements OnInit {
 
   agentesDaEquipe: AgenteUser[] = [];
 
-  constructor(private agenteservice: AgenteService) { }
+  constructor(private agenteservice: AgenteService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.buscarAgentesDaEquipe(this.equipe);
+  }
+
+  editarEquipe() {
+      const dialogRef = this.dialog.open(CriarEditarEquipeComponent, {
+        width: '550px',
+      });
+
+      dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+        if (result?.hasDataChanged) {
+          // this.buscarTodasEscalasServicos();
+        }
+    });
   }
 
   buscarAgentesDaEquipe(equipe: EquipeResponse) {

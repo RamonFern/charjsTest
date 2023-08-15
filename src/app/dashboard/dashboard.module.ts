@@ -18,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NoResultsComponent } from "../layout/components/no-results/no-results.component";
 import { EstacionamentoComponent } from './dialogs/estacionamento/estacionamento.component';
+import { MatChipsModule } from "@angular/material/chips";
 
 @NgModule({
   declarations: [

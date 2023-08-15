@@ -25,7 +25,7 @@
             <mat-select required>
               <mat-option>--</mat-option>
               <mat-option *ngFor="let equipe of equipes" [value]="equipe" (click)="selecionarEquipe(equipe)">
-                {{ equipe.nomeEquipe }}
+                {{ equipe.nomeequipe }}
               </mat-option>
             </mat-select>
             <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
@@ -39,7 +39,7 @@
       <div class="form__chips" *ngIf="agentesDaEquipe.length">
         <header class="form__header">
           <span>Nome da equipe:</span>
-          <h2 class="nome__equipe">{{ equipeSelecionada.nomeEquipe }}</h2>
+          <h2 class="nome__equipe">{{ equipeSelecionada.nomeequipe }}</h2>
         </header>
         <div class="form__equipe">
           <div class="equipe__sel">
@@ -291,7 +291,7 @@
             <span>HOUVE ALTERAÇÃO</span>
             <span>{{ alteracaoEscolha }}</span> <!--CORRIGIR AQUI -->
             <span>NOME DA EQUIPE:</span>
-            <span>{{ equipeSelecionada?.nomeEquipe }}</span>
+            <span>{{ equipeSelecionada?.nomeequipe }}</span>
             <span>INSPETOR:</span>
             <div class="equipe__insp">
               <span>JOAQUIM MARTINS DA SILVA</span>

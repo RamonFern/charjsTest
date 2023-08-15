@@ -233,7 +233,7 @@ export class EnderecoComponent implements OnInit {
     const request: RelatorioRequest = {
       datadorelatorio: this.dataRelatorio,
       datadehoje: dataAtual.format("DD/MM/YYYY"),
-      nomeequipe: this.equipeSelecionada.nomeEquipe,
+      nomeequipe: this.equipeSelecionada.nomeequipe,
       nomeinspetor: this.agentesDaEquipeParaSalvar[0].nome, ///CORRIGIR NOME INSPETOR
       agentesdaequipe: agentesDaEquipe,
       agentesparapermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
@@ -260,7 +260,7 @@ export class EnderecoComponent implements OnInit {
     this.agentesDaEquipe = [];
     this.escolha = '';
     this.equipeSelecionada.id = 0;
-    this.equipeSelecionada.nomeEquipe = '';
+    this.equipeSelecionada.nomeequipe = '';
     this.agentesDeFolgaEscolhidoParaPermulta = [];
     this.agentesDeFolgaEscolhidoParaPermulta2 = [];
     this.agentesDeFolgaParaReforco = [];

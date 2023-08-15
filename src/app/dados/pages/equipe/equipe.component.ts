@@ -22,7 +22,7 @@ export class EquipeComponent implements OnInit {
   agentesDaEquipeRetornado: AgenteUser[] = [];
 
   equipeForm = new FormGroup({
-    nomeEquipe: new FormControl('', Validators.required),
+    nomeequipe: new FormControl('', Validators.required),
     id_agentes: new FormControl('', Validators.required)
   })
   constructor(private equipeService: EquipeService,
@@ -37,14 +37,14 @@ export class EquipeComponent implements OnInit {
   salvarEquipe() {
 
     const request: EquipeRequest = {
-      nomeEquipe: this.equipeForm.controls['nomeEquipe'].value,
+      nomeequipe: this.equipeForm.controls['nomeequipe'].value,
     };
 
     this.equipeService.criarEquipe(request)
         .pipe(take(1))
         .subscribe((equipe) => {
-           this.equipeCriada = equipe;
-           this.adicionarAgenteEmEquipe(this.equipeCriada);
+          this.equipeCriada = equipe;
+          this.adicionarAgenteEmEquipe(this.equipeCriada);
         })
   }
 

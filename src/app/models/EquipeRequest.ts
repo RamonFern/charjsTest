@@ -1,8 +1,8 @@
 export interface EquipeRequest {
-  nomeEquipe: string
+  nomeequipe: string
 }
 
 export interface EquipeResponse {
   id: number
-  nomeEquipe: string
+  nomeequipe: string
 }
