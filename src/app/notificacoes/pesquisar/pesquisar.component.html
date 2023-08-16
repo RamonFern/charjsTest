@@ -1,9 +1,35 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Placa</mat-label>
-    <input type="text" matInput placeholder="PTG-1234 OU PTG-1B34">
-  </mat-form-field>
-  <button mat-button color="primary">Pesquisar</button>
-</form>
+<div class="main">
+  <form [formGroup]="formPlaca"  class="main-form">
+    <mat-form-field class="main-full-width">
+      <mat-label>Placa</mat-label>
+      <input matInput type="text" formControlName="placa" name="placa" required placeholder="PTG-1234 OU PTG-1B34">
+    </mat-form-field>
+    <div class="button">
+      <button (click)="buscarInformacao()" color="primary">Pesquisar</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="dadosVeiculo">
+  <h2>Placa:</h2>
+  <span>{{ dadosVeiculo.response.placa }}</span>
+  <mat-divider></mat-divider>
+  <h2>Modelo:</h2>
+  <span>{{ dadosVeiculo.response.modelo }}</span>
+  <mat-divider></mat-divider>
+  <h2>Cor:</h2>
+  <span>{{ dadosVeiculo.response.cor }}</span>
+  <mat-divider></mat-divider>
+  <h2>Modelo:</h2>
+  <span>{{ dadosVeiculo.response.modelo }}</span>
+  <mat-divider></mat-divider>
+  <h2>Situação:</h2>
+  <span>{{ dadosVeiculo.response.situacao }}</span>
+  <mat-divider></mat-divider>
+  <h2>Limite:</h2>
+  <span>{{ dadosVeiculo.api_limit_used }}</span>
+
+
+</div>
 
 

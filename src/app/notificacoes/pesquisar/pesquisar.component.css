@@ -1,9 +1,19 @@
-.example-form {
-    display: flex;
-    align-content: center;
-
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.example-full-width {
+.main-form {
+    display: flex;
+    align-items: center;
+    max-width: 40%;
+}
+
+.main-full-width {
+  width: 100%;
+}
+
+table {
   width: 100%;
 }
