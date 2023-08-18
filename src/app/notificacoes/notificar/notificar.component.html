@@ -1,24 +1,82 @@
-<div class="menu">
-  <div class="container shadow-light">
-    <form class="formMulta">
-      <mat-form-field appearance="outline">
-        <mat-label>Digite a placa:</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+<div class="menu shadow-light">
+  <header class="header mat-elevation-z8">
+    <mat-icon><span class="material-symbols-outlined">
+      taxi_alert
+      </span></mat-icon>
+    <h1>Notificar</h1>
+  </header>
+  <div class="container mat-elevation-z8">
+    <form class="form">
+      <div class="form__main">
+        <button mat-stroked-button color="primary">
+          <mat-icon>
+            <span class="material-symbols-outlined">
+              add_a_photo
+            </span>
+          </mat-icon>
+        </button>
+        <mat-form-field appearance="outline">
+          <mat-label>Digite a placa:</mat-label>
+          <input matInput placeholder="PDE-2D34 OU SDF-3344">
+          <mat-icon matSuffix>car_crash</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Marca / Modelo:</mat-label>
+          <input matInput placeholder="HONDA CIVIC">
+          <mat-icon matSuffix>emoji_transportation</mat-icon>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Espécie:</mat-label>
+          <input matInput placeholder="PASSAGEIRO">
+          <mat-icon matSuffix>emoji_transportation</mat-icon>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Local da infração:</mat-label>
+        <input matInput placeholder="AVENIDA JOÃO XXIII">
+        <mat-icon matSuffix>pin_drop</mat-icon>
         <!-- <mat-hint>Hint</mat-hint> -->
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Modelo:</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Selecione o enquadramento:</mat-label>
+          <input matInput placeholder="ESTACIONAR NA CONTRA MÃO">
+          <mat-icon matSuffix>gavel</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Observação:</mat-label>
+          <textarea matInput placeholder="Ex.: It makes me feel..."></textarea>
+          <mat-icon matSuffix>receipt</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+        <mat-label>Medida administrativa:</mat-label>
+        <input matInput placeholder="VEICULO REMOVIDO">
+        <mat-icon matSuffix>local_police</mat-icon>
         <!-- <mat-hint>Hint</mat-hint> -->
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Espécie:</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <!-- <mat-hint>Hint</mat-hint> -->
-      </mat-form-field>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Data:</mat-label>
+          <input matInput placeholder="12/10/2023">
+          <mat-icon matSuffix>event</mat-icon>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Hora:</mat-label>
+          <input matInput placeholder="10:12">
+          <mat-icon matSuffix>alarm</mat-icon>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Houve abordagem:</mat-label>
+          <input matInput placeholder="SIM">
+          <mat-icon matSuffix>do_not_disturb_on</mat-icon>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+        <button mat-raised-button color="primary">
+          ENVIAR
+        </button>
+      </div>
     </form>
   </div>
 </div>
