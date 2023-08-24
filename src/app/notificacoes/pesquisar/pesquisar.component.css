@@ -2,16 +2,35 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 .main-form {
-    display: flex;
-    align-items: center;
-    max-width: 40%;
+  display: flex;
+  align-items: center;
+  max-width: 40%;
 }
 
 .main-full-width {
   width: 100%;
+}
+
+.dados__veiculo {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dados__veiculo-campo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  margin-top: 50px;
+  width: 150px;
+  height: 150px;
 }
 
 table {

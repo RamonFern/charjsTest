@@ -1,6 +1,6 @@
 <div class="main">
   <form [formGroup]="formPlaca"  class="main-form">
-    <mat-form-field class="main-full-width">
+    <mat-form-field appearance="outline">
       <mat-label>Placa</mat-label>
       <input matInput type="text" formControlName="placa" name="placa" required placeholder="PTG-1234 OU PTG-1B34">
     </mat-form-field>
@@ -10,26 +10,39 @@
   </form>
 </div>
 
-<div *ngIf="dadosVeiculo">
-  <h2>Placa:</h2>
-  <span>{{ dadosVeiculo.response.placa }}</span>
-  <mat-divider></mat-divider>
-  <h2>Modelo:</h2>
-  <span>{{ dadosVeiculo.response.modelo }}</span>
-  <mat-divider></mat-divider>
-  <h2>Cor:</h2>
-  <span>{{ dadosVeiculo.response.cor }}</span>
-  <mat-divider></mat-divider>
-  <h2>Modelo:</h2>
-  <span>{{ dadosVeiculo.response.modelo }}</span>
-  <mat-divider></mat-divider>
-  <h2>Situação:</h2>
-  <span>{{ dadosVeiculo.response.situacao }}</span>
-  <mat-divider></mat-divider>
-  <h2>Limite:</h2>
-  <span>{{ dadosVeiculo.api_limit_used }}</span>
-
-
+<div class="dados__veiculo" *ngIf="dadosVeiculo">
+  <div class="dados__veiculo-campo">
+    <h2>Placa:</h2>
+    <span>{{ dadosVeiculo.response.placa }}</span>
+  </div>
+  <!-- <mat-divider></mat-divider> -->
+  <div class="dados__veiculo-campo">
+    <h2>Modelo:</h2>
+    <span>{{ dadosVeiculo.response.modelo }}</span>
+  </div>
+  <!-- <mat-divider></mat-divider> -->
+  <div class="dados__veiculo-campo">
+    <h2>Cor:</h2>
+    <span>{{ dadosVeiculo.response.cor }}</span>
+  </div>
+  <!-- <mat-divider></mat-divider> -->
+  <div class="dados__veiculo-campo">
+    <h2>Modelo:</h2>
+    <span>{{ dadosVeiculo.response.modelo }}</span>
+  </div>
+  <!-- <mat-divider></mat-divider> -->
+  <div class="dados__veiculo-campo">
+    <h2>Situação:</h2>
+    <span>{{ dadosVeiculo.response.situacao }}</span>
+  </div>
+  <!-- <mat-divider></mat-divider> -->
+  <div class="dados__veiculo-campo">
+    <h2>Limite:</h2>
+    <span>{{ dadosVeiculo.api_limit_used }}</span>
+  </div>
+</div>
+<div class="dados__veiculo-campo" *ngIf="dadosVeiculo.response.logo">
+  <img class="img" src="{{ dadosVeiculo.response.logo }}" alt="imagem logo marca">
 </div>
 
 
