@@ -3,7 +3,13 @@
     <mat-card-title>Informações da Equipe</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <p><strong>Nome da Equipe:</strong>  {{ data.equipe.nomeequipe }} </p>
+    <p *ngIf="!loadEquipe"><strong>Nome da Equipe:</strong>  {{ data.equipe.nomeequipe }} </p>
+    <form [formGroup]="equipeForm">
+      <mat-form-field appearance="outline" *ngIf="loadEquipe">
+        <mat-label>Nome da equipe:</mat-label>
+        <input matInput formControlName="nome" name="nome" placeholder="equipe 01">
+      </mat-form-field>
+    </form>
     <p><strong>Membros:</strong></p>
     <ul>
       <li *ngFor="let membro of data.agentes">{{ membro.nome }}</li>
@@ -12,5 +18,5 @@
     ou pelo menos as datas </p>
   </mat-card-content>
 </mat-card>
-<button mat-button color="primary">Editar informações?</button>
+<button mat-button (click)="editarEquipe()" color="primary">{{ loadEquipe ? "Salvar" : "Editar informações?" }}</button>
 

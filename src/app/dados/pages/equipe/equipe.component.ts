@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EquipeRequest, EquipeResponse } from 'src/app/models/EquipeRequest';
 import { take } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-equipe',
@@ -25,6 +26,10 @@ export class EquipeComponent implements OnInit {
     nomeequipe: new FormControl('', Validators.required),
     id_agentes: new FormControl('', Validators.required)
   })
+  items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
+
+  basket = ['Oranges', 'Bananas', 'Cucumbers'];
+
   constructor(private equipeService: EquipeService,
               private agenteService: AgenteService,
               private notification: MatSnackBar) { }
@@ -34,8 +39,20 @@ export class EquipeComponent implements OnInit {
     this.listarAgentes();
   }
 
-  salvarEquipe() {
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
 
+  salvarEquipe() {
     const request: EquipeRequest = {
       nomeequipe: this.equipeForm.controls['nomeequipe'].value,
     };

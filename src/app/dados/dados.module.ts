@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NoResultsComponent } from '../layout/components/no-results/no-results.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { CriarEditarEquipeComponent } from './pages/equipe/dialogs/criar-editar-equipe/criar-editar-equipe.component';
@@ -39,6 +40,7 @@ import { CriarEditarEquipeComponent } from './pages/equipe/dialogs/criar-editar-
     MatIconModule,
     MatFormFieldModule,
     HttpClientModule,
+    DragDropModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
