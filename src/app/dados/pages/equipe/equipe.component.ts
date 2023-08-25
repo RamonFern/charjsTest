@@ -37,13 +37,16 @@ export class EquipeComponent implements OnInit {
   ngOnInit() {
     this.buscarEquipes();
     this.listarAgentes();
+
+
   }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log(event.container.data)
-      console.log(event.previousContainer.data)
+      // console.log(event.container.data)
+      // console.log(event.previousContainer.data)
+      // this.separarAgentesPorEquipe();
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -51,8 +54,9 @@ export class EquipeComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
-      console.log(event.container.data)
-      console.log(event.previousContainer.data)
+      // this.separarAgentesPorEquipe();
+    //   console.log(event.container.data)
+    //   console.log(event.previousContainer.data)
     }
   }
 
@@ -103,10 +107,17 @@ export class EquipeComponent implements OnInit {
     })
   }
 
-  listarAgentesDaEquipe(equipe: EquipeResponse) {
-    this.agentes.filter((a) => {
-      a.equipe_id === equipe.id ? this.agentesDaEquipeRetornado.push(a) : null
-    })
+  // listarAgentesDaEquipe(equipe: EquipeResponse) {
+  //   this.agentes.filter((a) => {
+  //     a.equipe_id === equipe.id ? this.agentesDaEquipeRetornado.push(a) : null
+  //   })
+  // }
+
+  separarAgentesPorEquipe(equipe: EquipeResponse) {
+    const ag = this.agentes.filter((a) => a.equipe_id === equipe.id)
+    const nomesDosAgentes: string[] = ag.map(agente => agente.nome);
+    return nomesDosAgentes;
+    // console.log(nomesDosAgentes);
   }
 
   selecionarAgenteParaEquipe(agente: AgenteUser) {

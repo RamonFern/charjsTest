@@ -47,29 +47,32 @@
   </ng-container>
 </div>
 <!-- implementar editar equipes mudar agente de equipe -->
-<div cdkDropListGroup>
-  <div class="example-container" *ngFor="let equipe of equipes">
+<div cdkDropListGroup class="edit__equipe">
+  <div class="container" *ngFor="let equipe of equipes">
     <h2>{{ equipe.nomeequipe }}</h2>
 
     <div
       cdkDropList
-      [cdkDropListData]="items"
-      class="example-list"
+      [cdkDropListData]="separarAgentesPorEquipe(equipe)"
+      class="list"
       cdkDropListSortingDisabled
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
+      <div class="box" *ngFor="let item of separarAgentesPorEquipe(equipe)" cdkDrag>{{item}}</div>
     </div>
   </div>
 
-  <!-- <div class="example-container">
-    <h2>Shopping basket</h2>
+  <!-- <div class="container" *ngFor="let equipe of equipes">
+    <h2>{{ equipe.nomeequipe }}</h2>
 
     <div
       cdkDropList
-      [cdkDropListData]="basket"
-      class="example-list"
+      [cdkDropListData]="separarAgentesPorEquipe(equipe)"
+      class="list"
+      cdkDropListSortingDisabled
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
+      <div class="box" *ngFor="let item of separarAgentesPorEquipe(equipe)" cdkDrag>{{item}}</div>
     </div>
   </div> -->
+
+
 </div>
