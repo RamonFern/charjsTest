@@ -3,7 +3,7 @@
     <mat-card-title>Informações da Equipe</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <p *ngIf="!loadEquipe"><strong>Nome da Equipe:</strong>  {{ data.equipe.nomeequipe }} </p>
+    <p *ngIf="!loadEquipe"><strong>Nome da Equipe:</strong>  {{ equipeCarregada.nomeequipe }} </p>
     <form [formGroup]="equipeForm">
       <mat-form-field appearance="outline" *ngIf="loadEquipe">
         <mat-label>Nome da equipe:</mat-label>
@@ -18,5 +18,6 @@
     ou pelo menos as datas </p>
   </mat-card-content>
 </mat-card>
-<button mat-button (click)="editarEquipe()" color="primary">{{ loadEquipe ? "Salvar" : "Editar informações?" }}</button>
+<button mat-button (click)="editarEquipe()" color="primary" *ngIf="!loadEquipe">Editar informações?</button>
+<button mat-button (click)="salvarEquipe()" color="primary" *ngIf="loadEquipe">Salvar</button>
 

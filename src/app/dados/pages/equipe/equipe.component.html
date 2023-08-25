@@ -48,8 +48,8 @@
 </div>
 <!-- implementar editar equipes mudar agente de equipe -->
 <div cdkDropListGroup>
-  <div class="example-container">
-    <h2>Available items</h2>
+  <div class="example-container" *ngFor="let equipe of equipes">
+    <h2>{{ equipe.nomeequipe }}</h2>
 
     <div
       cdkDropList
@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <div class="example-container">
+  <!-- <div class="example-container">
     <h2>Shopping basket</h2>
 
     <div
@@ -71,5 +71,5 @@
       (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
     </div>
-  </div>
+  </div> -->
 </div>

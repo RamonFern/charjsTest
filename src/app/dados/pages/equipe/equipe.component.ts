@@ -42,6 +42,8 @@ export class EquipeComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log(event.container.data)
+      console.log(event.previousContainer.data)
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -49,6 +51,8 @@ export class EquipeComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
+      console.log(event.container.data)
+      console.log(event.previousContainer.data)
     }
   }
 

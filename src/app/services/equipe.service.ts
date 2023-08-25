@@ -11,7 +11,7 @@ export class EquipeService {
 
 
   criarEquipe(equipe: EquipeRequest) {
-      return this.http.post<EquipeResponse>('http://localhost:8080/api/v2/equipe', equipe);
+    return this.http.post<EquipeResponse>('http://localhost:8080/api/v2/equipe', equipe);
   }
   listar() {
     return this.http.get<EquipeResponse[]>('http://localhost:8080/api/v2/equipe');
@@ -19,6 +19,10 @@ export class EquipeService {
 
   buscarPorId(id: number) {
     return this.http.get<EquipeResponse>(`http://localhost:8080/api/v2/equipe/${id}`);
+  }
+
+  editarNomeEquipe(equipe: EquipeRequest, id: number) {
+    return this.http.put<EquipeResponse>(`http://localhost:8080/api/v2/equipe/${id}`, equipe);
   }
 
 
