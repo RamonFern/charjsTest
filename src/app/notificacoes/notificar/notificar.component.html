@@ -60,12 +60,12 @@
             <input matInput
                   aria-label="State"
                   [matAutocomplete]="auto"
-                  [formControl]="stateCtrl">
+                  [formControl]="codCtrl">
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let state of filteredStates | async" [value]="state.descricao">
-                <small>{{ state.cod }}</small> |
-                <span>{{ state.descricao }}</span> |
-                <small>{{ state.amparo }}</small>
+              <mat-option *ngFor="let enquadramento of filteredCods | async" [value]="enquadramento.descricao">
+                <small>{{ enquadramento.cod }}</small> |
+                <span>{{ enquadramento.descricao }}</span> |
+                <small>{{ enquadramento.amparo }}</small>
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>

@@ -19,8 +19,8 @@ export interface TabCodigos {
   styleUrls: ['./notificar.component.css']
 })
 export class NotificarComponent implements OnInit {
-  stateCtrl = new FormControl('');
-  filteredStates: Observable<TabCodigos[]>;
+  codCtrl = new FormControl('');
+  filteredCods: Observable<TabCodigos[]>;
 
   codigos: TabCodigos[] = [
     {
@@ -59,7 +59,7 @@ export class NotificarComponent implements OnInit {
 
   //"/assets/images/avatarNull.png"
   constructor() {
-    this.filteredStates = this.stateCtrl.valueChanges.pipe(
+    this.filteredCods = this.codCtrl.valueChanges.pipe(
       startWith(''),
       map(state => (state ? this.filterStates(state) : this.codigos.slice())),
     );
