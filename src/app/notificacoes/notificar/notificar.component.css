@@ -28,6 +28,10 @@
   margin-bottom: 20px;
 }
 
+.form__enquad {
+  width: 100%;
+}
+
 .container {
   width: 75%;
 }

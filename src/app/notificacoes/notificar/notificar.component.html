@@ -35,11 +35,42 @@
         <input matInput placeholder="AVENIDA JOÃO XXIII">
         <mat-icon matSuffix>pin_drop</mat-icon>
         </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Selecione o enquadramento:</mat-label>
-          <input matInput placeholder="ESTACIONAR NA CONTRA MÃO">
-          <mat-icon matSuffix>gavel</mat-icon>
-        </mat-form-field>
+
+        <!-- <form [formGroup]="stateForm">
+          <mat-form-field appearance="outline" class="form__enquad">
+            <mat-label>Selecione o enquadramento:</mat-label>
+            <input type="text"
+                    matInput
+                    formControlName="stateGroup"
+                    required
+                    [matAutocomplete]="autoGroup"
+            >
+              <mat-autocomplete #autoGroup="matAutocomplete">
+                <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
+                  <mat-option *ngFor="let name of group.names" [value]="name">
+                    {{name}}
+                  </mat-option>
+              </mat-optgroup>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form> -->
+        <form>
+          <mat-form-field appearance="outline" class="form__enquad">
+            <mat-label>Selecione o enquadramento:</mat-label>
+            <input matInput
+                  aria-label="State"
+                  [matAutocomplete]="auto"
+                  [formControl]="stateCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let state of filteredStates | async" [value]="state.descricao">
+                <small>{{ state.cod }}</small> |
+                <span>{{ state.descricao }}</span> |
+                <small>{{ state.amparo }}</small>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <br>
+        </form>
         <mat-form-field appearance="outline">
           <mat-label>Observação:</mat-label>
           <textarea matInput placeholder="Ex.: It makes me feel..."></textarea>

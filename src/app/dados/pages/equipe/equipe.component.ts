@@ -26,9 +26,12 @@ export class EquipeComponent implements OnInit {
     nomeequipe: new FormControl('', Validators.required),
     id_agentes: new FormControl('', Validators.required)
   })
-  items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
-
-  basket = ['Oranges', 'Bananas', 'Cucumbers'];
+  // items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
+  // basket = ['Oranges', 'Bananas', 'Cucumbers'];
+  equipe01!: string[];
+  equipe02!: string[];
+  equipe03!: string[];
+  equipe04!: string[];
 
   constructor(private equipeService: EquipeService,
               private agenteService: AgenteService,
@@ -37,6 +40,10 @@ export class EquipeComponent implements OnInit {
   ngOnInit() {
     this.buscarEquipes();
     this.listarAgentes();
+    this.equipe01 = this.separarAgentesPorEquipe(this.equipes[0]);
+    this.equipe02 = this.separarAgentesPorEquipe(this.equipes[1]);
+    this.equipe03 = this.separarAgentesPorEquipe(this.equipes[2]);
+    this.equipe04 = this.separarAgentesPorEquipe(this.equipes[3]);
 
 
   }
@@ -44,9 +51,9 @@ export class EquipeComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      // console.log(event.container.data)
-      // console.log(event.previousContainer.data)
-      // this.separarAgentesPorEquipe();
+      console.log(event.container.data)
+      console.log(event.previousContainer.data)
+      console.log(event.currentIndex)
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -54,9 +61,9 @@ export class EquipeComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
-      // this.separarAgentesPorEquipe();
-    //   console.log(event.container.data)
-    //   console.log(event.previousContainer.data)
+      console.log(event.container.data)
+      console.log(event.previousContainer.data)
+      console.log(event.currentIndex)
     }
   }
 
@@ -107,17 +114,22 @@ export class EquipeComponent implements OnInit {
     })
   }
 
-  // listarAgentesDaEquipe(equipe: EquipeResponse) {
-  //   this.agentes.filter((a) => {
-  //     a.equipe_id === equipe.id ? this.agentesDaEquipeRetornado.push(a) : null
+  // teste() {
+  //   this.equipes.forEach((e) => {
+
   //   })
   // }
 
   separarAgentesPorEquipe(equipe: EquipeResponse) {
-    const ag = this.agentes.filter((a) => a.equipe_id === equipe.id)
+    const ag = this.agentes.filter((a) => a.equipe_id === equipe.id);
     const nomesDosAgentes: string[] = ag.map(agente => agente.nome);
     return nomesDosAgentes;
     // console.log(nomesDosAgentes);
+  }
+
+  enviarAgentesSemEquipe() {
+    const agentesSemEquipe: string[] = this.agentesSemEquipe.map(ag => ag.nome);
+    return agentesSemEquipe;
   }
 
   selecionarAgenteParaEquipe(agente: AgenteUser) {

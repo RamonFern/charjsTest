@@ -8,6 +8,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from "@angular/material/divider";
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MatDividerModule } from "@angular/material/divider";
     ReactiveFormsModule,
     MatTableModule,
     MatDividerModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatInputModule,
     MatIconModule

@@ -2,10 +2,19 @@
   <form [formGroup]="formPlaca"  class="main-form">
     <mat-form-field appearance="outline">
       <mat-label>Placa</mat-label>
+      <!-- <input
+                matInput
+                formControlName="numeroTelefone"
+                minlength="9"
+                maxlength="11"
+                [dropSpecialCharacters]="false"
+                mask="0000-0000||00000-0000"
+                required
+            /> -->
       <input matInput type="text" formControlName="placa" name="placa" required placeholder="PTG-1234 OU PTG-1B34">
     </mat-form-field>
     <div class="button">
-      <button (click)="buscarInformacao()" color="primary">Pesquisar</button>
+      <button mat-stroked-button color="primary" (click)="buscarInformacao()">Pesquisar</button>
     </div>
   </form>
 </div>
@@ -41,7 +50,7 @@
     <span>{{ dadosVeiculo.api_limit_used }}</span>
   </div>
 </div>
-<div class="dados__veiculo-campo" *ngIf="dadosVeiculo.response.logo">
+<div class="dados__veiculo-campo" *ngIf="dadosVeiculo?.response.logo">
   <img class="img" src="{{ dadosVeiculo.response.logo }}" alt="imagem logo marca">
 </div>
 
