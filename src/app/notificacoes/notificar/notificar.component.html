@@ -15,89 +15,137 @@
             </span>
           </mat-icon>
         </button>
-        <mat-form-field appearance="outline">
-          <mat-label>Digite a placa:</mat-label>
-          <input matInput placeholder="PDE-2D34 OU SDF-3344">
-          <mat-icon matSuffix>car_crash</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Marca / Modelo:</mat-label>
-          <input matInput placeholder="HONDA CIVIC">
-          <mat-icon matSuffix>emoji_transportation</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Espécie:</mat-label>
-          <input matInput placeholder="PASSAGEIRO">
-          <mat-icon matSuffix>emoji_transportation</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Local da infração:</mat-label>
-        <input matInput placeholder="AVENIDA JOÃO XXIII">
-        <mat-icon matSuffix>pin_drop</mat-icon>
-        </mat-form-field>
+        <form [formGroup]="formPlaca" class="form__input">
+          <button mat-stroked-button class="button">
+            <mat-icon>car_crash</mat-icon>
+          </button>
+            <mat-form-field appearance="outline" class="input">
+              <mat-label>Digite a placa:</mat-label>
+              <input matInput type="text" formControlName="placa" name="placa" required placeholder="PTG-1234 OU PTG-1B34">
+            </mat-form-field>
+          <button mat-stroked-button class="button" (click)="buscarInformacao()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </form>
+        <form [formGroup]="formMarcaModeloEsp">
+          <div class="form__input">
+            <button mat-stroked-button class="button">
+              <mat-icon>emoji_transportation</mat-icon>
+            </button>
+            <mat-form-field appearance="outline" class="input">
+              <mat-label>Marca / Modelo / Cor:</mat-label>
+              <input matInput type="text" formControlName="marcaModelo" name="marcaModelo" required placeholder="HONDA CIVIC">
+            </mat-form-field>
+            <button mat-stroked-button class="button">
+              <mat-icon>emoji_transportation</mat-icon>
+            </button>
+          </div>
 
-        <!-- <form [formGroup]="stateForm">
-          <mat-form-field appearance="outline" class="form__enquad">
-            <mat-label>Selecione o enquadramento:</mat-label>
-            <input type="text"
-                    matInput
-                    formControlName="stateGroup"
-                    required
-                    [matAutocomplete]="autoGroup"
-            >
-              <mat-autocomplete #autoGroup="matAutocomplete">
-                <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-                  <mat-option *ngFor="let name of group.names" [value]="name">
-                    {{name}}
-                  </mat-option>
-              </mat-optgroup>
-            </mat-autocomplete>
+          <div class="form__input">
+            <button mat-stroked-button class="button">
+              <mat-icon>emoji_transportation</mat-icon>
+            </button>
+            <mat-form-field appearance="outline" class="input">
+              <mat-label>Espécie:</mat-label>
+              <input matInput type="text" formControlName="especie" name="especie" required placeholder="PASSAGEIRO">
+            </mat-form-field>
+            <button mat-stroked-button class="button">
+              <mat-icon>emoji_transportation</mat-icon>
+            </button>
+          </div>
+        </form>
+
+        <div class="form__input">
+          <button mat-stroked-button class="button">
+            <mat-icon>pin_drop</mat-icon>
+          </button>
+          <mat-form-field appearance="outline" class="input">
+            <mat-label>Local da infração:</mat-label>
+            <input matInput placeholder="AVENIDA JOÃO XXIII">
           </mat-form-field>
-        </form> -->
-        <form>
+          <button mat-stroked-button class="button">
+            <mat-icon>pin_drop</mat-icon>
+          </button>
+        </div>
+
+
+        <form class="form__input">
           <mat-form-field appearance="outline" class="form__enquad">
             <mat-label>Selecione o enquadramento:</mat-label>
             <input matInput
                   aria-label="State"
                   [matAutocomplete]="auto"
                   [formControl]="codCtrl">
+            <mat-icon matSuffix>expand_more</mat-icon>
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let enquadramento of filteredCods | async" [value]="enquadramento.descricao">
-                <small>{{ enquadramento.cod }}</small> |
-                <span>{{ enquadramento.descricao }}</span> |
+              <mat-option *ngFor="let enquadramento of filteredCods | async" [value]="enquadramento.codDescricao">
+                <small>{{ enquadramento.codDescricao }}</small> |
                 <small>{{ enquadramento.amparo }}</small>
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <br>
         </form>
         <mat-form-field appearance="outline">
           <mat-label>Observação:</mat-label>
           <textarea matInput placeholder="Ex.: It makes me feel..."></textarea>
           <mat-icon matSuffix>receipt</mat-icon>
         </mat-form-field>
-        <mat-form-field appearance="outline">
-        <mat-label>Medida administrativa:</mat-label>
-        <input matInput placeholder="VEICULO REMOVIDO">
-        <mat-icon matSuffix>local_police</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Data:</mat-label>
-          <input matInput placeholder="12/10/2023">
-          <mat-icon matSuffix>event</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Hora:</mat-label>
-          <input matInput placeholder="10:12">
-          <mat-icon matSuffix>alarm</mat-icon>
-        </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Houve abordagem:</mat-label>
-          <input matInput placeholder="SIM">
-          <mat-icon matSuffix>do_not_disturb_on</mat-icon>
-        </mat-form-field>
-        <button mat-raised-button color="primary">
+        <div class="form__input">
+          <button mat-stroked-button class="button">
+            <mat-icon>
+                local_police
+            </mat-icon>
+          </button>
+          <mat-form-field appearance="outline" class="input">
+            <mat-label>Medida administrativa:</mat-label>
+            <input matInput placeholder="VEICULO REMOVIDO">
+          </mat-form-field>
+          <button mat-stroked-button class="button">
+            <mat-icon>local_police</mat-icon>
+          </button>
+        </div>
+
+        <div class="form__input">
+          <button mat-stroked-button class="button">
+            <mat-icon>event</mat-icon>
+          </button>
+          <mat-form-field appearance="outline" class="input">
+            <mat-label>Data:</mat-label>
+            <input matInput placeholder="12/10/2023">
+          </mat-form-field>
+          <button mat-stroked-button class="button">
+            <mat-icon>event</mat-icon>
+          </button>
+        </div>
+
+        <div class="form__input">
+          <button mat-stroked-button class="button">
+            <mat-icon>alarm</mat-icon>
+          </button>
+          <mat-form-field appearance="outline" class="input">
+            <mat-label>Hora:</mat-label>
+            <input matInput placeholder="10:12">
+          </mat-form-field>
+          <button mat-stroked-button class="button">
+            <mat-icon>alarm</mat-icon>
+          </button>
+        </div>
+
+        <div class="form__input">
+          <button mat-stroked-button class="button">
+            <mat-icon>do_not_disturb_on</mat-icon>
+          </button>
+          <mat-form-field appearance="outline" class="input">
+            <mat-label>Houve abordagem:</mat-label>
+            <input matInput placeholder="SIM">
+          </mat-form-field>
+          <button mat-stroked-button class="button">
+            <mat-icon>do_not_disturb_on</mat-icon>
+          </button>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="pdfRead()">
           ENVIAR
         </button>
       </div>
