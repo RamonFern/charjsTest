@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from "@angular/material/divider";
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CommonModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     MatDividerModule,
     MatAutocompleteModule,
     MatButtonModule,
