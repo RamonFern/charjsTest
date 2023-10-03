@@ -209,7 +209,58 @@
       </div>
     </mat-step>
 
-    <mat-step label="Step 4" state="chat">
+    <mat-step label="Step 4" state="phone">
+      <div class="form__permulta">
+        <h2>Houve Faltas</h2>
+
+          <mat-radio-group [(ngModel)]="escolha3" (change)="ouveFaltas()">
+            <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
+            <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
+          </mat-radio-group>
+
+          <div class="reforco" *ngIf="escolha3 === 'sim'">
+            <h3>Selecione o agente que faltou</h3>
+            <div class="agente__reforco">
+              <mat-form-field appearance="outline">
+                <mat-label>Agente</mat-label>
+                <mat-select required>
+                  <mat-option>--</mat-option>
+                  <mat-option *ngFor="let agente of agentesDaEquipe" [value]="agente" (click)="selecionarAgenteQueFaltou(agente)">
+                    {{ agente.nome }}
+                  </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+                <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+              </mat-form-field>
+
+              <button mat-fab color="primary" class="add-btn" (click)="addAosAgentesFalta()" matTooltip="Adicionar agentes que faltaram.">
+                <mat-icon>add</mat-icon>
+              </button>
+            <div>
+          </div>
+        </div>
+
+        <mat-chip-list *ngIf="agentesFaltosos.length" >
+          <div class="chip__list">
+            <mat-chip *ngFor="let itemSel of agentesFaltosos">
+              <img matChipAvatar src="/assets/images/avatarNull.png" alt="Avatar agente"/>
+              {{ itemSel.nome }}
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </div>
+
+      <div class="divider">
+        <mat-divider></mat-divider>
+      </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+      </div>
+    </mat-step>
+
+    <mat-step label="Step 5" state="chat">
       <h2>Houve alteração</h2>
       <mat-radio-group [(ngModel)]="alteracaoEscolha" aria-label="Select an option" color="primary" class="radio">
         <mat-radio-button *ngFor="let item of alteracao" [value]="item">{{ item }}</mat-radio-button>
@@ -277,7 +328,7 @@
       </div>
     </mat-step>
 
-    <mat-step label="Step 5">
+    <mat-step label="Step 6">
       <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
       <div class="step5">
         <div class="relatorio">
@@ -318,6 +369,15 @@
               <span>REFORÇO:</span>
               <div class="equipe__reforco">
                 <span *ngFor="let item of agentesDeFolgaParaReforco">
+                  {{ item.nome }},
+                </span>
+              </div>
+            </ng-container>
+
+             <ng-container *ngIf="agentesFaltosos.length">
+              <span>FALTAS:</span>
+              <div class="equipe__reforco">
+                <span *ngFor="let item of agentesFaltosos">
                   {{ item.nome }},
                 </span>
               </div>

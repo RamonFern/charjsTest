@@ -38,16 +38,21 @@ export class EnderecoComponent implements OnInit {
   agentesDeFolgaEscolhidoParaPermulta2: AgenteUser[] = [];
   agentesDeFolgaParaReforco: AgenteUser[] = [];
   agentesDeFolgaParaReforco2: AgenteUser[] = [];
+  agentesFaltosos: AgenteUser[] = [];
+  agentesFaltosos2: AgenteUser[] = [];
   agenteDeFolga!: AgenteUser;
   agenteParaPermulta!: AgenteUser;
   agenteEscolhidoParaReforco!: AgenteUser;
+  agenteQueFaltou!: AgenteUser;
   escolha!: string
   escolha2!: string;
+  escolha3!: string;
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
 
   alteracao: string[] = ['sim', 'não'];
+  faltas: string[] = ['sim', 'não'];
   alteracaoEscolha!: string;
   permulta: string[] = ['sim', 'nao'];
   dataForm = new FormGroup({
@@ -181,9 +186,18 @@ export class EnderecoComponent implements OnInit {
     this.agenteEscolhidoParaReforco = agente;
   }
 
+  selecionarAgenteQueFaltou(agente: AgenteUser) {
+    this.agenteQueFaltou = agente;
+  }
+
   addAgenteReforco() {
     this.agentesDeFolgaParaReforco.push(this.agenteEscolhidoParaReforco);
     this.agentesDeFolgaParaReforco2.push(this.agenteEscolhidoParaReforco);
+  }
+
+  addAosAgentesFalta() {
+    this.agentesFaltosos.push(this.agenteQueFaltou);
+    this.agentesFaltosos2.push(this.agenteQueFaltou);
   }
 
   removerAgenteReforco() {
@@ -204,6 +218,11 @@ export class EnderecoComponent implements OnInit {
   ouveReforco() {
     this.agentesDeFolga2 = this.agentesDeFolga.filter( a => !this.agentesDeFolgaEscolhidoParaPermulta2.includes( a ));
     this.escolha2 === "sim" ? null : this.removerAgenteReforco();
+  }
+
+  ouveFaltas() {
+    this.agentesFaltosos2 = this.agentesFaltosos.filter( a => !this.agentesDaEquipe.includes( a ));
+    this.escolha3 === "sim" ? null : this.removerAgenteReforco();
   }
 
   listarEquipes() {
@@ -228,6 +247,7 @@ export class EnderecoComponent implements OnInit {
     const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
     const agentesDeFolgaEscolhidoParaPermulta = this.agentesDeFolgaEscolhidoParaPermulta2.map((a) => a.nome).join(", ");
     const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
+    const agentesQueFaltaram = this.agentesFaltosos.map((a) => a.nome).join(", ");
 
     const dataAtual = moment();
     const request: RelatorioRequest = {
@@ -239,17 +259,20 @@ export class EnderecoComponent implements OnInit {
       agentesparapermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
       agentedefolgaparapermultar: agentesDeFolgaEscolhidoParaPermulta ? agentesDeFolgaEscolhidoParaPermulta : "sem permulta",
       agentesparareforco: agentesDeFolgaParaReforco ? agentesDeFolgaParaReforco : "sem reforço",
+      agentesfaltoso: agentesQueFaltaram ? agentesQueFaltaram : "sem faltas",
       alteracao: this.alteracaoEscolha ? "não" : "sim" ,
       texto1: this.text1,
       texto2: this.text2 ? this.text2 : " ",
       texto3: this.text3 ? this.text3 : " ",
     }
 
+    console.log(request);
+
     this.relatorioService.salvarRelatorio(request)
         .pipe(take(1))
         .subscribe((rel) => {
-          this.voltarListagemRelatorio();
           this.buscarRelatorios();
+          this.voltarListagemRelatorio();
           this.limpar();
         })
   }
@@ -263,6 +286,9 @@ export class EnderecoComponent implements OnInit {
     this.equipeSelecionada.nomeequipe = '';
     this.agentesDeFolgaEscolhidoParaPermulta = [];
     this.agentesDeFolgaEscolhidoParaPermulta2 = [];
+    this.agentesFaltosos = [];
+    this.agentesFaltosos2 = [];
+    this.escolha3 = '';
     this.agentesDeFolgaParaReforco = [];
     this.escolha2 = '';
     this.agentesDaEquipeParaSalvar = [];

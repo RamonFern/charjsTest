@@ -7,6 +7,7 @@ export interface RelatorioRequest {
   agentesparapermultar: string
   agentedefolgaparapermultar: string
   agentesparareforco: string
+  agentesfaltoso: string
   alteracao: string
   texto1: string
   texto2: string
