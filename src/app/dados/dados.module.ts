@@ -24,12 +24,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { CriarEditarEquipeComponent } from './pages/equipe/dialogs/criar-editar-equipe/criar-editar-equipe.component';
+import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/NovoRelatorio.component';
 
 @NgModule({
   declarations: [
     ContatoComponent,
     EnderecoComponent,
     EquipeComponent,
+    NovoRelatorioComponent,
     CardEquipeComponent,
     CriarEditarEquipeComponent
     // NoResultsComponent
