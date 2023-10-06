@@ -24,6 +24,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { CriarEditarEquipeComponent } from './pages/equipe/dialogs/criar-editar-equipe/criar-editar-equipe.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/NovoRelatorio.component';
 
 @NgModule({
@@ -34,13 +35,14 @@ import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/N
     NovoRelatorioComponent,
     CardEquipeComponent,
     CriarEditarEquipeComponent
-    // NoResultsComponent
+
   ],
   imports: [
     CommonModule,
     MatStepperModule,
     MatIconModule,
     MatFormFieldModule,
+    ScrollingModule,
     HttpClientModule,
     DragDropModule,
     MatInputModule,

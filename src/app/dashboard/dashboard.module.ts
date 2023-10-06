@@ -16,37 +16,36 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { NoResultsComponent } from "../layout/components/no-results/no-results.component";
 import { EstacionamentoComponent } from './dialogs/estacionamento/estacionamento.component';
 import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    CriarEscalaComponent,
-    DiaComponent,
-    EquipePlantaoComponent,
-    NoResultsComponent,
-    EstacionamentoComponent
-  ],
-  providers: [],
-  imports: [
-    BrowserModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatTooltipModule,
-    MatInputModule,
-    MatSelectModule,
-    ScrollingModule,
-    MatDatepickerModule,
-    MatOptionModule,
-    MatButtonModule,
-  ]
+    declarations: [
+        DashboardComponent,
+        CriarEscalaComponent,
+        DiaComponent,
+        EquipePlantaoComponent,
+        EstacionamentoComponent
+    ],
+    providers: [],
+    imports: [
+        BrowserModule,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatSelectModule,
+        ScrollingModule,
+        MatDatepickerModule,
+        MatOptionModule,
+        MatButtonModule,
+        // AppModule
+    ]
 })
 
 export class DashboardModule {}

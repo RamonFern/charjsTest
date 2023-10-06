@@ -3,9 +3,9 @@ import { AgenteUser } from './../../../models/AgenteUser';
 import { AgenteService } from './../../../services/agente.service';
 import { EquipeResponse } from './../../../models/EquipeRequest';
 import { Component, Input, OnInit } from '@angular/core';
-import { DialogReturn } from '../dialog-return';
 import { MatDialog } from '@angular/material/dialog';
 import { CriarEditarEquipeComponent } from 'src/app/dados/pages/equipe/dialogs/criar-editar-equipe/criar-editar-equipe.component';
+import { DialogReturn } from 'src/app/models/dialog-return';
 
 
 @Component({

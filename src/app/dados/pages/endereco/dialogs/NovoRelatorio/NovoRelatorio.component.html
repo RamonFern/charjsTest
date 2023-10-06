@@ -1,3 +1,4 @@
+<cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
 <mat-stepper #stepper>
   <mat-step label="Step 1" state="phone">
     <div>
@@ -331,70 +332,73 @@
     <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
     <div class="step5">
       <div class="relatorio">
-        <header class="relatorio__header">
-          <span>**************ESTADO DO MARANHÃO******************</span>
-          <span>**********PREFEITURA MUNICIPAL DE ROSÁRIO*********</span>
-          <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
-        </header>
-        <main class="relatorio__main" id="content" #content>
-          <span>RELATÓRIO DO DIA {{ dataRelatorio }}</span>
-          <span>HOUVE ALTERAÇÃO</span>
-          <span>{{ alteracaoEscolha }}</span> <!--CORRIGIR AQUI -->
-          <span>NOME DA EQUIPE:</span>
-          <span>{{ equipeSelecionada?.nomeequipe }}</span>
-          <span>INSPETOR:</span>
-          <div class="equipe__insp">
-            <span>JOAQUIM MARTINS DA SILVA</span>
-            <!-- <span *ngFor="let item of agentesDaEquipeParaSalvar">{{ item.funcao === "INSPETOR" ? item.nome : null }}</span> -->
-          </div>
-          <span>AGENTES:</span>
-          <div class="equipe__rel" *ngFor="let agente of agentesDaEquipeParaSalvar">
-            <span>{{ agente.nome }}, </span>
-          </div>
-          <ng-container *ngIf="agentesParaPermulta.length">
-            <span>PERMULTAS:</span>
-            <div class="equipe__per">
-              <div class="equipe__agentes-permulta">
-                <span *ngFor="let agente of agentesParaPermulta">{{ agente.nome }}, </span>
+
+
+          <header class="relatorio__header">
+            <span>**************ESTADO DO MARANHÃO******************</span>
+            <span>**********PREFEITURA MUNICIPAL DE ROSÁRIO*********</span>
+            <span>DEPARTAMENTO MUNICIPAL DE TRÂNSITO E TRANSPORTE</span>
+          </header>
+          <main class="relatorio__main" id="content" #content>
+            <span>RELATÓRIO DO DIA {{ dataRelatorio }}</span>
+            <span>HOUVE ALTERAÇÃO</span>
+            <span>{{ alteracaoEscolha }}</span> <!--CORRIGIR AQUI -->
+            <span>NOME DA EQUIPE:</span>
+            <span>{{ equipeSelecionada?.nomeequipe }}</span>
+            <span>INSPETOR:</span>
+            <div class="equipe__insp">
+              <span>JOAQUIM MARTINS DA SILVA</span>
+              <!-- <span *ngFor="let item of agentesDaEquipeParaSalvar">{{ item.funcao === "INSPETOR" ? item.nome : null }}</span> -->
+            </div>
+            <span>AGENTES:</span>
+            <div class="equipe__rel" *ngFor="let agente of agentesDaEquipeParaSalvar">
+              <span>{{ agente.nome }}, </span>
+            </div>
+            <ng-container *ngIf="agentesParaPermulta.length">
+              <span>PERMULTAS:</span>
+              <div class="equipe__per">
+                <div class="equipe__agentes-permulta">
+                  <span *ngFor="let agente of agentesParaPermulta">{{ agente.nome }}, </span>
+                </div>
+                <span> PERMULTA COM </span>
+                <div class="equipe__agentes-permulta">
+                  <span *ngFor="let agenteFolga of agentesDeFolgaEscolhidoParaPermulta2">{{ agenteFolga.nome }}, </span>
+                </div>
               </div>
-              <span> PERMULTA COM </span>
-              <div class="equipe__agentes-permulta">
-                <span *ngFor="let agenteFolga of agentesDeFolgaEscolhidoParaPermulta2">{{ agenteFolga.nome }}, </span>
+            </ng-container>
+
+            <ng-container *ngIf="agentesDeFolgaParaReforco.length">
+              <span>REFORÇO:</span>
+              <div class="equipe__reforco">
+                <span *ngFor="let item of agentesDeFolgaParaReforco">
+                  {{ item.nome }},
+                </span>
+              </div>
+            </ng-container>
+
+             <ng-container *ngIf="agentesFaltosos.length">
+              <span>FALTAS:</span>
+              <div class="equipe__reforco">
+                <span *ngFor="let item of agentesFaltosos">
+                  {{ item.nome }},
+                </span>
+              </div>
+            </ng-container>
+
+            <div class="relatorio__principal">
+              <p>{{ text1 }}</p>
+              <p>{{ text2 }}</p>
+              <p>{{ text3 }}</p>
+
+              <div class="assinatura">
+                <p> Assinatura: </p>
+                <p>Marcio dos Santos </p>
+                <p>Agente de Trânsito</p>
               </div>
             </div>
-          </ng-container>
+          </main>
+          <button mat-raised-button (click)="stepper.reset()" color="primary" (click)="salvarRelatorio()">Salvar</button>
 
-          <ng-container *ngIf="agentesDeFolgaParaReforco.length">
-            <span>REFORÇO:</span>
-            <div class="equipe__reforco">
-              <span *ngFor="let item of agentesDeFolgaParaReforco">
-                {{ item.nome }},
-              </span>
-            </div>
-          </ng-container>
-
-           <ng-container *ngIf="agentesFaltosos.length">
-            <span>FALTAS:</span>
-            <div class="equipe__reforco">
-              <span *ngFor="let item of agentesFaltosos">
-                {{ item.nome }},
-              </span>
-            </div>
-          </ng-container>
-
-          <div class="relatorio__principal">
-            <p>{{ text1 }}</p>
-            <p>{{ text2 }}</p>
-            <p>{{ text3 }}</p>
-
-            <div class="assinatura">
-              <p> Assinatura: </p>
-              <p>Marcio dos Santos </p>
-              <p>Agente de Trânsito</p>
-            </div>
-          </div>
-        </main>
-        <button mat-raised-button (click)="stepper.reset()" color="primary" (click)="salvarRelatorio()">Salvar</button>
       </div>
     </div>
   </mat-step>
@@ -407,3 +411,4 @@
     <mat-icon>forum</mat-icon>
   </ng-template>
 </mat-stepper>
+</cdk-virtual-scroll-viewport>

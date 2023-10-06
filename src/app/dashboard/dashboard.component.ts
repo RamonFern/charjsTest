@@ -4,9 +4,10 @@ import { take } from 'rxjs';
 import { EscalaServicoResponse } from '../models/escala-servico';
 import { MatDialog } from '@angular/material/dialog';
 import { CriarEscalaComponent } from './dialogs/criar-escala/criar-escala.component';
-import { DialogReturn } from '../layout/components/dialog-return';
+
 
 import * as moment from 'moment';
+import { DialogReturn } from '../models/dialog-return';
 
 @Component({
   selector: 'app-dashboard',

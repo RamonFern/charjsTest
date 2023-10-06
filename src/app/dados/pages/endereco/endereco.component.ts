@@ -1,19 +1,12 @@
-import { EquipeResponse } from 'src/app/models/EquipeRequest';
-import { EquipeService } from './../../../services/equipe.service';
-import { AgenteUser } from './../../../models/AgenteUser';
-import { AgenteService } from './../../../services/agente.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { take } from 'rxjs';
-import * as moment from 'moment';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { RelatorioRequest } from 'src/app/models/relatorio-request';
 import { RelatorioService } from 'src/app/services/relatorio.service';
-import { jsPDF } from 'jspdf';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogReturn } from 'src/app/layout/components/dialog-return';
 import { NovoRelatorioComponent } from './dialogs/NovoRelatorio/NovoRelatorio.component';
+import { DialogReturn } from 'src/app/models/dialog-return';
 
 
 @Component({
@@ -45,13 +38,13 @@ export class EnderecoComponent implements OnInit {
 
   novoRelatorio() {
     const dialogRef = this.dialog.open(NovoRelatorioComponent, {
-            width: '950px',
+            width: '1250px',
             // data: { equipe: this.equipe, agentes: this.agentesDaEquipe }
           });
 
           dialogRef.afterClosed().subscribe((result: DialogReturn) => {
             if (result?.hasDataChanged) {
-              // this.buscarTodasEscalasServicos();
+              this.buscarRelatorios();
             }
         });
   }

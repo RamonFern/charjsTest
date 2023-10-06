@@ -6,10 +6,10 @@ import { EquipeService } from 'src/app/services/equipe.service';
 import { EscalaServicoService } from 'src/app/services/escala-servico.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DialogReturn } from 'src/app/layout/components/dialog-return';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import * as moment from 'moment';
+import { DialogReturn } from 'src/app/models/dialog-return';
 
 
 @Component({
@@ -75,11 +75,6 @@ export class CriarEscalaComponent implements OnInit {
         })
   }
 
-  // removerObjeto(objeto: any) {
-  //   const index = this.equipes.indexOf(objeto);
-  //   if (index !== -1) {
-  //     this.equipes.splice(index, 1);
-  //   }
-  // }
+
 
 }

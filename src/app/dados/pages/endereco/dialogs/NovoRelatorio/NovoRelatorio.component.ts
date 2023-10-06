@@ -1,12 +1,15 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import jsPDF from 'jspdf';
 import * as moment from 'moment';
 import { take } from 'rxjs';
 import { AgenteUser } from 'src/app/models/AgenteUser';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
+import { DialogReturn } from 'src/app/models/dialog-return';
 import { RelatorioRequest } from 'src/app/models/relatorio-request';
 import { AgenteService } from 'src/app/services/agente.service';
 import { EquipeService } from 'src/app/services/equipe.service';
@@ -23,6 +26,7 @@ import { RelatorioService } from 'src/app/services/relatorio.service';
     },
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NovoRelatorioComponent implements OnInit {
   @ViewChild('content', {static: false}) el!: ElementRef;
@@ -72,6 +76,8 @@ export class NovoRelatorioComponent implements OnInit {
   dataRelatorio!: string
 
   constructor(private agenteService: AgenteService,
+              public dialogRef: MatDialogRef<NovoRelatorioComponent>,
+              private notification: MatSnackBar,
               private equipeService: EquipeService,
               private relatorioService: RelatorioService) { }
 
@@ -259,10 +265,20 @@ export class NovoRelatorioComponent implements OnInit {
           // this.buscarRelatorios();
           //this.voltarListagemRelatorio();
           this.limpar();
+          const dialogReturn: DialogReturn = { hasDataChanged: true };
+          this.dialogRef.close(dialogReturn);
+          this.notification.open('Relatório Criado', 'Sucesso', { duration: 3000 });
         })
   }
 
   criarPDF() {
+    // var pdf = new jsPDF();
+
+    // pdf.fromHTML($("#content").html(),15,15, {
+    //   "width": 170,
+    //   "elementHandlers": specialElementHandlers
+    // });
+
     let pdf = new jsPDF('p','pt','a4');
     pdf.html(this.el.nativeElement, {
       callback: (pdf) => {

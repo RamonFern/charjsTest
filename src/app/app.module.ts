@@ -24,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificacoesModule } from './notificacoes/notificacoes.module';
 import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.module';
+import { NoResultsComponent } from './layout/components/no-results/no-results.component';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.m
         AppComponent,
         LayoutComponent,
         MenuComponent,
-        // NoResultsComponent
+        NoResultsComponent
         // DashboardComponent,
         // DiaComponent,
         // EquipePlantaoComponent
@@ -57,6 +58,7 @@ import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.m
       NotificacoesModule,
       NotificacoesRoutingModule
     ],
+    exports: [ NoResultsComponent ]
 
 })
 export class AppModule { }
