@@ -1,0 +1,21 @@
+.agentes {
+  display: flex;
+  justify-content: space-around;
+}
+
+.xis {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.li-list {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  width: 50%;
+}
+
+.escalas {
+  display: flex;
+  flex-direction: columns;
+}

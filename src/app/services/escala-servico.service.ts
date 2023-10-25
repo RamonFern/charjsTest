@@ -18,12 +18,8 @@ export class EscalaServicoService {
     return this.http.post<EscalaServicoResponse>(`http://localhost:8080/api/v2/escala-servico`, escalaRequest);
   }
 
-  // pesquisaVeiculo(placa: string) {
-  //   return this.http.get<any>(`https://cidadao.sinesp.gov.br/sinesp-cidadao/mobile/consultar-placa/v5/${placa}`);
-  // }
-  /**
-   *  criarEquipe(equipe: EquipeRequest) {
-      return this.http.post<EquipeResponse>('http://localhost:8080/api/v2/equipe', equipe);
-  }https://cidadao.sinesp.gov.br/sinesp-cidadao/mobile/consultar-placa/v5
-   */
+  buscarEscalaServicoDaEquipe(id: number) {
+    return this.http.get<EscalaServicoResponse[]>(`http://localhost:8080/api/v2/escala-servico/equipe/${id}`);
+  }
+
 }

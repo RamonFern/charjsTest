@@ -25,7 +25,7 @@ export class DiaComponent implements OnInit {
     this.diaSemana = dateDia.format('dddd');
     // console.log(dateDia.format('dd'))
     this.dataAtual = moment().format("DD/MM/YYYY");
-    this.dia.equipe_id ? this.id = this.dia.equipe_id : null;
+    this.dia.equipeid ? this.id = this.dia.equipeid : null;
     this.buscarEquipe();
   }
 

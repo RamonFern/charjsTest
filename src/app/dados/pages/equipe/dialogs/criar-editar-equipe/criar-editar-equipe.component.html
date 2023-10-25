@@ -12,12 +12,38 @@
     </form>
     <p><strong>Membros:</strong></p>
     <ul>
-      <li *ngFor="let membro of data.agentes">{{ membro.nome }}</li>
+      <li *ngFor="let membro of agentesDaEquipe" class="li-list">
+        {{ membro.nome }} <p *ngIf="loadEquipe" (click)="removerDaEquipe(membro)" class="xis">x</p>
+      </li>
     </ul>
-    <p><strong>Escala da equipe:</strong>  espaço destinado a mostrar a escala de serviço desta equipe
-    ou pelo menos as datas </p>
+    <div class="form__agentes" *ngIf="loadEquipe">
+      <p><strong>Selecione o agente que deseja adicionar a equipe:</strong></p>
+      <div class="agentes">
+        <mat-form-field appearance="outline">
+          <mat-label>Agentes</mat-label>
+          <mat-select required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let agente of agentes" [value]="agente" (click)="escolherAgente(agente)">
+              {{ agente.nome }}
+            </mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+            <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
+        </mat-form-field>
+        <button mat-fab color="primary" (click)="adicionarAEquipe()" matTooltip="Adicionar a equipe">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+    <p><strong>Escala da equipe:</strong></p>
+    <div class="escalas" *ngFor="let escala of escalasServico">
+      <span>{{ escala.data }}</span>
+    </div>
+
   </mat-card-content>
+  <div>
+    <button mat-button (click)="editarEquipe()" color="primary" *ngIf="!loadEquipe">Editar informações?</button>
+    <button mat-button (click)="salvarEquipe()" color="primary" *ngIf="loadEquipe">Atualizar informações da equipe</button>
+  </div>
 </mat-card>
-<button mat-button (click)="editarEquipe()" color="primary" *ngIf="!loadEquipe">Editar informações?</button>
-<button mat-button (click)="salvarEquipe()" color="primary" *ngIf="loadEquipe">Salvar</button>
 

@@ -46,7 +46,7 @@
     <app-card-equipe [equipe]="equipe"></app-card-equipe>
   </ng-container>
 </div>
-<!-- implementar editar equipes mudar agente de equipe -->
+
 
 <div cdkDropListGroup class="edit__equipe">
   <div class="container" *ngFor="let equipe of equipes">
@@ -62,7 +62,7 @@
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="agentesSemEquipe.length">
   <h2>Agentes sem equipe</h2>
 
   <div

@@ -55,8 +55,14 @@ export class DashboardComponent implements OnInit {
   }
 
   criarEscalaDeServico() {
-    const ultimaEscala = this.escalasResponse[this.escalasResponse.length - 1];
-    const ultimaData = ultimaEscala.data;
+    var ultimaEscala;
+    var ultimaData;
+    if(this.escalasResponse.length) {
+      ultimaEscala = this.escalasResponse[this.escalasResponse.length - 1];
+      ultimaData = ultimaEscala.data;
+    } else {
+      ultimaData = this.dataHora;
+    }
     const dialogRef = this.dialog.open(CriarEscalaComponent, {
       width: '550px',
       data: ultimaData,

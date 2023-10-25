@@ -27,7 +27,7 @@ export class CardEquipeComponent implements OnInit {
 
   editarEquipe() {
       const dialogRef = this.dialog.open(CriarEditarEquipeComponent, {
-        width: '550px',
+        width: '950px',
         data: { equipe: this.equipe, agentes: this.agentesDaEquipe }
       });
 

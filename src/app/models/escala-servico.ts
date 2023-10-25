@@ -1,10 +1,10 @@
 export interface EscalaServicoResponse {
   id: number
   data: string
-  equipe_id: number
+  equipeid: number
 }
 
 export interface EscalaServicoRequest {
   data: string
-  equipe_id: number
+  equipeid: number
 }

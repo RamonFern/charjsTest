@@ -30,7 +30,7 @@ export class EquipePlantaoComponent implements OnInit {
         .subscribe((a) => {
           this.agentes = a;
           this.agentes.filter((ag) => {
-            ag.equipe_id === this.escalaResponse.equipe_id ? this.agentesDePlantao.push(ag) : null
+            ag.equipe_id === this.escalaResponse.equipeid ? this.agentesDePlantao.push(ag) : null
           })
         })
   }

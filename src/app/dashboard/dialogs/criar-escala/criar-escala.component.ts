@@ -53,7 +53,7 @@ export class CriarEscalaComponent implements OnInit {
     } else {
       const request: EscalaServicoRequest = {
         data: this.escalaForm.controls['data'].value,
-        equipe_id: this.escalaForm.controls['equipe_id'].value,
+        equipeid: this.escalaForm.controls['equipe_id'].value,
       };
       this.escalaService.criarEscalaServico(request)
           .pipe(take(1))

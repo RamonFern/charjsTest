@@ -16,7 +16,6 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { EstacionamentoComponent } from './dialogs/estacionamento/estacionamento.component';
 import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
@@ -24,8 +23,7 @@ import { MatCardModule } from '@angular/material/card';
         DashboardComponent,
         CriarEscalaComponent,
         DiaComponent,
-        EquipePlantaoComponent,
-        EstacionamentoComponent
+        EquipePlantaoComponent
     ],
     providers: [],
     imports: [
