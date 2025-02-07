@@ -1,3 +1,4 @@
+import { EquipeService } from 'src/app/services/equipe.service';
 import { take } from 'rxjs';
 import { AgenteUser } from './../../../models/AgenteUser';
 import { AgenteService } from './../../../services/agente.service';
@@ -19,7 +20,7 @@ export class CardEquipeComponent implements OnInit {
 
   agentesDaEquipe: AgenteUser[] = [];
 
-  constructor(private agenteservice: AgenteService, public dialog: MatDialog) { }
+  constructor(private agenteservice: AgenteService, private equipeService: EquipeService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.buscarAgentesDaEquipe(this.equipe);
@@ -45,6 +46,15 @@ export class CardEquipeComponent implements OnInit {
           a.forEach((a) => {
             a.equipe_id === equipe.id ? this.agentesDaEquipe.push(a) : null
           })
+        })
+  }
+
+  excluirEquipe(id: number) {
+    this.equipeService
+        .excluirEquipe(id)
+        .pipe(take(1))
+        .subscribe((a) => {
+          console.log(a);
         })
   }
 

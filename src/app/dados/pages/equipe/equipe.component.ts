@@ -39,45 +39,25 @@ export class EquipeComponent implements OnInit {
 
   ngOnInit() {
     this.buscarEquipes();
+
     this.listarAgentes();
     this.equipe01 = this.separarAgentesPorEquipe(this.equipes[0]);
     this.equipe02 = this.separarAgentesPorEquipe(this.equipes[1]);
     this.equipe03 = this.separarAgentesPorEquipe(this.equipes[2]);
     this.equipe04 = this.separarAgentesPorEquipe(this.equipes[3]);
-
-
-  }
-
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log(event.container.data)
-      console.log(event.previousContainer.data)
-      console.log(event.currentIndex)
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-      console.log(event.container.data)
-      console.log(event.previousContainer.data)
-      console.log(event.currentIndex)
-    }
   }
 
   salvarEquipe() {
-    const request: EquipeRequest = {
-      nomeequipe: this.equipeForm.controls['nomeequipe'].value,
-    };
+  const request: EquipeRequest = {
+    nome: this.equipeForm.controls['nomeequipe'].value,
+  };
 
-    this.equipeService.criarEquipe(request)
-        .pipe(take(1))
-        .subscribe((equipe) => {
-          this.equipeCriada = equipe;
-          this.adicionarAgenteEmEquipe(this.equipeCriada);
-        })
+  this.equipeService.criarEquipe(request)
+    .pipe(take(1))
+    .subscribe((equipe) => {
+      this.equipeCriada = equipe;
+      this.adicionarAgenteEmEquipe(this.equipeCriada);
+    })
   }
 
   adicionarAgenteEmEquipe(equipe: EquipeResponse) {
@@ -99,10 +79,10 @@ export class EquipeComponent implements OnInit {
 
   atualizarAgente(agente: AgenteUser, id: number) {
     this.agenteService.atualizarAgente(agente, id)
-        .pipe(take(1))
-        .subscribe((ag) => {
-          ag = agente;
-        })
+      .pipe(take(1))
+      .subscribe((ag) => {
+        ag = agente;
+      })
   }
 
   listarAgentes() {
@@ -110,15 +90,11 @@ export class EquipeComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
-      this.agentesSemEquipe = ag.filter((a) => a.equipe_id === 0);
+      console.log(this.agentes);
+      this.agentesSemEquipe = ag.filter((a) => a.equipe_id === null);
+      console.log(this.agentesSemEquipe);
     })
   }
-
-  // teste() {
-  //   this.equipes.forEach((e) => {
-
-  //   })
-  // }
 
   separarAgentesPorEquipe(equipe: EquipeResponse) {
     const ag = this.agentes.filter((a) => a.equipe_id === equipe.id);
@@ -141,17 +117,41 @@ export class EquipeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.equipes = data
+          console.log(this.equipes);
         })
   }
 
   addAgente() {
     this.add = true;
-    this.agentesSemEquipe = this.agentes.filter((a) => a.equipe_id === 0);
+    this.agentesSemEquipe = this.agentes.filter((a) => a.equipe_id === null);
   }
 
   limparCampos() {
     this.equipeForm.reset();
     this.add = false;
   }
+
+
+  // drop(event: CdkDragDrop<string[]>) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //     console.log(event.container.data)
+  //     console.log(event.previousContainer.data)
+  //     console.log(event.currentIndex)
+  //   } else {
+  //     transferArrayItem(
+  //       event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex,
+  //     );
+  //     console.log(event.container.data)
+  //     console.log(event.previousContainer.data)
+  //     console.log(event.currentIndex)
+  //   }
+  // }
+
+
+
 
 }

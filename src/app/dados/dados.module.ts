@@ -52,6 +52,7 @@ import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/N
     MatCardModule,
     MatRadioModule,
     MatMenuModule,
+    MatDatepickerModule,
     MatExpansionModule,
     MatDatepickerModule,
     MatCheckboxModule,

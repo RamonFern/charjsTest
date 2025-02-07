@@ -25,5 +25,9 @@ export class EquipeService {
     return this.http.put<EquipeResponse>(`http://localhost:8080/api/v2/equipe/${id}`, equipe);
   }
 
+  excluirEquipe(equipeId: number) {
+    return this.http.delete(`http://localhost:8080/api/v2/equipe/${equipeId}`);
+  }
+
 
 }

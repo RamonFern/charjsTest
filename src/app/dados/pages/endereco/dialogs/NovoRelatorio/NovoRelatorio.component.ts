@@ -70,6 +70,12 @@ export class NovoRelatorioComponent implements OnInit {
     text3: new FormControl(''),
   })
 
+  employees = [
+    { name: 'João Silva', entryTime: new FormControl(''), exitTime: new FormControl('') },
+    { name: 'Maria Oliveira', entryTime: new FormControl(''), exitTime: new FormControl('') },
+    { name: 'Carlos Souza', entryTime: new FormControl(''), exitTime: new FormControl('') }
+  ];
+
   text1!: string;
   text2!: string;
   text3!: string;
@@ -92,10 +98,6 @@ export class NovoRelatorioComponent implements OnInit {
     this.text2 = this.textRelatorioForm.controls['text2'].value;
     this.text3 = this.textRelatorioForm.controls['text3'].value;
   }
-
-  // criarRelatorio() {
-  //   this.addRelatorio = true;
-  // }
 
   atualizaControlDeDatas() {
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
@@ -123,17 +125,23 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   adicionarEquipeAoRelatorio() {
-    this.agentes.filter((a) => {
-      a.equipe_id === this.equipeSelecionada.id ?
-        this.operacoes(a) :
-        this.agentesDeFolga.push(a);
-    });
+    console.log('oi');
+    this.equipeSelecionada.membros.forEach((a) => {
+      this.agentesDaEquipeParaSalvar.push(a)
+    })
+    // this.agentes.filter((a) => {
+    //   a.equipe_id === this.equipeSelecionada.id ?
+    //     this.operacoes(a) :
+    //     console.log('oi agentes de folga');
+    //     this.agentesDeFolga.push(a);
+    // });
   }
 
-  operacoes(a: AgenteUser) {
-    this.agentesDaEquipe.push(a);
-    this.agentesDaEquipeParaSalvar.push(a);
-  }
+  // operacoes(a: AgenteUser) {
+  //   console.log('oi operacoes');
+  //   this.agentesDaEquipe.push(a);
+  //   this.agentesDaEquipeParaSalvar.push(a);
+  // }
 
   selecionarPermulta(agenteParaPermulta: AgenteUser) {
     this.agenteParaPermulta = agenteParaPermulta;
@@ -243,7 +251,7 @@ export class NovoRelatorioComponent implements OnInit {
     const request: RelatorioRequest = {
       datadorelatorio: this.dataRelatorio,
       datadehoje: dataAtual.format("DD/MM/YYYY"),
-      nomeequipe: this.equipeSelecionada.nomeequipe,
+      nomeequipe: this.equipeSelecionada.nome,
       nomeinspetor: this.agentesDaEquipeParaSalvar[0].nome, ///CORRIGIR NOME INSPETOR
       agentesdaequipe: agentesDaEquipe,
       agentesparapermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
@@ -294,7 +302,7 @@ export class NovoRelatorioComponent implements OnInit {
     this.agentesDaEquipe = [];
     this.escolha = '';
     this.equipeSelecionada.id = 0;
-    this.equipeSelecionada.nomeequipe = '';
+    this.equipeSelecionada.nome = '';
     this.agentesDeFolgaEscolhidoParaPermulta = [];
     this.agentesDeFolgaEscolhidoParaPermulta2 = [];
     this.agentesFaltosos = [];

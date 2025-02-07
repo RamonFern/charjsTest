@@ -10,7 +10,7 @@ export class AgenteService {
   constructor(private http: HttpClient) { }
 
   listar() {
-    return this.http.get<AgenteUser[]>('http://localhost:8080/api/v2/agenteUser');
+    return this.http.get<AgenteUser[]>('http://localhost:8080/api/v2/agenteUser', {});
   }
 
   adicionar(agenteUser: AgenteUser) {
@@ -19,6 +19,14 @@ export class AgenteService {
 
   atualizarAgente(agenteUser: AgenteUser, id: number) {
     return this.http.put<AgenteUser>(`http://localhost:8080/api/v2/agenteUser/${id}`, agenteUser);
+  }
+
+  adicinarAgenteEmEquipe(idAgente: number, idEquipe: number) {
+    return this.http.put(`http://localhost:8080/api/v2/agenteUser/${idAgente}/adicionar-equipe/${idEquipe}`, {});
+  }
+
+  removerAgenteDaEquipe(idAgente: number) {
+    return this.http.put(`http://localhost:8080/api/v2/agenteUser/${idAgente}/remover-equipe`, {});
   }
 
 }

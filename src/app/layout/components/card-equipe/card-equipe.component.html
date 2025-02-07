@@ -2,7 +2,7 @@
   <div class="mat-ponto">
     <mat-card-header class="mat-card">
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title> {{ equipe.nomeequipe }} </mat-card-title>
+      <mat-card-title> {{ equipe.nome }} </mat-card-title>
     </mat-card-header>
     <div class="list__card-column list__card-column--action">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -13,7 +13,7 @@
           <mat-icon>visibility</mat-icon>
           <span>Ver detalhes</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="excluirEquipe(equipe.id)">
           <mat-icon>voicemail</mat-icon>
           <span>Deletar</span>
         </button>

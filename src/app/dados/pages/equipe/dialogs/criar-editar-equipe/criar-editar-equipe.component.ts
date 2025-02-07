@@ -36,9 +36,10 @@ export class CriarEditarEquipeComponent implements OnInit {
 
   ngOnInit() {
     this.equipeCarregada = this.data.equipe;
-    this.agentesDaEquipe = this.data.agentes;
+    this.agentesDaEquipe = this.data.equipe.membros;
+    console.log(this.agentesDaEquipe);
     this.buscarEscalasDaEquipe();
-    // console.log(this.data);
+    console.log(this.data);
   }
   buscarEscalasDaEquipe() {
     this.escalaService
@@ -46,7 +47,7 @@ export class CriarEditarEquipeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((escalas) => {
           this.escalasServico = escalas;
-          console.log(escalas)
+          //console.log(escalas)
         })
   }
 
@@ -75,10 +76,9 @@ export class CriarEditarEquipeComponent implements OnInit {
     })
   }
 
-
   editarEquipe() {
     this.buscarAgentes();
-    this.equipeForm.controls['nome'].setValue(this.data.equipe.nomeequipe);
+    this.equipeForm.controls['nome'].setValue(this.data.equipe.nome);
     this.loadEquipe = !this.loadEquipe;
   }
 
@@ -91,7 +91,7 @@ export class CriarEditarEquipeComponent implements OnInit {
 
   salvarEquipe() {
     const request: EquipeRequest = {
-      nomeequipe: this.equipeForm.controls['nome'].value,
+      nome: this.equipeForm.controls['nome'].value,
     }
     this.loadEquipe = !this.loadEquipe;
     this.equipeService
@@ -114,9 +114,24 @@ export class CriarEditarEquipeComponent implements OnInit {
 
   atualizaAgenteNaEquipe(agente: AgenteUser, id: number) {
     this.agenteService
-        .atualizarAgente(agente, id)
+        .adicinarAgenteEmEquipe(agente.id, id)
+        .pipe(take(1))
+        .subscribe((a) => console.log(a)
+      )
+  }
+
+  removerAgenteDeEquipe(agenteId: number) {
+    this.agenteService
+        .removerAgenteDaEquipe(agenteId)
         .pipe(take(1))
         .subscribe((a) => console.log(a))
   }
+
+  // atualizaAgenteNaEquipe(agente: AgenteUser, id: number) {
+  //   this.agenteService
+  //       .atualizarAgente(agente, id)
+  //       .pipe(take(1))
+  //       .subscribe((a) => console.log(a))
+  // }
 }
 

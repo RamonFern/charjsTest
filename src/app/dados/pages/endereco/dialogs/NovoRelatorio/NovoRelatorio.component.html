@@ -25,7 +25,7 @@
           <mat-select required>
             <mat-option>--</mat-option>
             <mat-option *ngFor="let equipe of equipes" [value]="equipe" (click)="selecionarEquipe(equipe)">
-              {{ equipe.nomeequipe }}
+              {{ equipe.nome }}
             </mat-option>
           </mat-select>
           <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
@@ -36,15 +36,15 @@
         </button>
       </div>
     </div>
-    <div class="form__chips" *ngIf="agentesDaEquipe.length">
+    <div class="form__chips" *ngIf="equipeSelecionada">
       <header class="form__header">
         <span>Nome da equipe:</span>
-        <h2 class="nome__equipe">{{ equipeSelecionada.nomeequipe }}</h2>
+        <h2 class="nome__equipe">{{ equipeSelecionada.nome }}</h2>
       </header>
       <div class="form__equipe">
         <div class="equipe__sel">
           <span>Agentes da equipe:</span>
-          <mat-chip-list *ngFor="let agente of agentesDaEquipe">
+          <mat-chip-list *ngFor="let agente of equipeSelecionada.membros">
               <mat-chip>
                 <img matChipAvatar src="/assets/images/avatarNull.png" alt="Agente da Equipe"/>
                 {{ agente.nome }}
@@ -79,7 +79,7 @@
                 <mat-label>Agente</mat-label>
                 <mat-select required>
                   <mat-option>--</mat-option>
-                  <mat-option *ngFor="let agente of agentesDaEquipe" [value]="agente" (click)="selecionarPermulta(agente)">
+                  <mat-option *ngFor="let agente of equipeSelecionada.membros" [value]="agente" (click)="selecionarPermulta(agente)">
                     {{ agente.nome }}
                   </mat-option>
                 </mat-select>
@@ -94,7 +94,7 @@
                 <mat-label>Agente</mat-label>
                 <mat-select required>
                   <mat-option>--</mat-option>
-                  <mat-option *ngFor="let agente of agentesDeFolga" [value]="agente" (click)="selecionarAgenteDeFolga(agente)">
+                  <mat-option *ngFor="let agente of agentes" [value]="agente" (click)="selecionarAgenteDeFolga(agente)">
                     {{ agente.nome }}
                   </mat-option>
                 </mat-select>
@@ -174,7 +174,7 @@
               <mat-label>Agente</mat-label>
               <mat-select required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let agente of agentesDeFolga2" [value]="agente" (click)="selecionarAgenteDeFolgaParaReforco(agente)">
+                <mat-option *ngFor="let agente of agentes" [value]="agente" (click)="selecionarAgenteDeFolgaParaReforco(agente)">
                   {{ agente.nome }}
                 </mat-option>
               </mat-select>
@@ -225,7 +225,7 @@
               <mat-label>Agente</mat-label>
               <mat-select required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let agente of agentesDaEquipe" [value]="agente" (click)="selecionarAgenteQueFaltou(agente)">
+                <mat-option *ngFor="let agente of equipeSelecionada.membros" [value]="agente" (click)="selecionarAgenteQueFaltou(agente)">
                   {{ agente.nome }}
                 </mat-option>
               </mat-select>
@@ -259,8 +259,13 @@
         </div>
     </div>
   </mat-step>
-
   <mat-step label="Step 5" state="chat">
+    <h2>HORÁRIOS DOS AGENTES</h2>
+
+
+  </mat-step>
+
+  <mat-step label="Step 6" state="chat">
     <h2>Houve alteração</h2>
     <mat-radio-group [(ngModel)]="alteracaoEscolha" aria-label="Select an option" color="primary" class="radio">
       <mat-radio-button *ngFor="let item of alteracao" [value]="item">{{ item }}</mat-radio-button>
@@ -328,7 +333,7 @@
     </div>
   </mat-step>
 
-  <mat-step label="Step 6">
+  <mat-step label="Step 7">
     <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
     <div class="step5">
       <div class="relatorio">
@@ -344,7 +349,7 @@
             <span>HOUVE ALTERAÇÃO</span>
             <span>{{ alteracaoEscolha }}</span> <!--CORRIGIR AQUI -->
             <span>NOME DA EQUIPE:</span>
-            <span>{{ equipeSelecionada?.nomeequipe }}</span>
+            <span>{{ equipeSelecionada?.nome }}</span>
             <span>INSPETOR:</span>
             <div class="equipe__insp">
               <span>JOAQUIM MARTINS DA SILVA</span>

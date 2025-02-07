@@ -3,7 +3,7 @@
     <mat-card-title>Informações da Equipe</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <p *ngIf="!loadEquipe"><strong>Nome da Equipe:</strong>  {{ equipeCarregada.nomeequipe }} </p>
+    <p *ngIf="!loadEquipe"><strong>Nome da Equipe:</strong>  {{ equipeCarregada.nome }} </p>
     <form [formGroup]="equipeForm">
       <mat-form-field appearance="outline" *ngIf="loadEquipe">
         <mat-label>Nome da equipe:</mat-label>

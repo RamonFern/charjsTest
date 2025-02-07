@@ -28,6 +28,7 @@ export class ContatoComponent implements OnInit {
 
   ngOnInit() {
     this.listarTodos();
+
   }
 
   salvarAgente() {
@@ -53,6 +54,7 @@ export class ContatoComponent implements OnInit {
         .pipe(take(1))
         .subscribe((a) => {
           this.agentes = a;
+          console.log(this.agentes);
         })
   }
 

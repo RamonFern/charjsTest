@@ -1,8 +1,11 @@
+import { AgenteUser } from "./AgenteUser"
+
 export interface EquipeRequest {
-  nomeequipe: string
+  nome: string
 }
 
 export interface EquipeResponse {
   id: number
-  nomeequipe: string
+  nome: string
+  membros: AgenteUser[]
 }
