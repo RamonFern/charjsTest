@@ -16,8 +16,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoResultsComponent } from '../layout/components/no-results/no-results.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -25,6 +25,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { CriarEditarEquipeComponent } from './pages/equipe/dialogs/criar-editar-equipe/criar-editar-equipe.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatCardModule } from '@angular/material/card';
 import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/NovoRelatorio.component';
 
 @NgModule({
@@ -48,10 +49,12 @@ import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/N
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
     MatChipsModule,
     MatCardModule,
     MatRadioModule,
     MatMenuModule,
+    MatDatepickerModule,
     MatDatepickerModule,
     MatExpansionModule,
     MatDatepickerModule,
@@ -60,6 +63,7 @@ import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/N
     MatButtonModule,
     MatSelectModule,
     MatNativeDateModule
+
   ]
 })
 

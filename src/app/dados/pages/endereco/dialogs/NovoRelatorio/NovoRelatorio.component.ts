@@ -1,13 +1,13 @@
+import { AgenteUser } from './../../../../../models/AgenteUser';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import jsPDF from 'jspdf';
 import * as moment from 'moment';
 import { take } from 'rxjs';
-import { AgenteUser } from 'src/app/models/AgenteUser';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { DialogReturn } from 'src/app/models/dialog-return';
 import { RelatorioRequest } from 'src/app/models/relatorio-request';
@@ -30,6 +30,8 @@ import { RelatorioService } from 'src/app/services/relatorio.service';
 })
 export class NovoRelatorioComponent implements OnInit {
   @ViewChild('content', {static: false}) el!: ElementRef;
+
+  formularios: FormGroup[] = [];
 
   agentes: AgenteUser[] = [];
   agenteEncontrado!: AgenteUser | undefined;
@@ -70,18 +72,22 @@ export class NovoRelatorioComponent implements OnInit {
     text3: new FormControl(''),
   })
 
-  employees = [
-    { name: 'João Silva', entryTime: new FormControl(''), exitTime: new FormControl('') },
-    { name: 'Maria Oliveira', entryTime: new FormControl(''), exitTime: new FormControl('') },
-    { name: 'Carlos Souza', entryTime: new FormControl(''), exitTime: new FormControl('') }
-  ];
+  horariosForm = new FormGroup({
+    chegada: new FormControl('', Validators.required),
+    saida: new FormControl('', Validators.required),
+  })
+
+  horariosAgentesFolgaForm = new FormGroup({
+    chegada: new FormControl('', Validators.required),
+    saida: new FormControl('', Validators.required),
+  })
 
   text1!: string;
   text2!: string;
   text3!: string;
   dataRelatorio!: string
 
-  constructor(private agenteService: AgenteService,
+  constructor(private agenteService: AgenteService, private fb: FormBuilder,
               public dialogRef: MatDialogRef<NovoRelatorioComponent>,
               private notification: MatSnackBar,
               private equipeService: EquipeService,
@@ -109,7 +115,10 @@ export class NovoRelatorioComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
+      // this.agentes.filter(agente =>
+      // !this.equipeSelecionada.some(agenteEquipe => agenteEquipe.id === agente.id));
     })
+    // CONTINUAR AQUI FAZENDO O FILTRO P/SEPARAR OS AGENTES
   }
 
   selecionar(agente: AgenteUser) {
@@ -124,23 +133,11 @@ export class NovoRelatorioComponent implements OnInit {
     this.agentesDaEquipe = [];
   }
 
-  adicionarEquipeAoRelatorio() {
-    console.log('oi');
-    this.equipeSelecionada.membros.forEach((a) => {
-      this.agentesDaEquipeParaSalvar.push(a)
-    })
-    // this.agentes.filter((a) => {
-    //   a.equipe_id === this.equipeSelecionada.id ?
-    //     this.operacoes(a) :
-    //     console.log('oi agentes de folga');
-    //     this.agentesDeFolga.push(a);
-    // });
-  }
-
-  // operacoes(a: AgenteUser) {
-  //   console.log('oi operacoes');
-  //   this.agentesDaEquipe.push(a);
-  //   this.agentesDaEquipeParaSalvar.push(a);
+  // adicionarEquipeAoRelatorio() {
+  //   //console.log('oi');
+  //   this.equipeSelecionada.membros.forEach((a) => {
+  //     this.agentesDaEquipeParaSalvar.push(a)
+  //   })
   // }
 
   selecionarPermulta(agenteParaPermulta: AgenteUser) {
@@ -240,19 +237,28 @@ export class NovoRelatorioComponent implements OnInit {
         })
   }
 
+  salvarHorarios() {
+    console.log(this.equipeSelecionada.membros);
+    console.log(this.agentesParaPermulta);
+    console.log(this.agentesDeFolgaEscolhidoParaPermulta2);
+    console.log(this.agentesDeFolgaParaReforco);
+
+  }
+
   salvarRelatorio() {
-    const agentesDaEquipe = this.agentesDaEquipeParaSalvar.map((a) => a.nome).join(", ");
+    const agentesDaEquipe = this.equipe.membros.filter((a) => a.nome).join(", ");
     const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
     const agentesDeFolgaEscolhidoParaPermulta = this.agentesDeFolgaEscolhidoParaPermulta2.map((a) => a.nome).join(", ");
     const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
-    const agentesQueFaltaram = this.agentesFaltosos.map((a) => a.nome).join(", ");
+    const agentesQueFaltaram = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
+    const inspetores = this.equipeSelecionada.membros.filter(a => a.funcao === 'INSPETOR').join(", ");
 
     const dataAtual = moment();
     const request: RelatorioRequest = {
       datadorelatorio: this.dataRelatorio,
       datadehoje: dataAtual.format("DD/MM/YYYY"),
       nomeequipe: this.equipeSelecionada.nome,
-      nomeinspetor: this.agentesDaEquipeParaSalvar[0].nome, ///CORRIGIR NOME INSPETOR
+      nomeinspetor: inspetores,
       agentesdaequipe: agentesDaEquipe,
       agentesparapermultar: agentesParaPermulta ? agentesParaPermulta : "sem permulta",
       agentedefolgaparapermultar: agentesDeFolgaEscolhidoParaPermulta ? agentesDeFolgaEscolhidoParaPermulta : "sem permulta",
@@ -270,8 +276,7 @@ export class NovoRelatorioComponent implements OnInit {
         .pipe(take(1))
         .subscribe((rel) => {
           this.criarPDF();
-          // this.buscarRelatorios();
-          //this.voltarListagemRelatorio();
+
           this.limpar();
           const dialogReturn: DialogReturn = { hasDataChanged: true };
           this.dialogRef.close(dialogReturn);
@@ -280,17 +285,10 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   criarPDF() {
-    // var pdf = new jsPDF();
-
-    // pdf.fromHTML($("#content").html(),15,15, {
-    //   "width": 170,
-    //   "elementHandlers": specialElementHandlers
-    // });
-
     let pdf = new jsPDF('p','pt','a4');
     pdf.html(this.el.nativeElement, {
       callback: (pdf) => {
-        pdf.save('testePdfRelatorio.pdf');
+        pdf.save('PdfRelatorio.pdf');
       }
     })
 

@@ -128,6 +128,35 @@
   min-height: 60px;
 }
 
+.mat-nome-permulta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.container_horarios {
+  margin-right: 20px;
+}
+.pessoa-card {
+  display: flex;
+}
+
+.mat-card-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-card {
+  margin-bottom: 10px;
+}
+
+.mat-card-agente {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
 .example-viewport {
   height: 700px;
   margin-left: 30px;

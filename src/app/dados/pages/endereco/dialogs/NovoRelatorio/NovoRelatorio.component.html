@@ -31,9 +31,9 @@
           <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
             <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
         </mat-form-field>
-        <button mat-fab color="primary" class="add-btn" (click)="adicionarEquipeAoRelatorio()" matTooltip="Adicionar equipe">
+        <!-- <button mat-fab color="primary" class="add-btn" (click)="adicionarEquipeAoRelatorio()" matTooltip="Adicionar equipe">
           <mat-icon>add</mat-icon>
-        </button>
+        </button> -->
       </div>
     </div>
     <div class="form__chips" *ngIf="equipeSelecionada">
@@ -262,7 +262,63 @@
   <mat-step label="Step 5" state="chat">
     <h2>HORÁRIOS DOS AGENTES</h2>
 
+    <div class="container_horarios" *ngIf="equipeSelecionada">
+      <h2>Agentes da equipe do dia.</h2>
+      <mat-card class="mat-card" *ngFor="let agente of equipeSelecionada.membros">
+        <form [formGroup]="horariosForm">
+          <div class="mat-card-agente">
+            <div class="mat-nome-permulta">
+              <mat-card-title>{{ agente.nome }}</mat-card-title>
+              <ng-container *ngFor="let itemAgente of agentesParaPermulta; let i = index">
+                <ng-container *ngIf="itemAgente.id === agente.id">
+                  <mat-card-title>{{ agentesDeFolgaEscolhidoParaPermulta2[i].nome }} </mat-card-title>
+                </ng-container>
+              </ng-container>
+            </div>
 
+            <mat-form-field appearance="fill">
+              <mat-label>Chegada</mat-label>
+              <input matInput formControlName="chegada" name="chegada" required type="time">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Saída</mat-label>
+              <input  matInput formControlName="saida" name="saida" required type="time">
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+//CONTINUAR AQUI TENTANDO MOSTRAR OS AGENTES DE REFORÇO E DEPOIS SALVAR HORAS
+      <h2>Agentes de reforço.</h2>
+      <mat-card class="mat-card" *ngFor="let agente of agentesDeFolgaParaReforco">
+        <form [formGroup]="horariosAgentesFolgaForm">
+          <div class="mat-card-agente">
+            <div class="mat-nome-permulta">
+              <mat-card-title>{{ agente.nome }}</mat-card-title>
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Chegada</mat-label>
+              <input matInput formControlName="chegada" name="chegada" required type="time">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Saída</mat-label>
+              <input  matInput formControlName="saida" name="saida" required type="time">
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card>
+
+      <div class="mat-card-btn">
+        <button mat-raised-button color="primary" (click)="salvarHorarios()">Salvar horários</button>
+      </div>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
   </mat-step>
 
   <mat-step label="Step 6" state="chat">
@@ -402,7 +458,7 @@
               </div>
             </div>
           </main>
-          <button mat-raised-button (click)="stepper.reset()" color="primary" (click)="salvarRelatorio()">Salvar</button>
+          <button mat-raised-button  color="primary" (click)="salvarRelatorio()">Salvar</button>
 
       </div>
     </div>
