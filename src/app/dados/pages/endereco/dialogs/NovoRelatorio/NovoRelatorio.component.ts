@@ -133,13 +133,6 @@ export class NovoRelatorioComponent implements OnInit {
     this.agentesDaEquipe = [];
   }
 
-  // adicionarEquipeAoRelatorio() {
-  //   //console.log('oi');
-  //   this.equipeSelecionada.membros.forEach((a) => {
-  //     this.agentesDaEquipeParaSalvar.push(a)
-  //   })
-  // }
-
   selecionarPermulta(agenteParaPermulta: AgenteUser) {
     this.agenteParaPermulta = agenteParaPermulta;
   }
@@ -209,6 +202,11 @@ export class NovoRelatorioComponent implements OnInit {
     this.agentesDeFolgaParaReforco2 = [];
   }
 
+  removerAgentesFalta() {
+    this.agentesDeFolgaParaReforco = [];
+    this.agentesDeFolgaParaReforco2 = [];
+  }
+
   ouvePermulta(){
     this.escolha === "sim" ? null : this.removerPermulta();
   }
@@ -226,7 +224,7 @@ export class NovoRelatorioComponent implements OnInit {
 
   ouveFaltas() {
     this.agentesFaltosos2 = this.agentesFaltosos.filter( a => !this.agentesDaEquipe.includes( a ));
-    this.escolha3 === "sim" ? null : this.removerAgenteReforco();
+    this.escolha3 === "sim" ? null : this.removerAgentesFalta();
   }
 
   listarEquipes() {
@@ -242,7 +240,6 @@ export class NovoRelatorioComponent implements OnInit {
     console.log(this.agentesParaPermulta);
     console.log(this.agentesDeFolgaEscolhidoParaPermulta2);
     console.log(this.agentesDeFolgaParaReforco);
-
   }
 
   salvarRelatorio() {
@@ -269,8 +266,6 @@ export class NovoRelatorioComponent implements OnInit {
       texto2: this.text2 ? this.text2 : " ",
       texto3: this.text3 ? this.text3 : " ",
     }
-
-    console.log(request);
 
     this.relatorioService.salvarRelatorio(request)
         .pipe(take(1))

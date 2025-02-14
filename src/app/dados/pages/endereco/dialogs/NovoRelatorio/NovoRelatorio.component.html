@@ -289,8 +289,9 @@
         </form>
       </mat-card>
     </div>
-//CONTINUAR AQUI TENTANDO MOSTRAR OS AGENTES DE REFORÇO E DEPOIS SALVAR HORAS
-      <h2>Agentes de reforço.</h2>
+
+    <h2>Agentes de reforço.</h2>
+    <div class="container_horarios" *ngIf="agentesDeFolgaParaReforco.length">
       <mat-card class="mat-card" *ngFor="let agente of agentesDeFolgaParaReforco">
         <form [formGroup]="horariosAgentesFolgaForm">
           <div class="mat-card-agente">
@@ -310,10 +311,11 @@
           </div>
         </form>
       </mat-card>
+    </div>
 
-      <div class="mat-card-btn">
-        <button mat-raised-button color="primary" (click)="salvarHorarios()">Salvar horários</button>
-      </div>
+    <div class="mat-card-btn">
+      <button mat-raised-button color="primary" (click)="salvarHorarios()">Salvar horários</button>
+    </div>
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
