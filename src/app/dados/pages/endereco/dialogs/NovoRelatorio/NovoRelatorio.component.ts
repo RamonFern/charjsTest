@@ -203,8 +203,8 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   removerAgentesFalta() {
-    this.agentesDeFolgaParaReforco = [];
-    this.agentesDeFolgaParaReforco2 = [];
+    this.agentesFaltosos = [];
+    this.agentesFaltosos2 = [];
   }
 
   ouvePermulta(){
