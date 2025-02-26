@@ -10,9 +10,12 @@ import * as moment from 'moment';
 import { take } from 'rxjs';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { DialogReturn } from 'src/app/models/dialog-return';
+import { HorarioAgenteRequest } from 'src/app/models/horarioAgenteRequest';
+import { HorarioAgenteResponse } from 'src/app/models/horarioAgenteResponse';
 import { RelatorioRequest } from 'src/app/models/relatorio-request';
 import { AgenteService } from 'src/app/services/agente.service';
 import { EquipeService } from 'src/app/services/equipe.service';
+import { HorarioService } from 'src/app/services/horario.sevice';
 import { RelatorioService } from 'src/app/services/relatorio.service';
 
 @Component({
@@ -57,6 +60,8 @@ export class NovoRelatorioComponent implements OnInit {
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
+  registroDeHoras!: HorarioAgenteResponse;
+
 
   alteracao: string[] = ['sim', 'não'];
   faltas: string[] = ['sim', 'não'];
@@ -75,6 +80,7 @@ export class NovoRelatorioComponent implements OnInit {
   horariosForm = new FormGroup({
     chegada: new FormControl('', Validators.required),
     saida: new FormControl('', Validators.required),
+    justificativa: new FormControl('', Validators.required),
   })
 
   horariosAgentesFolgaForm = new FormGroup({
@@ -90,6 +96,7 @@ export class NovoRelatorioComponent implements OnInit {
   constructor(private agenteService: AgenteService, private fb: FormBuilder,
               public dialogRef: MatDialogRef<NovoRelatorioComponent>,
               private notification: MatSnackBar,
+              private horarioService: HorarioService,
               private equipeService: EquipeService,
               private relatorioService: RelatorioService) { }
 
@@ -235,11 +242,44 @@ export class NovoRelatorioComponent implements OnInit {
         })
   }
 
-  salvarHorarios() {
-    console.log(this.equipeSelecionada.membros);
-    console.log(this.agentesParaPermulta);
-    console.log(this.agentesDeFolgaEscolhidoParaPermulta2);
-    console.log(this.agentesDeFolgaParaReforco);
+  salvarHorarios(id: number) {
+    this.agentesFaltosos2.filter(a => a.id === id);
+    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    const request: HorarioAgenteRequest = {
+      usuarioId: id,
+      data: data.format("YYYY-MM-DD"),
+      horaEntrada: this.horariosForm.controls['chegada'].value,
+      horaSaida: this.horariosForm.controls['saida'].value,
+      falta: this.escolha3 === "sim" ? true : false,
+      justificativaFalta: this.horariosForm.controls['justificativa'].value,
+    }
+    console.log(request);
+
+    // this.horarioService.salvar(request)
+    //     .pipe(take(1))
+    //     .subscribe((a) => {
+    //       this.registroDeHoras = a;
+    //       console.log(this.registroDeHoras);
+    //     })
+
+  }
+
+  salvarHorarios2(id: number) {
+    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    const request: HorarioAgenteRequest = {
+      usuarioId: id,
+      data: data.format("YYYY-MM-DD"),
+      horaEntrada: this.horariosAgentesFolgaForm.controls['chegada'].value,
+      horaSaida: this.horariosAgentesFolgaForm.controls['saida'].value,
+      falta: this.escolha3 === "sim" ? true : false,
+      justificativaFalta: "atestado falso"
+    }
+
+    this.horarioService.salvar(request)
+    .pipe(take(1))
+    .subscribe((a) => {
+      console.log(a);
+    })
   }
 
   salvarRelatorio() {

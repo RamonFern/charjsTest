@@ -54,7 +54,7 @@ export class ContatoComponent implements OnInit {
         .pipe(take(1))
         .subscribe((a) => {
           this.agentes = a;
-          console.log(this.agentes);
+          // console.log(this.agentes);
         })
   }
 

@@ -34,7 +34,7 @@ export class NotificarComponent implements OnInit {
 
   ngOnInit() {
     this.buscarCodigos();
-    console.log(this.codigos.length);
+    // console.log(this.codigos.length);
   }
 
   buscarCodigos() {

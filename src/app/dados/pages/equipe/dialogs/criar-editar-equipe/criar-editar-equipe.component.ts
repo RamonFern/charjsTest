@@ -37,9 +37,9 @@ export class CriarEditarEquipeComponent implements OnInit {
   ngOnInit() {
     this.equipeCarregada = this.data.equipe;
     this.agentesDaEquipe = this.data.equipe.membros;
-    console.log(this.agentesDaEquipe);
+    // console.log(this.agentesDaEquipe);
     this.buscarEscalasDaEquipe();
-    console.log(this.data);
+    // console.log(this.data);
   }
   buscarEscalasDaEquipe() {
     this.escalaService

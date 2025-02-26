@@ -90,9 +90,9 @@ export class EquipeComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
-      console.log(this.agentes);
+      // console.log(this.agentes);
       this.agentesSemEquipe = ag.filter((a) => a.equipe_id === null);
-      console.log(this.agentesSemEquipe);
+      // console.log(this.agentesSemEquipe);
     })
   }
 
@@ -117,7 +117,7 @@ export class EquipeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.equipes = data
-          console.log(this.equipes);
+          // console.log(this.equipes);
         })
   }
 
