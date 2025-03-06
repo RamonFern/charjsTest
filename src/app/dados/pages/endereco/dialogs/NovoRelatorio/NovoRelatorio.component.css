@@ -13,6 +13,10 @@ mat-list-item {
   color: #3f51b5;
 } */
 
+.card-reg-horas {
+  display: flex;
+}
+
 .equipe {
   display: flex;
   align-items: center;

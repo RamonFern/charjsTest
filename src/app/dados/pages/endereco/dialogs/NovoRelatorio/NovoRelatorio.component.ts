@@ -54,13 +54,14 @@ export class NovoRelatorioComponent implements OnInit {
   agenteParaPermulta!: AgenteUser;
   agenteEscolhidoParaReforco!: AgenteUser;
   agenteQueFaltou!: AgenteUser;
+  agentesQueFaltaram: HorarioAgenteRequest[] = [];
   escolha!: string
   escolha2!: string;
   escolha3!: string;
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
-  registroDeHoras!: HorarioAgenteResponse;
+  registroDeHoras: HorarioAgenteResponse[] = [];
 
 
   alteracao: string[] = ['sim', 'não'];
@@ -122,8 +123,6 @@ export class NovoRelatorioComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
-      // this.agentes.filter(agente =>
-      // !this.equipeSelecionada.some(agenteEquipe => agenteEquipe.id === agente.id));
     })
     // CONTINUAR AQUI FAZENDO O FILTRO P/SEPARAR OS AGENTES
   }
@@ -194,14 +193,19 @@ export class NovoRelatorioComponent implements OnInit {
     this.agenteQueFaltou = agente;
   }
 
-  addAgenteReforco() {
-    this.agentesDeFolgaParaReforco.push(this.agenteEscolhidoParaReforco);
-    this.agentesDeFolgaParaReforco2.push(this.agenteEscolhidoParaReforco);
-  }
-
   addAosAgentesFalta() {
     this.agentesFaltosos.push(this.agenteQueFaltou);
     this.agentesFaltosos2.push(this.agenteQueFaltou);
+  }
+
+  ouveFaltas() {
+    this.agentesFaltosos2 = this.agentesFaltosos.filter( a => !this.agentesDaEquipe.includes( a ));
+    this.escolha3 === "sim" ? null : this.removerAgentesFalta();
+  }
+
+  addAgenteReforco() {
+    this.agentesDeFolgaParaReforco.push(this.agenteEscolhidoParaReforco);
+    this.agentesDeFolgaParaReforco2.push(this.agenteEscolhidoParaReforco);
   }
 
   removerAgenteReforco() {
@@ -229,11 +233,6 @@ export class NovoRelatorioComponent implements OnInit {
     this.escolha2 === "sim" ? null : this.removerAgenteReforco();
   }
 
-  ouveFaltas() {
-    this.agentesFaltosos2 = this.agentesFaltosos.filter( a => !this.agentesDaEquipe.includes( a ));
-    this.escolha3 === "sim" ? null : this.removerAgentesFalta();
-  }
-
   listarEquipes() {
     this.equipeService.listar()
         .pipe(take(1))
@@ -243,25 +242,25 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   salvarHorarios(id: number) {
-    this.agentesFaltosos2.filter(a => a.id === id);
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
       usuarioId: id,
       data: data.format("YYYY-MM-DD"),
-      horaEntrada: this.horariosForm.controls['chegada'].value,
-      horaSaida: this.horariosForm.controls['saida'].value,
-      falta: this.escolha3 === "sim" ? true : false,
+      horaEntrada: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
+      horaSaida: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,//agentes.some(agente => agente.id === id);
+      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false, //this.escolha3 === "sim" ? true : false,
       justificativaFalta: this.horariosForm.controls['justificativa'].value,
     }
     console.log(request);
 
-    // this.horarioService.salvar(request)
-    //     .pipe(take(1))
-    //     .subscribe((a) => {
-    //       this.registroDeHoras = a;
-    //       console.log(this.registroDeHoras);
-    //     })
+    this.horarioService.salvar(request)
+        .pipe(take(1))
+        .subscribe((a) => {
+          this.registroDeHoras.push(a);
+          this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
+          console.log(this.registroDeHoras);
 
+        })
   }
 
   salvarHorarios2(id: number) {
@@ -269,26 +268,28 @@ export class NovoRelatorioComponent implements OnInit {
     const request: HorarioAgenteRequest = {
       usuarioId: id,
       data: data.format("YYYY-MM-DD"),
-      horaEntrada: this.horariosAgentesFolgaForm.controls['chegada'].value,
-      horaSaida: this.horariosAgentesFolgaForm.controls['saida'].value,
-      falta: this.escolha3 === "sim" ? true : false,
-      justificativaFalta: "atestado falso"
+      horaEntrada: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
+      horaSaida: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,//agentes.some(agente => agente.id === id);
+      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false, //this.escolha3 === "sim" ? true : false,
+      justificativaFalta: this.horariosForm.controls['justificativa'].value,
     }
+    console.log(request);
 
     this.horarioService.salvar(request)
     .pipe(take(1))
     .subscribe((a) => {
       console.log(a);
+      this.registroDeHoras.push(a);
     })
   }
 
   salvarRelatorio() {
-    const agentesDaEquipe = this.equipe.membros.filter((a) => a.nome).join(", ");
+    const agentesDaEquipe = this.equipeSelecionada?.membros.filter((a) => a.nome).join(", ");
     const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
     const agentesDeFolgaEscolhidoParaPermulta = this.agentesDeFolgaEscolhidoParaPermulta2.map((a) => a.nome).join(", ");
     const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
     const agentesQueFaltaram = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
-    const inspetores = this.equipeSelecionada.membros.filter(a => a.funcao === 'INSPETOR').join(", ");
+    const inspetores = this.equipeSelecionada?.membros.filter(a => a.funcao === 'INSPETOR').join(", ");
 
     const dataAtual = moment();
     const request: RelatorioRequest = {
@@ -306,6 +307,8 @@ export class NovoRelatorioComponent implements OnInit {
       texto2: this.text2 ? this.text2 : " ",
       texto3: this.text3 ? this.text3 : " ",
     }
+
+    console.log(request);
 
     this.relatorioService.salvarRelatorio(request)
         .pipe(take(1))

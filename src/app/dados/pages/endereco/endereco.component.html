@@ -5,7 +5,7 @@
           Nome da equipe: {{ relatorio.nomeequipe }}
         </mat-panel-title>
         <mat-panel-description>
-          Inspetor: {{ relatorio.nomeinspetor }}
+          Data do relatório: {{relatorio.datadorelatorio}}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <p>{{ relatorio.texto1 }}</p>
@@ -14,5 +14,4 @@
     </mat-expansion-panel>
   </mat-accordion>
   <button mat-button (click)="novoRelatorio()">Novo relatorio</button>
-<!-- </ng-container> -->
 <button mat-button *ngIf="addRelatorio" (click)="voltarListagemRelatorio()">Cancelar</button>

@@ -263,7 +263,9 @@
     <h2>HORÁRIOS DOS AGENTES</h2>
     <div class="container_horarios" *ngIf="equipeSelecionada">
       <h2>Agentes da equipe do dia.</h2>
-      <!-- <ng-container *ngIf="!registroDeHoras"> -->
+      <ng-container >
+
+      </ng-container>
         <mat-card class="mat-card" *ngFor="let agente of equipeSelecionada.membros">
           <form [formGroup]="horariosForm">
             <div class="mat-card-agente">
@@ -287,10 +289,7 @@
                   </ng-container>
                 </ng-container>
               </div>
-<!-- CONTINUAR AQUI FAZENDO A LÓGICA PARA DESAPARECER COM CHEGADA E SAIDA PARA APARECER JUSTIFICATIVA -->
- <!--  <ng-container *ngFor="let agenteFaltou of agentesFaltosos">
-                    <mat-radio-button *ngIf="agente.id === agenteFaltou.id" checked="true" color="primary" class="margin" value="falta">falta</mat-radio-button>
-                  </ng-container> -->
+
               <ng-container *ngFor="let agenteFaltou of agentesFaltosos">
                 <ng-container *ngIf="agente.id !== agenteFaltou.id">
                   <mat-form-field appearance="fill">
@@ -319,44 +318,6 @@
       <!-- </ng-container> -->
     </div>
 
-    <div *ngIf="registroDeHoras">
-      <mat-card class="registro-card">
-        <mat-card-header>
-          <mat-card-title>Detalhes do Registro</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-list>
-            <!-- Informações do Usuário -->
-            <mat-list-item>
-              <mat-icon style="color: #3f51b5;" matListIcon>person</mat-icon>
-              <h3 matLine>{{ registroDeHoras.usuario.nome }}</h3>
-              <p matLine>Função: {{ registroDeHoras.usuario.funcao }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-
-            <!-- Data do Registro -->
-            <mat-list-item>
-              <mat-icon matListIcon>calendar_today</mat-icon>
-              <p matLine>Data: {{ registroDeHoras.data }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-
-            <!-- Horário de Entrada -->
-            <mat-list-item>
-              <mat-icon matListIcon>login</mat-icon>
-              <p matLine>Hora de Entrada: {{ registroDeHoras.horaEntrada }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-
-            <!-- Horário de Saída -->
-            <mat-list-item>
-              <mat-icon matListIcon>logout</mat-icon>
-              <p matLine>Hora de Saída: {{ registroDeHoras.horaSaida }}</p>
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-    </div>
 
     <h2>Agentes de reforço.</h2>
     <div class="container_horarios" *ngIf="agentesDeFolgaParaReforco.length">
@@ -384,6 +345,44 @@
       </mat-card>
     </div>
 
+    <div *ngIf="registroDeHoras.length" class="card-reg-horas">
+      <mat-card class="registro-card" *ngFor="let registro of registroDeHoras">
+        <mat-card-header>
+          <mat-card-title>Detalhes do Registro</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <!-- Informações do Usuário -->
+            <mat-list-item>
+              <mat-icon style="color: #3f51b5;" matListIcon>person</mat-icon>
+              <h3 matLine>{{ registro.usuario.nome }}</h3>
+              <p matLine>Função: {{ registro.usuario.funcao }}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <!-- Data do Registro -->
+            <mat-list-item>
+              <mat-icon style="color: #3f51b5;" matListIcon>calendar_today</mat-icon>
+              <p matLine>Data: {{ registro.data || "DD-MM-YYYY" }}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <!-- Horário de Entrada -->
+            <mat-list-item>
+              <mat-icon style="color: #3f51b5;" matListIcon>login</mat-icon>
+              <p matLine>Hora de Entrada: {{ registro.horaEntrada }}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+            <!-- Horário de Saída -->
+            <mat-list-item>
+              <mat-icon style="color: #3f51b5;" matListIcon>logout</mat-icon>
+              <p matLine>Hora de Saída: {{ registro.horaSaida }}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
@@ -477,12 +476,12 @@
             <span>NOME DA EQUIPE:</span>
             <span>{{ equipeSelecionada?.nome }}</span>
             <span>INSPETOR:</span>
-            <div class="equipe__insp">
-              <span>JOAQUIM MARTINS DA SILVA</span>
+            <div class="equipe__insp" *ngFor="let age of equipeSelecionada?.membros">
+              <span *ngIf="age.funcao === 'INSPETOR'">{{ age.nome }}</span>
               <!-- <span *ngFor="let item of agentesDaEquipeParaSalvar">{{ item.funcao === "INSPETOR" ? item.nome : null }}</span> -->
             </div>
             <span>AGENTES:</span>
-            <div class="equipe__rel" *ngFor="let agente of agentesDaEquipeParaSalvar">
+            <div class="equipe__rel" *ngFor="let agente of equipeSelecionada?.membros">
               <span>{{ agente.nome }}, </span>
             </div>
             <ng-container *ngIf="agentesParaPermulta.length">
@@ -521,10 +520,13 @@
               <p>{{ text2 }}</p>
               <p>{{ text3 }}</p>
 
-              <div class="assinatura">
+              <div class="assinatura" >
                 <p> Assinatura: </p>
-                <p>Marcio dos Santos </p>
-                <p>Agente de Trânsito</p>
+                <ng-container *ngFor="let ag of equipeSelecionada?.membros">
+                  <p *ngIf="ag.funcao === 'INSPETOR'">{{ ag.nome }}</p>
+                </ng-container>
+
+                <p>Inspetor de Trânsito</p>
               </div>
             </div>
           </main>
