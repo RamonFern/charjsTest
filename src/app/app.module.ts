@@ -21,6 +21,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificacoesModule } from './notificacoes/notificacoes.module';
 import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.module';
 import { NoResultsComponent } from './layout/components/no-results/no-results.component';
+import { DetalhesTamplateComponent } from './layout/components/detalhes-tamplate/detalhes-tamplate.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { NoResultsComponent } from './layout/components/no-results/no-results.co
         AppComponent,
         LayoutComponent,
         MenuComponent,
-        NoResultsComponent
+        NoResultsComponent,
+        DetalhesTamplateComponent
         // DashboardComponent,
         // DiaComponent,
         // EquipePlantaoComponent

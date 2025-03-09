@@ -12,6 +12,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 
+
 @NgModule({
   declarations: [
     NotificarComponent,

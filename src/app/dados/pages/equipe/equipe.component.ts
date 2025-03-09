@@ -6,7 +6,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EquipeRequest, EquipeResponse } from 'src/app/models/EquipeRequest';
 import { take } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-equipe',
@@ -18,7 +17,7 @@ export class EquipeComponent implements OnInit {
   equipes: EquipeResponse[] = [];
   equipeCriada!: EquipeResponse;
   agentes: AgenteUser[] = [];
-  agentesSemEquipe: AgenteUser[] = [];
+  agentesQueNaoTemEquipe: AgenteUser[] = [];
   agentesDaEquipe: AgenteUser[] = [];
   agentesDaEquipeRetornado: AgenteUser[] = [];
 
@@ -26,8 +25,7 @@ export class EquipeComponent implements OnInit {
     nomeequipe: new FormControl('', Validators.required),
     id_agentes: new FormControl('', Validators.required)
   })
-  // items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
-  // basket = ['Oranges', 'Bananas', 'Cucumbers'];
+
   equipe01!: string[];
   equipe02!: string[];
   equipe03!: string[];
@@ -39,6 +37,7 @@ export class EquipeComponent implements OnInit {
 
   ngOnInit() {
     this.buscarEquipes();
+    this.buscarAgentesSemEquipes();
 
     this.listarAgentes();
     this.equipe01 = this.separarAgentesPorEquipe(this.equipes[0]);
@@ -62,12 +61,11 @@ export class EquipeComponent implements OnInit {
 
   adicionarAgenteEmEquipe(equipe: EquipeResponse) {
     this.agentesDaEquipe.forEach((ag) => {
-      if(ag.equipe_id === 0) {
+      if(ag.equipe_id === null) {
         ag.equipe_id = equipe.id;
         this.atualizarAgente(ag, ag.id);
       } else {
         this.notification.open(`Agente já possui uma equipe!`, 'Erro', { duration: 3000 });
-        // console.log("Agente já possui uma equipe!");
       }
     })
     this.limparCampos();
@@ -90,21 +88,27 @@ export class EquipeComponent implements OnInit {
     .pipe(take(1))
     .subscribe((ag) => {
       this.agentes = ag;
-      // console.log(this.agentes);
-      this.agentesSemEquipe = ag.filter((a) => a.equipe_id === null);
-      // console.log(this.agentesSemEquipe);
+      this.buscarAgentesSemEquipes();
+
     })
+  }
+
+  buscarAgentesSemEquipes() {
+    this.agenteService.getAgentesSemEquipe()
+        .pipe(take(1))
+        .subscribe((agentes) => {
+          this.agentesQueNaoTemEquipe = agentes;
+        })
   }
 
   separarAgentesPorEquipe(equipe: EquipeResponse) {
     const ag = this.agentes.filter((a) => a.equipe_id === equipe.id);
     const nomesDosAgentes: string[] = ag.map(agente => agente.nome);
     return nomesDosAgentes;
-    // console.log(nomesDosAgentes);
   }
 
   enviarAgentesSemEquipe() {
-    const agentesSemEquipe: string[] = this.agentesSemEquipe.map(ag => ag.nome);
+    const agentesSemEquipe: string[] = this.agentesQueNaoTemEquipe.map(ag => ag.nome);
     return agentesSemEquipe;
   }
 
@@ -117,41 +121,17 @@ export class EquipeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.equipes = data
-          // console.log(this.equipes);
         })
   }
 
   addAgente() {
     this.add = true;
-    this.agentesSemEquipe = this.agentes.filter((a) => a.equipe_id === null);
+    this.buscarAgentesSemEquipes();
   }
 
   limparCampos() {
     this.equipeForm.reset();
     this.add = false;
   }
-
-
-  // drop(event: CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //     console.log(event.container.data)
-  //     console.log(event.previousContainer.data)
-  //     console.log(event.currentIndex)
-  //   } else {
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex,
-  //     );
-  //     console.log(event.container.data)
-  //     console.log(event.previousContainer.data)
-  //     console.log(event.currentIndex)
-  //   }
-  // }
-
-
-
 
 }

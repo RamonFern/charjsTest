@@ -22,11 +22,15 @@ export class AgenteService {
   }
 
   adicinarAgenteEmEquipe(idAgente: number, idEquipe: number) {
-    return this.http.put(`http://localhost:8080/api/v2/agenteUser/${idAgente}/adicionar-equipe/${idEquipe}`, {});
+    return this.http.put(`http://localhost:8080/api/v2/agenteUser/${idAgente}/adicionar-equipe/${idEquipe}`, null, { responseType: 'text' });
   }
 
   removerAgenteDaEquipe(idAgente: number) {
-    return this.http.put(`http://localhost:8080/api/v2/agenteUser/${idAgente}/remover-equipe`, {});
+    return this.http.put(`http://localhost:8080/api/v2/agenteUser/${idAgente}/remover-equipe`, null, { responseType: 'text' });
+  }
+
+  getAgentesSemEquipe(){
+    return this.http.get<AgenteUser[]>(`http://localhost:8080/api/v2/agenteUser/sem-equipe`);
   }
 
 }

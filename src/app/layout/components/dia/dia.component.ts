@@ -4,6 +4,7 @@ import { take } from 'rxjs';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { EscalaServicoResponse } from 'src/app/models/escala-servico';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dia',
@@ -18,7 +19,7 @@ export class DiaComponent implements OnInit {
   dataAtual!: string;
   diaSemana!: string;
 
-  constructor(private equipeService: EquipeService) { }
+  constructor(private equipeService: EquipeService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     const dateDia = moment(this.dia.data, "DD/MM/YYYY").locale('pt-br');
@@ -36,5 +37,13 @@ export class DiaComponent implements OnInit {
           this.equipe = equipe;
         })
   }
+
+   // Abre o card de detalhes
+  // abrirCardDetalhes() {
+  //   this.dialog.open(this.DetalhesTamplateComponent, {
+  //     width: '400px',
+  //     data: this.equipe
+  //   });
+  // }
 
 }

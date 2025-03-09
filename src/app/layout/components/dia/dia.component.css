@@ -27,3 +27,30 @@
   margin-bottom: 60px;
   flex-direction: column;
 }
+
+.container {
+  cursor: pointer;
+  margin: 10px;
+}
+
+.dia {
+  width: 200px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dia_hoje {
+  width: 200px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dia:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dia_hoje:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(156, 13, 13, 0.2);
+}

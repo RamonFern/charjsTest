@@ -40,22 +40,16 @@ export class CardEquipeComponent implements OnInit {
   }
 
   buscarAgentesDaEquipe(equipe: EquipeResponse) {
-    this.agenteservice.listar()
-        .pipe(take(1))
-        .subscribe((a) => {
-          a.forEach((a) => {
-            a.equipe_id === equipe.id ? this.agentesDaEquipe.push(a) : null
-          })
-        })
+    equipe.membros.forEach((a) => {
+      this.agentesDaEquipe.push(a);
+    })
   }
 
   excluirEquipe(id: number) {
     this.equipeService
         .excluirEquipe(id)
         .pipe(take(1))
-        .subscribe((a) => {
-          console.log(a);
-        })
+        .subscribe((a) => {  })
   }
 
 }

@@ -35,24 +35,24 @@ export class CriarEditarEquipeComponent implements OnInit {
               private escalaService: EscalaServicoService) { }
 
   ngOnInit() {
+    this.buscarAgentesSemEquipe();
     this.equipeCarregada = this.data.equipe;
     this.agentesDaEquipe = this.data.equipe.membros;
-    // console.log(this.agentesDaEquipe);
     this.buscarEscalasDaEquipe();
-    // console.log(this.data);
   }
+
   buscarEscalasDaEquipe() {
     this.escalaService
         .buscarEscalaServicoDaEquipe(this.data.equipe.id)
         .pipe(take(1))
         .subscribe((escalas) => {
           this.escalasServico = escalas;
-          //console.log(escalas)
         })
   }
 
   escolherAgente(agente: AgenteUser) {
     this.agente = agente;
+    this.adicionarAEquipe();
   }
 
   adicionarAEquipe() {
@@ -66,14 +66,7 @@ export class CriarEditarEquipeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((agentes) => {
           this.agentes = agentes;
-          this.selecionarAgentes();
         })
-  }
-
-  selecionarAgentes() {
-    this.agentes.forEach((a) => {
-      a.equipe_id === this.equipeCarregada.id ? this.agentes.splice(this.agentes.indexOf(a), 1) : null;
-    })
   }
 
   editarEquipe() {
@@ -83,9 +76,12 @@ export class CriarEditarEquipeComponent implements OnInit {
   }
 
   removerDaEquipe(agente: AgenteUser) {
-    this.agentesDaEquipe.splice(this.agentesDaEquipe.indexOf(agente), 1);
-    agente.equipe_id = 0;
-    this.atualizaAgenteNaEquipe(agente, agente.id);
+    this.agenteService.removerAgenteDaEquipe(agente.id)
+        .pipe(take(1))
+        .subscribe((response) => {
+          this.notification.open(response, 'Sucesso', { duration: 3000 });
+        })
+    this.equipeCarregada.membros.splice(this.agentesDaEquipe.indexOf(agente), 1);
     this.agentes.push(agente);
   }
 
@@ -108,7 +104,7 @@ export class CriarEditarEquipeComponent implements OnInit {
 
   alterarEquipeNoAgente() {
     this.agentesDaEquipe.forEach((a) => {
-      a.equipe_id !== this.equipeCarregada.id ? this.atualizaAgenteNaEquipe(a, a.id) : null;
+      this.atualizaAgenteNaEquipe(a, this.data.equipe.id);
     })
   }
 
@@ -116,22 +112,25 @@ export class CriarEditarEquipeComponent implements OnInit {
     this.agenteService
         .adicinarAgenteEmEquipe(agente.id, id)
         .pipe(take(1))
-        .subscribe((a) => console.log(a)
-      )
+        .subscribe(() => { })
   }
 
   removerAgenteDeEquipe(agenteId: number) {
     this.agenteService
         .removerAgenteDaEquipe(agenteId)
         .pipe(take(1))
-        .subscribe((a) => console.log(a))
+        .subscribe((a) => {})
   }
 
-  // atualizaAgenteNaEquipe(agente: AgenteUser, id: number) {
-  //   this.agenteService
-  //       .atualizarAgente(agente, id)
-  //       .pipe(take(1))
-  //       .subscribe((a) => console.log(a))
-  // }
+  buscarAgentesSemEquipe() {
+    this.agenteService
+        .getAgentesSemEquipe()
+        .pipe(take(1))
+        .subscribe((a) => {
+          this.agentes = a;
+        })
+  }
+
+
 }
 

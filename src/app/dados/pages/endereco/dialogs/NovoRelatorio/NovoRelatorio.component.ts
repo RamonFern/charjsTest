@@ -329,7 +329,69 @@ export class NovoRelatorioComponent implements OnInit {
         pdf.save('PdfRelatorio.pdf');
       }
     })
+  }
 
+  generatePDF() {
+    const doc = new jsPDF();
+
+    // Configurações iniciais
+    const marginLeft = 10; // Margem esquerda
+    let verticalPosition = 10; // Posição vertical inicial
+
+    // Função para adicionar texto com espaçamento
+    const addText = (text: string, fontSize: number, isBold: boolean = false, align: 'left' | 'center' | 'right' = 'left') => {
+      doc.setFontSize(fontSize);
+      doc.setFont('helvetica', isBold ? 'bold' : 'normal');
+      doc.text(text, marginLeft, verticalPosition, { align });
+      verticalPosition += fontSize / 2 + 5; // Ajusta a posição vertical
+    };
+
+    // Cabeçalho
+    addText('Relatório de Plantão', 18, true, 'center');
+    verticalPosition += 5; // Espaçamento extra
+    addText(`Data: ${new Date().toLocaleDateString()}`, 12);
+    addText(`Equipe: Equipe Alpha`, 12);
+    // doc.text(occurrences, marginLeft, verticalPosition, { maxWidth: 180, align: 'justify' });
+    // verticalPosition += 10; // Espaçamento extra
+
+    // Agentes
+    addText('Agentes da Equipe:', 14, true);
+    const agents = ['Agente 1', 'Agente 2', 'Agente 3'];
+    agents.forEach(agent => addText(`- ${agent}`, 12));
+
+
+    addText('Reforços:', 14, true);
+    const reinforcements = ['Reforço 1', 'Reforço 2'];
+    reinforcements.forEach(reinforcement => addText(`- ${reinforcement}`, 12));
+    verticalPosition += 10; // Espaçamento extra
+
+    // Faltas e Permutas
+    addText('Faltas:', 14, true);
+    addText('- Agente 4 (Justificada)', 12);
+
+    addText('Permutas:', 14, true);
+    addText('- Agente 5 ↔ Agente 6', 12);
+    verticalPosition += 10; // Espaçamento extra
+
+    // Ocorrências
+    addText('Ocorrências no Plantão:', 14, true);
+    const occurrences = `
+      Durante o plantão, ocorreram várias situações que demandaram atenção:
+      1. Incidente X foi resolvido rapidamente.
+      2. Incidente Y exigiu suporte adicional.
+      3. Todos os agentes colaboraram de forma eficiente.
+    `;
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(occurrences, marginLeft, verticalPosition, { maxWidth: 180, align: 'justify' });
+    verticalPosition += 60; // Ajuste conforme o tamanho do texto
+
+    // Rodapé
+    addText('Inspetor Responsável:', 14, true);
+    addText('Inspetor João Silva', 12);
+
+    // Salvar o PDF
+    doc.save('relatorio_plantao.pdf');
   }
 
   limpar() {

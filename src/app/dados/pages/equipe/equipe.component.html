@@ -9,19 +9,6 @@
         <mat-label>Nome</mat-label>
         <input matInput formControlName="nomeequipe" name="nomeequipe" required placeholder="Ex.: vaca h">
       </mat-form-field>
-
-      <h3>Selecione os agentes para compor a equipe</h3>
-            <mat-form-field appearance="outline">
-              <mat-label>Agente</mat-label>
-              <mat-select required>
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let agente of agentesSemEquipe" [value]="agente" (click)="selecionarAgenteParaEquipe(agente)">
-                  {{ agente.nome }}
-                </mat-option>
-              </mat-select>
-              <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-              <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
-            </mat-form-field>
             <div class="form__chips" *ngIf="agentesDaEquipe">
               <mat-chip-list aria-label="Agentes-Selecionados">
                 <mat-chip *ngFor="let itemSel of agentesDaEquipe">
@@ -46,33 +33,3 @@
     <app-card-equipe [equipe]="equipe"></app-card-equipe>
   </ng-container>
 </div>
-
-
-<!--
-<div cdkDropListGroup class="edit__equipe">
-  <div class="container" *ngFor="let equipe of equipes">
-    <h2>{{ equipe.nome }}</h2>
-
-    <div
-      cdkDropList
-      [cdkDropListData]="separarAgentesPorEquipe(equipe)"
-      class="list"
-      cdkDropListSortingDisabled
-      (cdkDropListDropped)="drop($event)">
-      <div class="box" *ngFor="let item of separarAgentesPorEquipe(equipe)" cdkDrag>{{item}}</div>
-    </div>
-  </div>
-</div>
-<div class="container" *ngIf="agentesSemEquipe.length">
-  <h2>Agentes sem equipe</h2>
-
-  <div
-    cdkDropList
-    [cdkDropListData]="enviarAgentesSemEquipe()"
-    class="list"
-    cdkDropListSortingDisabled
-    (cdkDropListDropped)="drop($event)">
-    <div class="box" *ngFor="let item of enviarAgentesSemEquipe()" cdkDrag>{{item}}</div>
-  </div>
-</div>
--->

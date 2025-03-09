@@ -12,7 +12,7 @@
     </form>
     <p><strong>Membros:</strong></p>
     <ul>
-      <li *ngFor="let membro of agentesDaEquipe" class="li-list">
+      <li *ngFor="let membro of equipeCarregada.membros" class="li-list">
         {{ membro.nome }} <p *ngIf="loadEquipe" (click)="removerDaEquipe(membro)" class="xis">x</p>
       </li>
     </ul>
@@ -27,12 +27,7 @@
               {{ agente.nome }}
             </mat-option>
           </mat-select>
-          <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-            <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
         </mat-form-field>
-        <button mat-fab color="primary" (click)="adicionarAEquipe()" matTooltip="Adicionar a equipe">
-          <mat-icon>add</mat-icon>
-        </button>
       </div>
     </div>
     <p><strong>Escala da equipe:</strong></p>

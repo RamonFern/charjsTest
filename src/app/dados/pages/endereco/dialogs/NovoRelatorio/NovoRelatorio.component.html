@@ -31,9 +31,9 @@
           <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
             <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
         </mat-form-field>
-        <!-- <button mat-fab color="primary" class="add-btn" (click)="adicionarEquipeAoRelatorio()" matTooltip="Adicionar equipe">
+        <button mat-fab color="primary" class="add-btn" (click)="generatePDF()" matTooltip="criar pdf teste">
           <mat-icon>add</mat-icon>
-        </button> -->
+        </button>
       </div>
     </div>
     <div class="form__chips" *ngIf="equipeSelecionada">
