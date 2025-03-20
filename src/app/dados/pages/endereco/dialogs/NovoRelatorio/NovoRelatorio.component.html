@@ -31,9 +31,9 @@
           <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
             <mat-hint>{{animalControl.value?.sound}}</mat-hint>   /assets/images/avatarNull.png -->
         </mat-form-field>
-        <button mat-fab color="primary" class="add-btn" (click)="generatePDF()" matTooltip="criar pdf teste">
+        <!-- <button mat-fab color="primary" class="add-btn" (click)="generatePDF()" matTooltip="criar pdf teste">
           <mat-icon>add</mat-icon>
-        </button>
+        </button> -->
       </div>
     </div>
     <div class="form__chips" *ngIf="equipeSelecionada">
@@ -290,25 +290,32 @@
                 </ng-container>
               </div>
 
-              <ng-container *ngFor="let agenteFaltou of agentesFaltosos">
-                <ng-container *ngIf="agente.id !== agenteFaltou.id">
+              <ng-container>
+                <ng-container>
                   <mat-form-field appearance="fill">
                     <mat-label>Chegada</mat-label>
-                    <input matInput  formControlName="chegada" name="chegada" required type="time">
+                    <input matInput  formControlName="chegada" name="chegada" required type="datetime-local">
                   </mat-form-field>
 
                   <mat-form-field appearance="fill">
                     <mat-label>Saída</mat-label>
-                    <input  matInput formControlName="saida" name="saida" required type="time">
+                    <input  matInput formControlName="saida" name="saida" required type="datetime-local">
                   </mat-form-field>
+
+                  <td><mat-form-field class="example-full-width">
+                    <mat-label>atraso</mat-label>
+                    <input matInput formControlName="atraso" name="atraso" maxlength="3" placeholder="Ex. 105 min" value="0">
+                  </mat-form-field></td>
                 </ng-container>
-                <ng-container *ngIf="agente.id === agenteFaltou.id">
-                  <mat-form-field appearance="fill">
-                    <mat-label>Justificativa</mat-label>
-                    <textarea matInput formControlName="justificativa" name="justificativa" placeholder="Ex. It makes me feel..."></textarea>
-                  </mat-form-field>
+                <!-- <ng-container *ngFor="let itemSel of agentesFaltosos"> -->
+                  <ng-container *ngFor="let agenteNaFalta of agentesFaltosos">
+                    <mat-form-field appearance="fill" *ngIf="agenteNaFalta.id === agente.id">
+                      <mat-label>Justificativa</mat-label>
+                      <textarea matInput formControlName="justificativa" name="justificativa" placeholder="Ex. It makes me feel..."></textarea>
+                    </mat-form-field>
+                  </ng-container>
                 </ng-container>
-              </ng-container>
+              <!-- </ng-container> -->
             </div>
           </form>
           <div class="mat-card-btn">
@@ -330,12 +337,12 @@
 
             <mat-form-field appearance="fill">
               <mat-label>Chegada</mat-label>
-              <input matInput formControlName="chegada" name="chegada" required type="time">
+              <input matInput formControlName="chegada" name="chegada" required type="datetime-local">
             </mat-form-field>
 
             <mat-form-field appearance="fill">
               <mat-label>Saída</mat-label>
-              <input  matInput formControlName="saida" name="saida" required type="time">
+              <input  matInput formControlName="saida" name="saida" required type="datetime-local">
             </mat-form-field>
           </div>
         </form>
@@ -344,45 +351,49 @@
         </div>
       </mat-card>
     </div>
-
-    <div *ngIf="registroDeHoras.length" class="card-reg-horas">
+    <ng-container *ngIf="registroDeHoras.length">
+      <ng-container *ngFor="let registro of registroDeHoras">
+        <app-card-horario [horariosResponse]="registro"></app-card-horario>
+      </ng-container>
+    </ng-container>
+    <!-- <div *ngIf="registroDeHoras.length" class="card-reg-horas">
       <mat-card class="registro-card" *ngFor="let registro of registroDeHoras">
         <mat-card-header>
           <mat-card-title>Detalhes do Registro</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <mat-list>
-            <!-- Informações do Usuário -->
+
             <mat-list-item>
               <mat-icon style="color: #3f51b5;" matListIcon>person</mat-icon>
-              <h3 matLine>{{ registro.usuario.nome }}</h3>
-              <p matLine>Função: {{ registro.usuario.funcao }}</p>
+              <h3 matLine>{{ registro.usuario?.nome }}</h3>
+              <p matLine>Função: {{ registro.usuario?.funcao }}</p>
             </mat-list-item>
             <mat-divider></mat-divider>
 
-            <!-- Data do Registro -->
+
             <mat-list-item>
               <mat-icon style="color: #3f51b5;" matListIcon>calendar_today</mat-icon>
-              <p matLine>Data: {{ registro.data || "DD-MM-YYYY" }}</p>
+              <p matLine>Data: {{ registro?.dataHoraInicio || "DD-MM-YYYY" }}</p>
             </mat-list-item>
             <mat-divider></mat-divider>
 
-            <!-- Horário de Entrada -->
+
             <mat-list-item>
               <mat-icon style="color: #3f51b5;" matListIcon>login</mat-icon>
-              <p matLine>Hora de Entrada: {{ registro.horaEntrada }}</p>
+              <p matLine>Hora de Entrada: {{ registro?.dataHoraInicio }}</p>
             </mat-list-item>
             <mat-divider></mat-divider>
 
-            <!-- Horário de Saída -->
+
             <mat-list-item>
               <mat-icon style="color: #3f51b5;" matListIcon>logout</mat-icon>
-              <p matLine>Hora de Saída: {{ registro.horaSaida }}</p>
+              <p matLine>Hora de Saída: {{ registro?.dataHoraFim }}</p>
             </mat-list-item>
           </mat-list>
         </mat-card-content>
       </mat-card>
-    </div>
+    </div> -->
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
@@ -407,7 +418,7 @@
                   class="text-area"
                   formControlName="text1" name="text1"
                   #message1
-                  maxlength="253"
+                  maxlength="800"
                   required
                   placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
         </textarea>
@@ -416,11 +427,11 @@
             Caso o tamanho seja insuficiente aparecerá novo input abaixo.
           </strong>
         </mat-hint>
-        <mat-hint align="end">{{message1.value.length}} / 256</mat-hint>
+        <mat-hint align="end">{{message1.value.length}} / 800</mat-hint>
       </mat-form-field>
       <!-- <button mat-button color="primary" (click)="teste()">Primary</button> -->
 
-      <ng-container *ngIf="message1.value.length > 250">
+      <ng-container *ngIf="message1.value.length > 780">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Relatório de serviço</mat-label>
           <textarea matInput
@@ -428,14 +439,14 @@
                     class="text-area"
                     formControlName="text2" name="text2"
                     #message2
-                    maxlength="253"
+                    maxlength="800"
                     placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
           </textarea>
           <mat-hint align="start"><strong>Caso o tamanho seja insuficiente aparecerá novo input abaixo.</strong> </mat-hint>
-          <mat-hint align="end">{{message2.value.length}} / 256</mat-hint>
+          <mat-hint align="end">{{message2.value.length}} / 800</mat-hint>
         </mat-form-field>
 
-        <ng-container *ngIf="message2.value.length > 250">
+        <ng-container *ngIf="message2.value.length > 780">
           <mat-form-field appearance="outline" class="example-full-width">
             <mat-label>Relatório de serviço</mat-label>
             <textarea matInput
@@ -446,7 +457,7 @@
                       placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
             </textarea>
             <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
-            <mat-hint align="end">{{message3.value.length}} / 256</mat-hint>
+            <mat-hint align="end">{{message3.value.length}} / 800</mat-hint>
           </mat-form-field>
         </ng-container>
       </ng-container>

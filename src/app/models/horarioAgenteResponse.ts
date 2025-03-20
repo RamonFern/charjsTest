@@ -1,9 +1,9 @@
 export interface HorarioAgenteResponse {
   id: number
-  usuario: Usuario
-  data: string
-  horaEntrada: string
-  horaSaida: string
+  agente: Usuario
+  dataHoraInicio: string
+  dataHoraFim: string
+  atraso: number
   falta: boolean
 	justificativaFalta: string
 }
@@ -14,5 +14,6 @@ export interface Usuario {
   funcao: string
   codigo: number
 }
+
 
 

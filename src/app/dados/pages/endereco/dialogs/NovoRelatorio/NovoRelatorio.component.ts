@@ -81,6 +81,7 @@ export class NovoRelatorioComponent implements OnInit {
   horariosForm = new FormGroup({
     chegada: new FormControl('', Validators.required),
     saida: new FormControl('', Validators.required),
+    atraso: new FormControl('', Validators.required),
     justificativa: new FormControl('', Validators.required),
   })
 
@@ -124,7 +125,6 @@ export class NovoRelatorioComponent implements OnInit {
     .subscribe((ag) => {
       this.agentes = ag;
     })
-    // CONTINUAR AQUI FAZENDO O FILTRO P/SEPARAR OS AGENTES
   }
 
   selecionar(agente: AgenteUser) {
@@ -242,23 +242,25 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   salvarHorarios(id: number) {
-    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    // const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
-      usuarioId: id,
-      data: data.format("YYYY-MM-DD"),
-      horaEntrada: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
-      horaSaida: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,//agentes.some(agente => agente.id === id);
-      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false, //this.escolha3 === "sim" ? true : false,
+      agente_id: id,
+      // data: data.format("YYYY-MM-DD"),
+      dataHoraInicio: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
+      dataHoraFim: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,
+      atraso: this.horariosForm.controls['atraso'].value,
+      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false,
       justificativaFalta: this.horariosForm.controls['justificativa'].value,
     }
-    console.log(request);
+    // console.log(request);
+    //CONTINUAR AQUI ALTERANDO O FORMATO DA HORA ENTRADA E SAIDA PARA ENVIAR CORRETO NA REQUISIÇÃPO
 
     this.horarioService.salvar(request)
         .pipe(take(1))
         .subscribe((a) => {
           this.registroDeHoras.push(a);
           this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
-          console.log(this.registroDeHoras);
+          // console.log(this.registroDeHoras);
 
         })
   }
@@ -266,30 +268,32 @@ export class NovoRelatorioComponent implements OnInit {
   salvarHorarios2(id: number) {
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
-      usuarioId: id,
-      data: data.format("YYYY-MM-DD"),
-      horaEntrada: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
-      horaSaida: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,//agentes.some(agente => agente.id === id);
-      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false, //this.escolha3 === "sim" ? true : false,
+      agente_id: id,
+      // data: data.format("YYYY-MM-DD"),
+      dataHoraInicio: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
+      dataHoraFim: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,
+      atraso: this.horariosForm.controls['atraso'].value,
+      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false,
       justificativaFalta: this.horariosForm.controls['justificativa'].value,
     }
-    console.log(request);
+
 
     this.horarioService.salvar(request)
     .pipe(take(1))
     .subscribe((a) => {
-      console.log(a);
+      // console.log(a);
       this.registroDeHoras.push(a);
+      this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
     })
   }
 
   salvarRelatorio() {
-    const agentesDaEquipe = this.equipeSelecionada?.membros.filter((a) => a.nome).join(", ");
+    const agentesDaEquipe = this.equipeSelecionada?.membros.map((a) => a.nome).join(", ");
     const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
     const agentesDeFolgaEscolhidoParaPermulta = this.agentesDeFolgaEscolhidoParaPermulta2.map((a) => a.nome).join(", ");
     const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
     const agentesQueFaltaram = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
-    const inspetores = this.equipeSelecionada?.membros.filter(a => a.funcao === 'INSPETOR').join(", ");
+    const inspetores = this.equipeSelecionada?.membros.map(a => a.funcao === 'INSPETOR').join(", ");
 
     const dataAtual = moment();
     const request: RelatorioRequest = {
@@ -310,88 +314,99 @@ export class NovoRelatorioComponent implements OnInit {
 
     console.log(request);
 
-    this.relatorioService.salvarRelatorio(request)
-        .pipe(take(1))
-        .subscribe((rel) => {
-          this.criarPDF();
+    // this.relatorioService.salvarRelatorio(request)
+    //     .pipe(take(1))
+    //     .subscribe((rel) => {
+    //       // this.criarPDF();
+    //       this.generatePDF();
 
-          this.limpar();
-          const dialogReturn: DialogReturn = { hasDataChanged: true };
-          this.dialogRef.close(dialogReturn);
-          this.notification.open('Relatório Criado', 'Sucesso', { duration: 3000 });
-        })
+    //       this.limpar();
+    //       const dialogReturn: DialogReturn = { hasDataChanged: true };
+    //       this.dialogRef.close(dialogReturn);
+    //       this.notification.open('Relatório Criado', 'Sucesso', { duration: 3000 });
+    //     })
   }
 
-  criarPDF() {
-    let pdf = new jsPDF('p','pt','a4');
-    pdf.html(this.el.nativeElement, {
-      callback: (pdf) => {
-        pdf.save('PdfRelatorio.pdf');
-      }
-    })
-  }
+  // criarPDF() {
+  //   let pdf = new jsPDF('p','pt','a4');
+  //   pdf.html(this.el.nativeElement, {
+  //     callback: (pdf) => {
+  //       pdf.save('PdfRelatorio$.pdf');
+  //     }
+  //   })
+  // }
 
   generatePDF() {
     const doc = new jsPDF();
 
     // Configurações iniciais
-    const marginLeft = 10; // Margem esquerda
-    let verticalPosition = 10; // Posição vertical inicial
+    const marginLeft = 5; // Margem esquerda
+    let verticalPosition = 1; // Posição vertical inicial
 
     // Função para adicionar texto com espaçamento
     const addText = (text: string, fontSize: number, isBold: boolean = false, align: 'left' | 'center' | 'right' = 'left') => {
       doc.setFontSize(fontSize);
       doc.setFont('helvetica', isBold ? 'bold' : 'normal');
       doc.text(text, marginLeft, verticalPosition, { align });
-      verticalPosition += fontSize / 2 + 5; // Ajusta a posição vertical
+      verticalPosition += fontSize / 2 + 2; // Ajusta a posição vertical
     };
 
     // Cabeçalho
-    addText('Relatório de Plantão', 18, true, 'center');
-    verticalPosition += 5; // Espaçamento extra
-    addText(`Data: ${new Date().toLocaleDateString()}`, 12);
-    addText(`Equipe: Equipe Alpha`, 12);
+    addText('Relatório de Plantão', 14, true, 'center');
+    // verticalPosition += 5; // Espaçamento extra
+    addText(`Data: ${new Date().toLocaleDateString()}`, 8);
+    addText(`Equipe: ${this.equipeSelecionada.nome}`, 8);
     // doc.text(occurrences, marginLeft, verticalPosition, { maxWidth: 180, align: 'justify' });
     // verticalPosition += 10; // Espaçamento extra
 
     // Agentes
-    addText('Agentes da Equipe:', 14, true);
-    const agents = ['Agente 1', 'Agente 2', 'Agente 3'];
-    agents.forEach(agent => addText(`- ${agent}`, 12));
+    addText('Agentes da Equipe:', 8, true);
+    const agents = this.equipeSelecionada.membros;
+    agents.forEach(agent => addText(`- ${agent.nome}`, 8));
+    // doc.text(agents, marginLeft, verticalPosition, { maxWidth: 180, align: 'justify' });
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
 
 
-    addText('Reforços:', 14, true);
-    const reinforcements = ['Reforço 1', 'Reforço 2'];
-    reinforcements.forEach(reinforcement => addText(`- ${reinforcement}`, 12));
-    verticalPosition += 10; // Espaçamento extra
+    addText('Reforços:', 12, true);
+    const reinforcements = this.agentesDeFolgaParaReforco.map((a) => a.nome);
+    reinforcements.forEach(reinforcement => addText(`- ${reinforcement}`, 8));
+    // verticalPosition += 10; // Espaçamento extra
 
     // Faltas e Permutas
-    addText('Faltas:', 14, true);
-    addText('- Agente 4 (Justificada)', 12);
+    addText('Faltas:', 12, true);
+    const faltosos = this.agentesFaltosos.map((a) => a.nome);
+    faltosos.forEach(faltoso => addText(`- ${faltoso}`, 8));
+    // addText('- faltoso (Justificada)', 12);
 
-    addText('Permutas:', 14, true);
-    addText('- Agente 5 ↔ Agente 6', 12);
-    verticalPosition += 10; // Espaçamento extra
+    addText('Permutas:', 12, true);
+    const permultas = this.agentesParaPermulta.map((a) => a.nome);
+    permultas.forEach(permulta => addText(`- ${permulta}`, 8));
+    // addText(' ↔ ', 12);
+
+    addText('Escollhido para Permutas:', 12, true);
+    const EscolhaPermultas = this.agentesDeFolgaEscolhidoParaPermulta.map((a) => a.nome);
+    EscolhaPermultas.forEach(permulta => addText(`- ${permulta}`, 8));
+    // verticalPosition += 10; // Espaçamento extra
 
     // Ocorrências
-    addText('Ocorrências no Plantão:', 14, true);
+    addText('Ocorrências no Plantão:', 8, true);
     const occurrences = `
-      Durante o plantão, ocorreram várias situações que demandaram atenção:
-      1. Incidente X foi resolvido rapidamente.
-      2. Incidente Y exigiu suporte adicional.
-      3. Todos os agentes colaboraram de forma eficiente.
+      ${this.text1}
+      ${this.text2}
+      ${this.text3}
     `;
     doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
-    doc.text(occurrences, marginLeft, verticalPosition, { maxWidth: 180, align: 'justify' });
-    verticalPosition += 60; // Ajuste conforme o tamanho do texto
+    doc.text(occurrences, marginLeft, verticalPosition, { maxWidth: 190, align: 'justify' });
+    // verticalPosition += 60; // Ajuste conforme o tamanho do texto
 
     // Rodapé
-    addText('Inspetor Responsável:', 14, true);
-    addText('Inspetor João Silva', 12);
+    addText('Inspetor Responsável:', 12, true);
+    addText(`${this.equipeSelecionada.membros.filter((a) => {a.funcao === 'INSPETOR'})}`, 8);
 
     // Salvar o PDF
-    doc.save('relatorio_plantao.pdf');
+    doc.save(`relatorio_do_dia_${this.dataRelatorio}.pdf`);
   }
 
   limpar() {

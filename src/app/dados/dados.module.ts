@@ -26,6 +26,7 @@ import { CriarEditarEquipeComponent } from './pages/equipe/dialogs/criar-editar-
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatCardModule } from '@angular/material/card';
 import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/NovoRelatorio.component';
+import { CardHorarioComponent } from '../layout/components/card-horario/card-horario.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/N
     EquipeComponent,
     NovoRelatorioComponent,
     CardEquipeComponent,
-    CriarEditarEquipeComponent
+    CriarEditarEquipeComponent,
+    CardHorarioComponent
 
   ],
   imports: [

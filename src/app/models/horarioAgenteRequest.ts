@@ -1,8 +1,9 @@
 export interface HorarioAgenteRequest {
-  usuarioId: number
-  data: string
-  horaEntrada: string
-  horaSaida: string
+  agente_id: number
+  // data: string
+  dataHoraInicio: string
+  dataHoraFim: string
+  atraso: number
   falta: boolean
 	justificativaFalta: string
 }

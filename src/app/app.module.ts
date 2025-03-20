@@ -22,6 +22,10 @@ import { NotificacoesModule } from './notificacoes/notificacoes.module';
 import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.module';
 import { NoResultsComponent } from './layout/components/no-results/no-results.component';
 import { DetalhesTamplateComponent } from './layout/components/detalhes-tamplate/detalhes-tamplate.component';
+import { CardHorarioComponent } from './layout/components/card-horario/card-horario.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -30,10 +34,8 @@ import { DetalhesTamplateComponent } from './layout/components/detalhes-tamplate
         LayoutComponent,
         MenuComponent,
         NoResultsComponent,
-        DetalhesTamplateComponent
-        // DashboardComponent,
-        // DiaComponent,
-        // EquipePlantaoComponent
+        DetalhesTamplateComponent,
+        // CardHorarioComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -48,6 +50,9 @@ import { DetalhesTamplateComponent } from './layout/components/detalhes-tamplate
       MatDatepickerModule,
       MatFormFieldModule,
       MatTooltipModule,
+      MatCardModule,
+      MatDividerModule,
+      MatListModule,
       MatInputModule,
       MatButtonModule,
       DadosRoutingModule,

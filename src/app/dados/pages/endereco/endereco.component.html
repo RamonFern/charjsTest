@@ -1,17 +1,33 @@
-  <mat-accordion>
-    <mat-expansion-panel class="mat-expansion" *ngFor="let relatorio of relatorios">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Nome da equipe: {{ relatorio.nomeequipe }}
-        </mat-panel-title>
-        <mat-panel-description>
-          Data do relatório: {{relatorio.datadorelatorio}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>{{ relatorio.texto1 }}</p>
-      <p>{{ relatorio.texto1 }}</p>
-      <p>{{ relatorio.texto1 }}</p>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <div class="list-relatorio">
+    <mat-accordion>
+      <mat-expansion-panel class="mat-expansion" *ngFor="let relatorio of relatorios">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Nome da equipe: {{ relatorio.nomeequipe }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- Nome da equipe: {{ relatorio.agentesdaequipe }} -->
+            Data do relatório: {{relatorio.datadorelatorio}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        Data do Relatório:
+        <p>{{ relatorio.datadorelatorio }}</p>
+        Agentes da equipe:
+        <p>{{ relatorio.agentesdaequipe }}</p>
+        Permultas:
+        <p>{{ relatorio.agentesparapermultar }}</p> Permultou com <p>{{ relatorio.agentedefolgaparapermultar }}</p>
+        Reforço:
+        <p>{{ relatorio.agentesparareforco }}</p>
+        Faltas:
+        <p>{{ relatorio.agentesfaltoso }}</p>
+
+        <p>{{ relatorio.texto1 }}</p>
+        <p>{{ relatorio.texto2 }}</p>
+        <p>{{ relatorio.texto3 }}</p>
+        Inspetor:
+        <p>{{ relatorio.nomeinspetor }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
   <button mat-button (click)="novoRelatorio()">Novo relatorio</button>
 <button mat-button *ngIf="addRelatorio" (click)="voltarListagemRelatorio()">Cancelar</button>

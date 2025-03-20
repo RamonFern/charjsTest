@@ -10,59 +10,11 @@
   display: flex;
 }
 
-/* .equipe {
+.list-relatorio {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 30px;
-} */
-
-/* .equipe__per {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-} */
-
-/* .dir-data {
-  display: flex;
-  flex-direction: column;
-} */
-
-/* .equipe__agentes-permulta {
-  display: flex;
-  flex-direction: column;
-} */
-
-/* .equipe__agentes {
-  display: flex;
-  gap: 20px;
-} */
-
-/* .equipe__sel {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  width: 80%;
+  margin: 57px;
 }
-
-.form__equipe {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} */
-
-/* .chip {
-  display: flex;
-  gap: 9px;
-}
-
-.margin {
-  margin-left: 16px;
-} */
-
-/* .form__permulta {
-  margin-top: 20px;
-} */
 
 .example-form {
   min-width: 150px;
@@ -70,76 +22,6 @@
   width: 100%;
 }
 
-/* .example-full-width {
-  width: 100%;
-} */
-
-/* .agentes__plantao {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
-  align-items: center;
-} */
-
-/* .permultas {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.permultas__esq {
-  display: flex;
-  flex-direction: column;
-} */
-
-/* .agente__permulta {
-  margin-top: 20px;
-} */
-
-/* .chip__list {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 10px;
-} */
-
-/* .reforco {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-top: 20px;
-} */
-
-/* .divider {
-  margin-top: 20px;
-}
-
-.agente__reforco {
-  display: flex;
-  justify-content: space-between;
-  width: -webkit-fill-available;
-} */
-
-/* .form__header {
-  display: flex;
-  flex-direction: column;
-} */
-
-/* .relatorio__header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-} */
-
-/* .step5 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 
 .data {
   display: flex;
@@ -150,56 +32,16 @@
   display: flex;
   flex-direction: column;
   margin-top: 40px;
-  /* width: 85%; */
 }
-
-/* .relatorio__principal {
-  margin-top: 20px;
-}
-
-.relatorio__main {
-  display: flex;
-  flex-direction: column;
-  margin-top: 40px;
-} */
-
-/* .assinatura {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 60px;
-} */
-
-/* .equipe__reforco {
-  display: flex;
-} */
 
 .nome__equipe {
   margin-left: 30px;
 }
 
-/* .form__agentes {
-  margin-top: 30px;
-} */
-
-/* .text-area {
-  min-height: 60px;
-} */
-
-/* .form__text {
-  margin-top: 30px;
-} */
-
 .mat-expansion {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
-/* .radio {
-  display: flex;
-  justify-content: flex-start;
-  gap: 30px;
-} */
 
 
 

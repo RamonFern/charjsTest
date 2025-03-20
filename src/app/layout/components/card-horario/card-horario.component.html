@@ -1,0 +1,38 @@
+<div class="card-reg-horas">
+  <mat-card class="registro-card" >
+    <mat-card-header>
+      <mat-card-title>Detalhes do Registro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="horariosResponse">
+      <mat-list>
+        <!-- Informações do Usuário -->
+        <mat-list-item>
+          <mat-icon style="color: #3f51b5;" matListIcon>person</mat-icon>
+          <h3 matLine> {{horariosResponse.agente?.nome}} </h3>
+          <p matLine>Função:  {{horariosResponse.agente?.funcao}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <!-- Data do Registro -->
+        <mat-list-item>
+          <mat-icon style="color: #3f51b5;" matListIcon>calendar_today</mat-icon>
+          <p matLine>Data: {{horariosResponse?.dataHoraInicio || "DD-MM-YYYY"}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <!-- Horário de Entrada -->
+        <mat-list-item>
+          <mat-icon style="color: #3f51b5;" matListIcon>login</mat-icon>
+          <p matLine>Hora de Entrada:  {{horariosResponse?.dataHoraInicio}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <!-- Horário de Saída -->
+        <mat-list-item>
+          <mat-icon style="color: #3f51b5;" matListIcon>logout</mat-icon>
+          <p matLine>Hora de Saída:  {{horariosResponse?.dataHoraFim}} </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

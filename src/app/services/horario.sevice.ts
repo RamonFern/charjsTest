@@ -11,7 +11,7 @@ export class HorarioService {
   constructor(private http: HttpClient) { }
 
   salvar(horarioAgente: HorarioAgenteRequest) {
-    return this.http.post<HorarioAgenteResponse>('http://localhost:8080/api/v2/horas', horarioAgente);
+    return this.http.post<HorarioAgenteResponse>('http://localhost:8080/api/v2/horas/salvar', horarioAgente);
   }
 
 }
