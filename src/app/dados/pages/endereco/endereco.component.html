@@ -24,8 +24,16 @@
         <p>{{ relatorio.texto1 }}</p>
         <p>{{ relatorio.texto2 }}</p>
         <p>{{ relatorio.texto3 }}</p>
-        Inspetor:
-        <p>{{ relatorio.nomeinspetor }}</p>
+        <div class="nome_inspetor">
+          Inspetor:
+          <p>{{ relatorio.nomeinspetor }}</p>
+        </div>
+        <section>
+          <div class="example-button-row">
+            <a mat-raised-button (click)="editarRelatorio(relatorio)">Editar relatório</a>
+            <a mat-raised-button (click)="generatePDF2(relatorio)">Imprimir relatório</a>
+          </div>
+        </section>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

@@ -43,6 +43,17 @@
   margin-bottom: 10px;
 }
 
+.nome_inspetor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.example-button-row {
+  display: flex;
+  justify-content: space-between;
+}
+
 
 
 

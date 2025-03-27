@@ -1,12 +1,14 @@
+import { RelatorioRequest } from './../../../models/relatorio-request';
 import { Component, OnInit } from '@angular/core';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { take } from 'rxjs';
+import jsPDF from 'jspdf';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { RelatorioRequest } from 'src/app/models/relatorio-request';
 import { RelatorioService } from 'src/app/services/relatorio.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NovoRelatorioComponent } from './dialogs/NovoRelatorio/NovoRelatorio.component';
 import { DialogReturn } from 'src/app/models/dialog-return';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -24,11 +26,11 @@ import { DialogReturn } from 'src/app/models/dialog-return';
 export class EnderecoComponent implements OnInit {
 
 
+
   relatorios: RelatorioRequest[] = [];
   addRelatorio = false;
 
-  constructor(
-              private relatorioService: RelatorioService,
+  constructor(private relatorioService: RelatorioService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -49,13 +51,22 @@ export class EnderecoComponent implements OnInit {
         });
   }
 
+  editarRelatorio(relatorio: RelatorioRequest) {
+    const dialogRef = this.dialog.open(NovoRelatorioComponent, {
+            width: '1250px',
+            data: relatorio
+          });// CONTINUAR FAZENDO O EDITAR RELATORIO
 
+          dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+            if (result?.hasDataChanged) {
+              this.buscarRelatorios();
+            }
+        });
+  }
 
   voltarListagemRelatorio() {
     this.addRelatorio = false;
   }
-
-
 
   buscarRelatorios() {
     this.relatorioService.buscarTodos()
@@ -66,7 +77,63 @@ export class EnderecoComponent implements OnInit {
         })
   }
 
+  generatePDF2(relatorio: RelatorioRequest) {
 
+    const doc = new jsPDF();
+
+    const margin = 20;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Adiciona a logo se disponível
+    if (environment.logoBase64) {
+      doc.addImage(environment.logoBase64, 'PNG', margin, 10, 25, 25);
+    }
+
+    // Nome da instituição
+    doc.setFont('times', 'bold');
+    doc.setFontSize(11);
+    doc.text(`Prefeitura Municipal de Rosário`, pageWidth / 2, 20, { align: 'center' });
+    doc.text(`Departamento Municipal de Trânsito e Transporte - DMTT`, pageWidth / 2, 25, { align: 'center' });
+    doc.text(`Relatório do dia ${relatorio.datadorelatorio}`, pageWidth / 2, 30, { align: 'center' });
+    doc.text(`Equipe: ${relatorio.nomeequipe}`, pageWidth / 2, 35, { align: 'center' });
+    // doc.text(`${relatorio.datadorelatorio}`, pageWidth / 2, 20, { align: 'center' });
+    // Título do documento
+    doc.setFontSize(11);
+    doc.text(`Agentes da equipe:` , 20, 50, { align: 'left' });
+    doc.text(`${relatorio.agentesdaequipe}` , 20, 55, { align: 'left' });
+    doc.text(`Permulta:` , 20, 60, { align: 'left' });
+    doc.text(`${relatorio.agentesparapermultar}` , 20, 65, { align: 'left' });
+    doc.text(`Permultou com:` , 20, 70, { align: 'left' });
+    doc.text(`${relatorio.agentedefolgaparapermultar}` , 20, 75, { align: 'left' });
+    doc.text(`Reforço:` , 20, 80, { align: 'left' });
+    doc.text(`${relatorio.agentesparareforco}` , 20, 85, { align: 'left' });
+    doc.text(`Faltas:` , 20, 90, { align: 'left' });
+    doc.text(`${relatorio.agentesfaltoso}` , 20, 95, { align: 'left' });
+
+    // Adiciona o conteúdo justificado
+    doc.setFont('times', 'normal');
+    doc.setFontSize(11);
+    const textY = 105;
+    const maxWidth = pageWidth - margin * 2;
+    doc.text(`${relatorio.texto1} ${relatorio.texto2} ${relatorio.texto3}` , margin, textY, { maxWidth: maxWidth, align: 'justify' });
+
+    // Rodapé com data e assinatura centralizados
+    const currentDate = new Date().toLocaleDateString();
+    doc.setFontSize(10);
+    doc.text(`Inspetor(a)`, pageWidth / 2, pageHeight - 30, { align: 'center' });
+    doc.text(`${relatorio.nomeinspetor}`, pageWidth / 2, pageHeight - 20, { align: 'center' });
+
+    // Adiciona numeração de páginas
+    // const pageCount = doc.internal.getNumberOfPages();
+    // for (let i = 1; i <= pageCount; i++) {
+    //   doc.setPage(i);
+    //   doc.text(`Página ${i} de ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+    // }
+
+    // Baixar o PDF
+    doc.save(`relatorio_do_dia_${relatorio.datadorelatorio}.pdf`);
+  }
 
 }
 

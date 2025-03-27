@@ -1,11 +1,10 @@
 import { AgenteUser } from './../../../../../models/AgenteUser';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import jsPDF from 'jspdf';
 import * as moment from 'moment';
 import { take } from 'rxjs';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
@@ -95,7 +94,8 @@ export class NovoRelatorioComponent implements OnInit {
   text3!: string;
   dataRelatorio!: string
 
-  constructor(private agenteService: AgenteService, private fb: FormBuilder,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { relatorio: RelatorioRequest },
+              private agenteService: AgenteService, private fb: FormBuilder,
               public dialogRef: MatDialogRef<NovoRelatorioComponent>,
               private notification: MatSnackBar,
               private horarioService: HorarioService,
@@ -106,6 +106,7 @@ export class NovoRelatorioComponent implements OnInit {
     this.alteracaoEscolha = this.alteracao[1].toString();
     this.listarAgentes();
     this.listarEquipes();
+    console.log(this.data);
   }
 
   mostraRelatorio() {
@@ -253,7 +254,7 @@ export class NovoRelatorioComponent implements OnInit {
       justificativaFalta: this.horariosForm.controls['justificativa'].value,
     }
     // console.log(request);
-    //CONTINUAR AQUI ALTERANDO O FORMATO DA HORA ENTRADA E SAIDA PARA ENVIAR CORRETO NA REQUISIÇÃPO
+
 
     this.horarioService.salvar(request)
         .pipe(take(1))
@@ -292,8 +293,10 @@ export class NovoRelatorioComponent implements OnInit {
     const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
     const agentesDeFolgaEscolhidoParaPermulta = this.agentesDeFolgaEscolhidoParaPermulta2.map((a) => a.nome).join(", ");
     const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
-    const agentesQueFaltaram = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
-    const inspetores = this.equipeSelecionada?.membros.map(a => a.funcao === 'INSPETOR').join(", ");
+    const agentesQueFaltaram = this.agentesFaltosos2.map((a) => a.nome).join(", ");
+    const inspetores = this.equipeSelecionada?.membros.filter(agente => agente.funcao === "INSPETOR")
+                                                      .map(agente => agente.nome).join(", ");
+
 
     const dataAtual = moment();
     const request: RelatorioRequest = {
@@ -314,99 +317,17 @@ export class NovoRelatorioComponent implements OnInit {
 
     console.log(request);
 
-    // this.relatorioService.salvarRelatorio(request)
-    //     .pipe(take(1))
-    //     .subscribe((rel) => {
-    //       // this.criarPDF();
-    //       this.generatePDF();
+    this.relatorioService.salvarRelatorio(request)
+        .pipe(take(1))
+        .subscribe((rel) => {
+          // this.criarPDF();
+          // this.generatePDF();
 
-    //       this.limpar();
-    //       const dialogReturn: DialogReturn = { hasDataChanged: true };
-    //       this.dialogRef.close(dialogReturn);
-    //       this.notification.open('Relatório Criado', 'Sucesso', { duration: 3000 });
-    //     })
-  }
-
-  // criarPDF() {
-  //   let pdf = new jsPDF('p','pt','a4');
-  //   pdf.html(this.el.nativeElement, {
-  //     callback: (pdf) => {
-  //       pdf.save('PdfRelatorio$.pdf');
-  //     }
-  //   })
-  // }
-
-  generatePDF() {
-    const doc = new jsPDF();
-
-    // Configurações iniciais
-    const marginLeft = 5; // Margem esquerda
-    let verticalPosition = 1; // Posição vertical inicial
-
-    // Função para adicionar texto com espaçamento
-    const addText = (text: string, fontSize: number, isBold: boolean = false, align: 'left' | 'center' | 'right' = 'left') => {
-      doc.setFontSize(fontSize);
-      doc.setFont('helvetica', isBold ? 'bold' : 'normal');
-      doc.text(text, marginLeft, verticalPosition, { align });
-      verticalPosition += fontSize / 2 + 2; // Ajusta a posição vertical
-    };
-
-    // Cabeçalho
-    addText('Relatório de Plantão', 14, true, 'center');
-    // verticalPosition += 5; // Espaçamento extra
-    addText(`Data: ${new Date().toLocaleDateString()}`, 8);
-    addText(`Equipe: ${this.equipeSelecionada.nome}`, 8);
-    // doc.text(occurrences, marginLeft, verticalPosition, { maxWidth: 180, align: 'justify' });
-    // verticalPosition += 10; // Espaçamento extra
-
-    // Agentes
-    addText('Agentes da Equipe:', 8, true);
-    const agents = this.equipeSelecionada.membros;
-    agents.forEach(agent => addText(`- ${agent.nome}`, 8));
-    // doc.text(agents, marginLeft, verticalPosition, { maxWidth: 180, align: 'justify' });
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-
-
-    addText('Reforços:', 12, true);
-    const reinforcements = this.agentesDeFolgaParaReforco.map((a) => a.nome);
-    reinforcements.forEach(reinforcement => addText(`- ${reinforcement}`, 8));
-    // verticalPosition += 10; // Espaçamento extra
-
-    // Faltas e Permutas
-    addText('Faltas:', 12, true);
-    const faltosos = this.agentesFaltosos.map((a) => a.nome);
-    faltosos.forEach(faltoso => addText(`- ${faltoso}`, 8));
-    // addText('- faltoso (Justificada)', 12);
-
-    addText('Permutas:', 12, true);
-    const permultas = this.agentesParaPermulta.map((a) => a.nome);
-    permultas.forEach(permulta => addText(`- ${permulta}`, 8));
-    // addText(' ↔ ', 12);
-
-    addText('Escollhido para Permutas:', 12, true);
-    const EscolhaPermultas = this.agentesDeFolgaEscolhidoParaPermulta.map((a) => a.nome);
-    EscolhaPermultas.forEach(permulta => addText(`- ${permulta}`, 8));
-    // verticalPosition += 10; // Espaçamento extra
-
-    // Ocorrências
-    addText('Ocorrências no Plantão:', 8, true);
-    const occurrences = `
-      ${this.text1}
-      ${this.text2}
-      ${this.text3}
-    `;
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(occurrences, marginLeft, verticalPosition, { maxWidth: 190, align: 'justify' });
-    // verticalPosition += 60; // Ajuste conforme o tamanho do texto
-
-    // Rodapé
-    addText('Inspetor Responsável:', 12, true);
-    addText(`${this.equipeSelecionada.membros.filter((a) => {a.funcao === 'INSPETOR'})}`, 8);
-
-    // Salvar o PDF
-    doc.save(`relatorio_do_dia_${this.dataRelatorio}.pdf`);
+          this.limpar();
+          const dialogReturn: DialogReturn = { hasDataChanged: true };
+          this.dialogRef.close(dialogReturn);
+          this.notification.open('Relatório Criado', 'Sucesso', { duration: 3000 });
+        })
   }
 
   limpar() {

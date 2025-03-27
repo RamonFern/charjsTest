@@ -356,44 +356,6 @@
         <app-card-horario [horariosResponse]="registro"></app-card-horario>
       </ng-container>
     </ng-container>
-    <!-- <div *ngIf="registroDeHoras.length" class="card-reg-horas">
-      <mat-card class="registro-card" *ngFor="let registro of registroDeHoras">
-        <mat-card-header>
-          <mat-card-title>Detalhes do Registro</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-list>
-
-            <mat-list-item>
-              <mat-icon style="color: #3f51b5;" matListIcon>person</mat-icon>
-              <h3 matLine>{{ registro.usuario?.nome }}</h3>
-              <p matLine>Função: {{ registro.usuario?.funcao }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-
-
-            <mat-list-item>
-              <mat-icon style="color: #3f51b5;" matListIcon>calendar_today</mat-icon>
-              <p matLine>Data: {{ registro?.dataHoraInicio || "DD-MM-YYYY" }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-
-
-            <mat-list-item>
-              <mat-icon style="color: #3f51b5;" matListIcon>login</mat-icon>
-              <p matLine>Hora de Entrada: {{ registro?.dataHoraInicio }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-
-
-            <mat-list-item>
-              <mat-icon style="color: #3f51b5;" matListIcon>logout</mat-icon>
-              <p matLine>Hora de Saída: {{ registro?.dataHoraFim }}</p>
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-    </div> -->
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
