@@ -33,6 +33,10 @@ export class AgenteService {
     return this.http.get<AgenteUser[]>(`http://localhost:8080/api/v2/agenteUser/sem-equipe`);
   }
 
+  buscarPorId(idAgente: number) {
+    return this.http.get<AgenteUser>(`http://localhost:8080/api/v2/agenteUser/${idAgente}`);
+  }
+
 }
 
 

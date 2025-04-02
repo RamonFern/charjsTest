@@ -246,9 +246,10 @@ export class NovoRelatorioComponent implements OnInit {
     // const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
       agente_id: id,
-      // data: data.format("YYYY-MM-DD"),
-      dataHoraInicio: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
-      dataHoraFim: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,
+      // dataHoraInicio: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
+      dataHoraInicio: this.horariosForm.controls['chegada'].value,
+      // dataHoraFim: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,
+      dataHoraFim: this.horariosForm.controls['saida'].value,
       atraso: this.horariosForm.controls['atraso'].value,
       falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false,
       justificativaFalta: this.horariosForm.controls['justificativa'].value,
@@ -271,8 +272,8 @@ export class NovoRelatorioComponent implements OnInit {
     const request: HorarioAgenteRequest = {
       agente_id: id,
       // data: data.format("YYYY-MM-DD"),
-      dataHoraInicio: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
-      dataHoraFim: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,
+      dataHoraInicio: this.horariosForm.controls['chegada'].value,
+      dataHoraFim: this.horariosForm.controls['saida'].value,
       atraso: this.horariosForm.controls['atraso'].value,
       falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false,
       justificativaFalta: this.horariosForm.controls['justificativa'].value,

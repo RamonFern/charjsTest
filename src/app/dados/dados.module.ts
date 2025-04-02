@@ -27,6 +27,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatCardModule } from '@angular/material/card';
 import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/NovoRelatorio.component';
 import { CardHorarioComponent } from '../layout/components/card-horario/card-horario.component';
+import { ResumoHorasComponent } from './pages/contato/dialogs/resumo-horas/resumo-horas.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { CardHorarioComponent } from '../layout/components/card-horario/card-hor
     NovoRelatorioComponent,
     CardEquipeComponent,
     CriarEditarEquipeComponent,
-    CardHorarioComponent
+    CardHorarioComponent,
+    ResumoHorasComponent
 
   ],
   imports: [
@@ -44,6 +47,7 @@ import { CardHorarioComponent } from '../layout/components/card-horario/card-hor
     MatStepperModule,
     MatIconModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
     ScrollingModule,
     HttpClientModule,
     DragDropModule,

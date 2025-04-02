@@ -263,9 +263,7 @@
     <h2>HORÁRIOS DOS AGENTES</h2>
     <div class="container_horarios" *ngIf="equipeSelecionada">
       <h2>Agentes da equipe do dia.</h2>
-      <ng-container >
 
-      </ng-container>
         <mat-card class="mat-card" *ngFor="let agente of equipeSelecionada.membros">
           <form [formGroup]="horariosForm">
             <div class="mat-card-agente">

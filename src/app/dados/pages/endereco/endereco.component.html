@@ -37,5 +37,8 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-  <button mat-button (click)="novoRelatorio()">Novo relatorio</button>
+  <button mat-fab color="primary" class="add-btn" (click)="novoRelatorio()" matTooltip="Novo Relatório">
+    <mat-icon>add</mat-icon>
+  </button>
+  <!-- <button mat-button (click)="novoRelatorio()">Novo relatorio</button> -->
 <button mat-button *ngIf="addRelatorio" (click)="voltarListagemRelatorio()">Cancelar</button>

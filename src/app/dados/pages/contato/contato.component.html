@@ -62,9 +62,9 @@
                 <mat-icon>edit</mat-icon>
                 <span>Editar</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="BuscarHorasDeAgente(agente.id)">
                 <mat-icon>voicemail</mat-icon>
-                <span>Check voice mail</span>
+                <span>Check horas</span>
               </button>
               <button mat-menu-item>
                 <mat-icon>notifications_off</mat-icon>

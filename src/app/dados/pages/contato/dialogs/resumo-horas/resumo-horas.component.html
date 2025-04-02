@@ -1,0 +1,43 @@
+<div class="container">
+  <div>
+    <h1>{{ agente?.nome }}</h1>
+    <h2>{{ agente?.funcao }}</h2>
+
+  </div>
+  <mat-card>
+    <mat-card-title>Filtrar Horas Trabalhadas</mat-card-title>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Data de Início</mat-label>
+        <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="dataInicio">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+        <mat-datepicker #pickerInicio></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data de Fim</mat-label>
+        <input matInput [matDatepicker]="pickerFim" [(ngModel)]="dataFim">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerFim"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFim></mat-datepicker>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="buscarHoras()">Buscar</button>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card *ngIf="resumoHoras">
+    <mat-card-title>Resumo de Horas Trabalhadas</mat-card-title>
+    <mat-card-content>
+      <p><strong>Total de Horas:</strong> {{ resumoHoras.horas }}h {{ resumoHoras.minutos }}min</p>
+      <p><strong>Quantidade de Faltas:</strong> {{ resumoHoras.totalFaltas }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <mat-card *ngIf="error">
+    <mat-card-content class="error">{{ error }}</mat-card-content>
+  </mat-card>
+</div>
+

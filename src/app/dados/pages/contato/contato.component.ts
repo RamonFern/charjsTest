@@ -3,6 +3,9 @@ import { AgenteService } from './../../../services/agente.service';
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ResumoHorasComponent } from './dialogs/resumo-horas/resumo-horas.component';
+import { DialogReturn } from 'src/app/models/dialog-return';
 
 @Component({
   selector: 'app-contato',
@@ -24,12 +27,36 @@ export class ContatoComponent implements OnInit {
   agentes: AgenteUser[] = [];
   agentesSelecionados: AgenteUser[] = [];
 
-  constructor(private agenteService: AgenteService, private form: FormBuilder) { }
+  constructor(private agenteService: AgenteService,
+              private form: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.listarTodos();
 
   }
+  BuscarHorasDeAgente(agenteId: number) {
+    const dialogRef = this.dialog.open(ResumoHorasComponent, {
+      width: '890px',
+      data: agenteId
+    });
+    dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+      if (result?.hasDataChanged) {
+
+      }
+    });
+  }
+  // novoRelatorio() {
+  //     const dialogRef = this.dialog.open(NovoRelatorioComponent, {
+  //             width: '1250px',
+  //             // data: { equipe: this.equipe, agentes: this.agentesDaEquipe }
+  //           });
+
+  //           dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+  //             if (result?.hasDataChanged) {
+  //               this.buscarRelatorios();
+  //             }
+  //         });
+  //   }
 
   salvarAgente() {
     const request: AgenteUser = {

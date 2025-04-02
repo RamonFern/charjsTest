@@ -54,6 +54,14 @@
   justify-content: space-between;
 }
 
+.add-btn {
+  position: fixed;
+  right: 2%;
+  bottom: 20px;
+  z-index: 999;
+  margin-bottom: 30px;
+}
+
 
 
 
