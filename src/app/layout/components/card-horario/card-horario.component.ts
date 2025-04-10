@@ -11,7 +11,7 @@ export class CardHorarioComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.horariosResponse);
+    // console.log(this.horariosResponse);
   }
 
 }

@@ -25,6 +25,15 @@ export class HorarioService {
     return this.http.get<ResumoHoras>(`http://localhost:8080/api/v2/horas/calcular-horas?${params.toString()}`);
   }
 
+  buscarRegistrosPeloIdAgente(agenteId: number, dataInicio: string, dataFim: string) {
+    const params = new URLSearchParams();
+    params.set('dataInicio', dataInicio);
+    params.set('dataFim', dataFim);
+    // console.log(params.toString());
+
+    return this.http.get<HorarioAgenteResponse[]>(`http://localhost:8080/api/v2/horas/agente/${agenteId}?${params.toString()}`);
+  }
+
 }
 
 export interface ResumoHoras {

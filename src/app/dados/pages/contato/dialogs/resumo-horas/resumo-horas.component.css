@@ -1,5 +1,4 @@
 .container {
-  max-width: 400px;
   margin: auto;
   text-align: center;
 }
@@ -9,7 +8,26 @@ mat-card {
   padding: 15px;
 }
 
+table {
+  width: 100%;
+  margin-top: 15px;
+}
+
 .error {
   color: red;
   font-weight: bold;
+}
+
+.tabela-scroll {
+  max-height: 100px; /* ou 500px, como preferir */
+  overflow-y: auto;
+}
+
+.tabela-scroll {
+  max-height: calc(100vh - 250px); /* ajusta de acordo com seu layout */
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
 }

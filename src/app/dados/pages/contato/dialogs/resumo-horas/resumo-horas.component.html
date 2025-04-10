@@ -1,43 +1,96 @@
 <div class="container">
-  <div>
-    <h1>{{ agente?.nome }}</h1>
-    <h2>{{ agente?.funcao }}</h2>
+  <div class="tabela-scroll" *ngIf="!(registroHorasPorAgente.length > 0)">
+    <div>
+      <h1>{{ agente?.nome }}</h1>
+      <h2>{{ agente?.funcao }}</h2>
+    </div>
+    <mat-card>
+      <mat-card-title>Filtrar Horas Trabalhadas</mat-card-title>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Data de Início</mat-label>
+          <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="dataInicio">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
 
+        <mat-form-field>
+          <mat-label>Data de Fim</mat-label>
+          <input matInput [matDatepicker]="pickerFim" [(ngModel)]="dataFim">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerFim"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFim></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="buscarHoras()">Buscar</button>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card *ngIf="resumoHoras">
+      <mat-card-title>Resumo de Horas Trabalhadas</mat-card-title>
+      <mat-card-content>
+        <p><strong>Total de Horas:</strong> {{ resumoHoras.horas }}h {{ resumoHoras.minutos }}min</p>
+        <p><strong>Quantidade de Faltas:</strong> {{ resumoHoras.totalFaltas }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+    <mat-card *ngIf="error">
+      <mat-card-content class="error">{{ error }}</mat-card-content>
+    </mat-card>
+    <button *ngIf="resumoHoras" mat-raised-button color="primary" (click)="registrosDeAgentePeloId()">Detalhar</button>
   </div>
-  <mat-card>
-    <mat-card-title>Filtrar Horas Trabalhadas</mat-card-title>
-    <mat-card-content>
-      <mat-form-field>
-        <mat-label>Data de Início</mat-label>
-        <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="dataInicio">
-        <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-        <mat-datepicker #pickerInicio></mat-datepicker>
-      </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Data de Fim</mat-label>
-        <input matInput [matDatepicker]="pickerFim" [(ngModel)]="dataFim">
-        <mat-datepicker-toggle matIconSuffix [for]="pickerFim"></mat-datepicker-toggle>
-        <mat-datepicker #pickerFim></mat-datepicker>
-      </mat-form-field>
+  <!-- <div> -->
+    <mat-card *ngIf="registroHorasPorAgente.length > 0">
+      <mat-card-title>Registros de Horário</mat-card-title>
+      <mat-card-content>
+        <table mat-table [dataSource]="registroHorasPorAgente" id="tabela-pdf" class="mat-elevation-z8">
 
-      <button mat-raised-button color="primary" (click)="buscarHoras()">Buscar</button>
-    </mat-card-content>
-  </mat-card>
+          <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef> Data </th>
+            <td mat-cell *matCellDef="let h"> {{ h.dataHoraInicio | date:'dd/MM/yyyy' }} </td>
+          </ng-container>
 
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef> Agente </th>
+            <td mat-cell *matCellDef="let h"> {{ h.agente.nome }} </td>
+          </ng-container>
 
-  <mat-card *ngIf="resumoHoras">
-    <mat-card-title>Resumo de Horas Trabalhadas</mat-card-title>
-    <mat-card-content>
-      <p><strong>Total de Horas:</strong> {{ resumoHoras.horas }}h {{ resumoHoras.minutos }}min</p>
-      <p><strong>Quantidade de Faltas:</strong> {{ resumoHoras.totalFaltas }}</p>
-    </mat-card-content>
-  </mat-card>
+          <ng-container matColumnDef="inicio">
+            <th mat-header-cell *matHeaderCellDef> Início </th>
+            <td mat-cell *matCellDef="let h"> {{ h.dataHoraInicio | date:'HH:mm' }} </td>
+          </ng-container>
 
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+          <ng-container matColumnDef="fim">
+            <th mat-header-cell *matHeaderCellDef> Fim </th>
+            <td mat-cell *matCellDef="let h">
+              {{ h.falta ? '-' : (h.dataHoraFim | date:'HH:mm') }}
+            </td>
+          </ng-container>
 
-  <mat-card *ngIf="error">
-    <mat-card-content class="error">{{ error }}</mat-card-content>
-  </mat-card>
+          <ng-container matColumnDef="horas">
+            <th mat-header-cell *matHeaderCellDef> Horas Trabalhadas </th>
+            <td mat-cell *matCellDef="let h">
+              {{ h.falta ? 'Falta' : calcularHoras(h.dataHoraInicio, h.dataHoraFim) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="justificativa">
+            <th mat-header-cell *matHeaderCellDef> Justificativa </th>
+            <td mat-cell *matCellDef="let h">
+              {{ h.falta ? (h.justificativaFalta || 'Sem justificativa') : '-' }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['data', 'nome', 'inicio', 'fim', 'horas', 'justificativa']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['data', 'nome', 'inicio', 'fim', 'horas', 'justificativa'];"></tr>
+        </table>
+      </mat-card-content>
+      <button mat-raised-button color="primary" (click)="imprimir()">IMPRIMIR</button>
+    </mat-card>
+  <!-- </div> -->
 </div>
+
 
