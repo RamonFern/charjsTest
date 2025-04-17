@@ -263,8 +263,8 @@
     <h2>HORÁRIOS DOS AGENTES</h2>
     <div class="container_horarios" *ngIf="equipeSelecionada">
       <h2>Agentes da equipe do dia.</h2>
-
-        <mat-card class="mat-card" *ngFor="let agente of equipeSelecionada.membros">
+      <ng-container *ngFor="let agente of equipeSelecionada.membros">
+        <mat-card class="mat-card" *ngIf="agente.id">
           <form [formGroup]="horariosForm">
             <div class="mat-card-agente">
               <div class="mat-nome-permulta">
@@ -320,12 +320,12 @@
             <button mat-raised-button color="primary" (click)="salvarHorarios(agente.id)">Salvar horários</button>
           </div>
         </mat-card>
-      <!-- </ng-container> -->
+      </ng-container>
     </div>
 
 
-    <h2>Agentes de reforço.</h2>
     <div class="container_horarios" *ngIf="agentesDeFolgaParaReforco.length">
+      <h2>Agentes de reforço.</h2>
       <mat-card class="mat-card" *ngFor="let agente of agentesDeFolgaParaReforco">
         <form [formGroup]="horariosAgentesFolgaForm">
           <div class="mat-card-agente">

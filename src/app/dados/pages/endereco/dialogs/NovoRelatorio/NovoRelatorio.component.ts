@@ -61,6 +61,7 @@ export class NovoRelatorioComponent implements OnInit {
   equipeSelecionada!: EquipeResponse;
   equipe!: EquipeResponse;
   registroDeHoras: HorarioAgenteResponse[] = [];
+  registroDeHora!: HorarioAgenteResponse;
 
 
   alteracao: string[] = ['sim', 'não'];
@@ -243,27 +244,21 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   salvarHorarios(id: number) {
-    // const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
       agente_id: id,
-      // dataHoraInicio: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['chegada'].value,
       dataHoraInicio: this.horariosForm.controls['chegada'].value,
-      // dataHoraFim: this.agentesFaltosos2.some(agente => agente.id === id) ? null : this.horariosForm.controls['saida'].value,
       dataHoraFim: this.horariosForm.controls['saida'].value,
       atraso: this.horariosForm.controls['atraso'].value,
       falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false,
       justificativaFalta: this.horariosForm.controls['justificativa'].value,
     }
-    // console.log(request);
-
 
     this.horarioService.salvar(request)
         .pipe(take(1))
         .subscribe((a) => {
           this.registroDeHoras.push(a);
+          this.registroDeHora = a;
           this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
-          // console.log(this.registroDeHoras);
-
         })
   }
 
@@ -271,7 +266,6 @@ export class NovoRelatorioComponent implements OnInit {
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
       agente_id: id,
-      // data: data.format("YYYY-MM-DD"),
       dataHoraInicio: this.horariosForm.controls['chegada'].value,
       dataHoraFim: this.horariosForm.controls['saida'].value,
       atraso: this.horariosForm.controls['atraso'].value,
@@ -283,7 +277,6 @@ export class NovoRelatorioComponent implements OnInit {
     this.horarioService.salvar(request)
     .pipe(take(1))
     .subscribe((a) => {
-      // console.log(a);
       this.registroDeHoras.push(a);
       this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
     })
@@ -316,13 +309,9 @@ export class NovoRelatorioComponent implements OnInit {
       texto3: this.text3 ? this.text3 : " ",
     }
 
-    console.log(request);
-
     this.relatorioService.salvarRelatorio(request)
         .pipe(take(1))
         .subscribe((rel) => {
-          // this.criarPDF();
-          // this.generatePDF();
 
           this.limpar();
           const dialogReturn: DialogReturn = { hasDataChanged: true };

@@ -6,6 +6,7 @@ import autoTable from 'jspdf-autotable';
 import { HorarioService, ResumoHoras } from 'src/app/services/horario.sevice';
 import { AgenteUser } from 'src/app/models/AgenteUser';
 import { take } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { HorarioAgenteResponse } from 'src/app/models/horarioAgenteResponse';
 
 @Component({
@@ -95,20 +96,36 @@ export class ResumoHorasComponent implements OnInit {
   imprimir() {
 
     const doc = new jsPDF();
+    const margin = 20;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Adiciona a logo se disponível
+    if (environment.logoBase64) {
+      doc.addImage(environment.logoBase64, 'PNG', margin, 10, 25, 25);
+    }
+
+    // Nome da instituição
+    doc.setFont('times', 'bold');
+    doc.setFontSize(11);
+    doc.text(`Prefeitura Municipal de Rosário`, pageWidth / 2, 20, { align: 'center' });
+    doc.text(`Departamento Municipal de Trânsito e Transporte - DMTT`, pageWidth / 2, 25, { align: 'center' });
+    doc.text(`Relatório de Horas e faltas `, pageWidth / 2, 30, { align: 'center' });
+    doc.text(`Agente: ${this.agente.nome}`, pageWidth / 2, 35, { align: 'center' });
     //adiciona a tabela no pdf
     autoTable(doc, {
       html: '#tabela-pdf', // ID da sua tabela no HTML
       theme: 'grid',
       headStyles: { fillColor: [22, 160, 133] }, // cor do cabeçalho
-      margin: { top: 20 },
+      margin: { top: 50 },
     });
 
     // Adiciona o conteúdo justificado
     doc.setFont('times', 'normal');
     doc.setFontSize(11);
-    doc.text(`Resumo de Horas Trabalhadas` , 20, 135, { align: 'left' });
-    doc.text(`Total de horas: ${this.resumoHoras?.horas}h ${this.resumoHoras?.minutos}min` , 20, 140, { align: 'left' });
-    doc.text(`Total de Faltas: ${this.resumoHoras?.totalFaltas}` , 20, 145, { align: 'left' });
+    doc.text(`Resumo de Horas Trabalhadas` , 20, 175, { align: 'left' });
+    doc.text(`Total de horas: ${this.resumoHoras?.horas}h ${this.resumoHoras?.minutos}min` , 20, 180, { align: 'left' });
+    doc.text(`Total de Faltas: ${this.resumoHoras?.totalFaltas}` , 20, 185, { align: 'left' });
 
     // Baixar o PDF
     doc.save(`relatorio_de_horas${this.agente.nome}.pdf`);

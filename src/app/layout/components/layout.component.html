@@ -1,36 +1,36 @@
 <div class="container">
   <div class="menu-lateral">
-      <app-menu></app-menu>
+    <app-menu></app-menu>
   </div>
 
   <div class="main">
-      <div class="toolbar-wrapper">
-          <div class="toolbar">
-              <div class="toolbar__tools">
-                  <mat-icon [ngClass]="searchTxt ? 'toolbar__icon-azul' : 'toolbar__icon-cinza'">search</mat-icon>
-                  <input class="toolbar__search" placeholder="Buscar"  />
-              </div>
+    <div class="toolbar-wrapper">
+      <div class="toolbar">
+        <div class="toolbar__tools">
+          <mat-icon [ngClass]="searchTxt ? 'toolbar__icon-azul' : 'toolbar__icon-cinza'">search</mat-icon>
+          <input class="toolbar__search" placeholder="Buscar"  />
+        </div>
 
-              <div class="toolbar__result-wrapper" *ngIf="searchTxt">
-                  <!-- <app-no-results *ngIf="!buscasGerais"></app-no-results> -->
-              </div>
-          </div>
-
-          <div class="toolbar-options-wrapper">
-              <!-- <a class="avatar-link" matBadge="1" matBadgeColor="warn"> -->
-              <a class="avatar-link" >
-                  <img class="avatar__img" src="/assets/images/avatarNull.png" alt="" matBadge="7" />
-              </a>
-              <!-- <mat-menu #menu="matMenu">
-                  <app-troca-de-pagina-persona></app-troca-de-pagina-persona>
-              </mat-menu> -->
-          </div>
+        <div class="toolbar__result-wrapper" *ngIf="searchTxt">
+            <!-- <app-no-results *ngIf="!buscasGerais"></app-no-results> -->
+        </div>
       </div>
 
-      <div class="page-content">
-        <!-- <h1>ola pessoal vamos continuar</h1> -->
-          <router-outlet></router-outlet>
+      <div class="toolbar-options-wrapper">
+          <!-- <a class="avatar-link" matBadge="1" matBadgeColor="warn"> -->
+        <a class="avatar-link" >
+          <img class="avatar__img" src="/assets/images/avatarNull.png" alt="" matBadge="7" />
+        </a>
+          <!-- <mat-menu #menu="matMenu">
+              <app-troca-de-pagina-persona></app-troca-de-pagina-persona>
+          </mat-menu> -->
       </div>
+    </div>
+
+    <div class="page-content">
+      <!-- <h1>ola pessoal vamos continuar</h1> -->
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
 
