@@ -36,15 +36,15 @@
         </button> -->
       </div>
     </div>
-    <div class="form__chips" *ngIf="equipeSelecionada">
+    <div class="form__chips" *ngIf="equipeSelecionada2">
       <header class="form__header">
         <span>Nome da equipe:</span>
-        <h2 class="nome__equipe">{{ equipeSelecionada.nome }}</h2>
+        <h2 class="nome__equipe">{{ equipeSelecionada2.nome }}</h2>
       </header>
       <div class="form__equipe">
         <div class="equipe__sel">
           <span>Agentes da equipe:</span>
-          <mat-chip-list *ngFor="let agente of equipeSelecionada.membros">
+          <mat-chip-list *ngFor="let agente of equipeSelecionada2.membros">
               <mat-chip>
                 <img matChipAvatar src="/assets/images/avatarNull.png" alt="Agente da Equipe"/>
                 {{ agente.nome }}
@@ -79,7 +79,7 @@
                 <mat-label>Agente</mat-label>
                 <mat-select required>
                   <mat-option>--</mat-option>
-                  <mat-option *ngFor="let agente of equipeSelecionada.membros" [value]="agente" (click)="selecionarPermulta(agente)">
+                  <mat-option *ngFor="let agente of equipeSelecionada2.membros" [value]="agente" (click)="selecionarPermulta(agente)">
                     {{ agente.nome }}
                   </mat-option>
                 </mat-select>
@@ -225,7 +225,7 @@
               <mat-label>Agente</mat-label>
               <mat-select required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let agente of equipeSelecionada.membros" [value]="agente" (click)="selecionarAgenteQueFaltou(agente)">
+                <mat-option *ngFor="let agente of equipeSelecionada2.membros" [value]="agente" (click)="selecionarAgenteQueFaltou(agente)">
                   {{ agente.nome }}
                 </mat-option>
               </mat-select>
@@ -261,10 +261,10 @@
   </mat-step>
   <mat-step label="Step 5" state="chat">
     <h2>HORÁRIOS DOS AGENTES</h2>
-    <div class="container_horarios" *ngIf="equipeSelecionada">
+    <div class="container_horarios" *ngIf="equipeSelecionada2">
       <h2>Agentes da equipe do dia.</h2>
-      <ng-container *ngFor="let agente of equipeSelecionada.membros">
-        <mat-card class="mat-card" *ngIf="agente.id">
+      <ng-container *ngFor="let agente of equipeSelecionada2.membros; let i = index">
+        <mat-card class="mat-card">
           <form [formGroup]="horariosForm">
             <div class="mat-card-agente">
               <div class="mat-nome-permulta">
@@ -317,7 +317,7 @@
             </div>
           </form>
           <div class="mat-card-btn">
-            <button mat-raised-button color="primary" (click)="salvarHorarios(agente.id)">Salvar horários</button>
+            <button mat-raised-button color="primary" (click)="salvarHorarios(agente.id, i)">Salvar horários</button>
           </div>
         </mat-card>
       </ng-container>
@@ -326,11 +326,11 @@
 
     <div class="container_horarios" *ngIf="agentesDeFolgaParaReforco.length">
       <h2>Agentes de reforço.</h2>
-      <mat-card class="mat-card" *ngFor="let agente of agentesDeFolgaParaReforco">
+      <mat-card class="mat-card" *ngFor="let agente of agentesDeFolgaParaReforco; let i = index">
         <form [formGroup]="horariosAgentesFolgaForm">
           <div class="mat-card-agente">
             <div class="mat-nome-permulta">
-              <mat-card-title>{{ agente.nome }}</mat-card-title>
+              <mat-card-title>{{ agente?.nome }}</mat-card-title>
             </div>
 
             <mat-form-field appearance="fill">
@@ -342,18 +342,32 @@
               <mat-label>Saída</mat-label>
               <input  matInput formControlName="saida" name="saida" required type="datetime-local">
             </mat-form-field>
+
+            <td><mat-form-field class="example-full-width">
+              <mat-label>atraso</mat-label>
+              <input matInput formControlName="atraso" name="atraso" maxlength="3" placeholder="Ex. 105 min" value="0">
+            </mat-form-field></td>
+
+            <ng-container *ngFor="let agenteNaFalta of agentesFaltosos">
+              <mat-form-field appearance="fill" *ngIf="agenteNaFalta.id === agente.id">
+                <mat-label>Justificativa</mat-label>
+                <textarea matInput formControlName="justificativa" name="justificativa" placeholder="Ex. It makes me feel..."></textarea>
+              </mat-form-field>
+            </ng-container>
           </div>
         </form>
         <div class="mat-card-btn">
-          <button mat-raised-button color="primary" (click)="salvarHorarios2(agente.id)">Salvar horários</button>
+          <button mat-raised-button color="primary" (click)="salvarHorarios2(agente.id, i)">Salvar horários</button>
         </div>
       </mat-card>
     </div>
-    <ng-container *ngIf="registroDeHoras.length">
-      <ng-container *ngFor="let registro of registroDeHoras">
-        <app-card-horario [horariosResponse]="registro"></app-card-horario>
+    <div class="reg-horas">
+      <ng-container *ngIf="registroDeHoras.length">
+        <ng-container *ngFor="let registro of registroDeHoras">
+          <app-card-horario [horariosResponse]="registro"></app-card-horario>
+        </ng-container>
       </ng-container>
-    </ng-container>
+    </div>
 
     <div>
       <button mat-button matStepperPrevious>Back</button>

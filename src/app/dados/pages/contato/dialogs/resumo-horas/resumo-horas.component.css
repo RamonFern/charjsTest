@@ -13,6 +13,11 @@ table {
   margin-top: 15px;
 }
 
+.tab-reg-hor {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
 .error {
   color: red;
   font-weight: bold;

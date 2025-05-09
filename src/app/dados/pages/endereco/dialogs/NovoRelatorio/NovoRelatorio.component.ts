@@ -59,6 +59,7 @@ export class NovoRelatorioComponent implements OnInit {
   escolha3!: string;
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
+  equipeSelecionada2!: EquipeResponse;
   equipe!: EquipeResponse;
   registroDeHoras: HorarioAgenteResponse[] = [];
   registroDeHora!: HorarioAgenteResponse;
@@ -88,6 +89,8 @@ export class NovoRelatorioComponent implements OnInit {
   horariosAgentesFolgaForm = new FormGroup({
     chegada: new FormControl('', Validators.required),
     saida: new FormControl('', Validators.required),
+    atraso: new FormControl('', Validators.required),
+    justificativa: new FormControl('', Validators.required),
   })
 
   text1!: string;
@@ -107,7 +110,7 @@ export class NovoRelatorioComponent implements OnInit {
     this.alteracaoEscolha = this.alteracao[1].toString();
     this.listarAgentes();
     this.listarEquipes();
-    console.log(this.data);
+
   }
 
   mostraRelatorio() {
@@ -135,7 +138,10 @@ export class NovoRelatorioComponent implements OnInit {
 
   selecionarEquipe(equipe: EquipeResponse) {
     this.equipeSelecionada = equipe;
+    this.equipeSelecionada2 = JSON.parse(JSON.stringify(equipe));
+    //this.agentesDaEquipeParaSalvar = equipe.membros
   }
+ // this.equipeSelecionada2 = JSON.parse(JSON.stringify(this.equipeSelecionada1));
 
   escolherOutraEquipe() {
     this.agentesDaEquipe = [];
@@ -243,7 +249,7 @@ export class NovoRelatorioComponent implements OnInit {
         })
   }
 
-  salvarHorarios(id: number) {
+  salvarHorarios(id: number, i: number) {
     const request: HorarioAgenteRequest = {
       agente_id: id,
       dataHoraInicio: this.horariosForm.controls['chegada'].value,
@@ -258,12 +264,13 @@ export class NovoRelatorioComponent implements OnInit {
         .subscribe((a) => {
           this.registroDeHoras.push(a);
           this.registroDeHora = a;
+          this.equipeSelecionada2.membros.splice(i, 1);
           this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
         })
   }
 
-  salvarHorarios2(id: number) {
-    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+  salvarHorarios2(id: number, i: number) {
+    // const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
       agente_id: id,
       dataHoraInicio: this.horariosForm.controls['chegada'].value,
@@ -278,12 +285,13 @@ export class NovoRelatorioComponent implements OnInit {
     .pipe(take(1))
     .subscribe((a) => {
       this.registroDeHoras.push(a);
+      this.agentesDeFolgaParaReforco2.splice(i, 1);
       this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
     })
   }
 
   salvarRelatorio() {
-    const agentesDaEquipe = this.equipeSelecionada?.membros.map((a) => a.nome).join(", ");
+    const agentesDaEquipe = this.equipeSelecionada.membros.map((a) => a.nome).join(", ");
     const agentesParaPermulta = this.agentesParaPermulta.map((a) => a.nome).join(", ");
     const agentesDeFolgaEscolhidoParaPermulta = this.agentesDeFolgaEscolhidoParaPermulta2.map((a) => a.nome).join(", ");
     const agentesDeFolgaParaReforco = this.agentesDeFolgaParaReforco.map((a) => a.nome).join(", ");
@@ -333,6 +341,7 @@ export class NovoRelatorioComponent implements OnInit {
     this.agentesFaltosos2 = [];
     this.escolha3 = '';
     this.agentesDeFolgaParaReforco = [];
+    this.agentesDeFolgaParaReforco2 = [];
     this.escolha2 = '';
     this.agentesDaEquipeParaSalvar = [];
     this.agentesParaPermulta = [];

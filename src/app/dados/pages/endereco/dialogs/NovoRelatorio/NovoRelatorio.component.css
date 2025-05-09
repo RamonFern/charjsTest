@@ -161,6 +161,15 @@ mat-list-item {
   justify-content: flex-end;
 }
 
+.reg-horas {
+  display: grid;
+  grid-template-columns: 4fr 4fr;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-around;
+}
+
 .mat-card {
   margin-bottom: 10px;
 }

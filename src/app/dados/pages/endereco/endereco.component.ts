@@ -52,16 +52,16 @@ export class EnderecoComponent implements OnInit {
   }
 
   editarRelatorio(relatorio: RelatorioRequest) {
-    const dialogRef = this.dialog.open(NovoRelatorioComponent, {
-            width: '1250px',
-            data: relatorio
-          });// CONTINUAR FAZENDO O EDITAR RELATORIO
+    // const dialogRef = this.dialog.open(NovoRelatorioComponent, {
+    //         width: '1250px',
+    //         data: relatorio
+    //       });// CONTINUAR FAZENDO O EDITAR RELATORIO
 
-          dialogRef.afterClosed().subscribe((result: DialogReturn) => {
-            if (result?.hasDataChanged) {
-              this.buscarRelatorios();
-            }
-        });
+    //       dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+    //         if (result?.hasDataChanged) {
+    //           this.buscarRelatorios();
+    //         }
+    //     });
   }
 
   voltarListagemRelatorio() {
@@ -97,40 +97,32 @@ export class EnderecoComponent implements OnInit {
     doc.text(`Departamento Municipal de Trânsito e Transporte - DMTT`, pageWidth / 2, 25, { align: 'center' });
     doc.text(`Relatório do dia ${relatorio.datadorelatorio}`, pageWidth / 2, 30, { align: 'center' });
     doc.text(`Equipe: ${relatorio.nomeequipe}`, pageWidth / 2, 35, { align: 'center' });
-    // doc.text(`${relatorio.datadorelatorio}`, pageWidth / 2, 20, { align: 'center' });
     // Título do documento
+    const maxWidth = pageWidth - margin * 2;
     doc.setFontSize(11);
     doc.text(`Agentes da equipe:` , 20, 50, { align: 'left' });
-    doc.text(`${relatorio.agentesdaequipe}` , 20, 55, { align: 'left' });
-    doc.text(`Permulta:` , 20, 60, { align: 'left' });
-    doc.text(`${relatorio.agentesparapermultar}` , 20, 65, { align: 'left' });
-    doc.text(`Permultou com:` , 20, 70, { align: 'left' });
-    doc.text(`${relatorio.agentedefolgaparapermultar}` , 20, 75, { align: 'left' });
-    doc.text(`Reforço:` , 20, 80, { align: 'left' });
-    doc.text(`${relatorio.agentesparareforco}` , 20, 85, { align: 'left' });
-    doc.text(`Faltas:` , 20, 90, { align: 'left' });
-    doc.text(`${relatorio.agentesfaltoso}` , 20, 95, { align: 'left' });
+    doc.text(`${relatorio.agentesdaequipe}` , 20, 55, { maxWidth: maxWidth, align: 'left' });
+    doc.text(`Permulta:` , 20, 70, { align: 'left' });
+    doc.text(`${relatorio.agentesparapermultar}` , 20, 75, { align: 'left' });
+    doc.text(`Permultou com:` , 20, 80, { align: 'left' });
+    doc.text(`${relatorio.agentedefolgaparapermultar}` , 20, 85, { align: 'left' });
+    doc.text(`Reforço:` , 20, 90, { align: 'left' });
+    doc.text(`${relatorio.agentesparareforco}` , 20, 95, { maxWidth: maxWidth, align: 'left' });
+    doc.text(`Faltas:` , 20, 110, { align: 'left' });
+    doc.text(`${relatorio.agentesfaltoso}` , 20, 115, { align: 'left' });
 
     // Adiciona o conteúdo justificado
     doc.setFont('times', 'normal');
     doc.setFontSize(11);
-    const textY = 105;
-    const maxWidth = pageWidth - margin * 2;
+    const textY = 125;
+    // const maxWidth = pageWidth - margin * 2;
     doc.text(`${relatorio.texto1} ${relatorio.texto2} ${relatorio.texto3}` , margin, textY, { maxWidth: maxWidth, align: 'justify' });
 
     // Rodapé com data e assinatura centralizados
     const currentDate = new Date().toLocaleDateString();
     doc.setFontSize(10);
-    doc.text(`Inspetor(a)`, pageWidth / 2, pageHeight - 30, { align: 'center' });
+    doc.text(`Inspetor`, pageWidth / 2, pageHeight - 30, { align: 'center' });
     doc.text(`${relatorio.nomeinspetor}`, pageWidth / 2, pageHeight - 20, { align: 'center' });
-
-    // Adiciona numeração de páginas
-    // const pageCount = doc.internal.getNumberOfPages();
-    // for (let i = 1; i <= pageCount; i++) {
-    //   doc.setPage(i);
-    //   doc.text(`Página ${i} de ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
-    // }
-
     // Baixar o PDF
     doc.save(`relatorio_do_dia_${relatorio.datadorelatorio}.pdf`);
   }

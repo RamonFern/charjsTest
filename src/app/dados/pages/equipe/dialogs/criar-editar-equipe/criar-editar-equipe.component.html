@@ -31,9 +31,12 @@
       </div>
     </div>
     <p><strong>Escala da equipe:</strong></p>
-    <div class="escalas" *ngFor="let escala of escalasServico">
-      <span>{{ escala.data }}</span>
+    <div class="escalas">
+      <ng-container *ngFor="let escala of escalasServico">
+        <span>{{ escala.data }}</span>
+      </ng-container>
     </div>
+
 
   </mat-card-content>
   <div>
