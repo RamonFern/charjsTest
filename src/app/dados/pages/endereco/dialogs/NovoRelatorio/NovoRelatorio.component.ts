@@ -79,19 +79,8 @@ export class NovoRelatorioComponent implements OnInit {
     text3: new FormControl(''),
   })
 
-  horariosForm = new FormGroup({
-    chegada: new FormControl('', Validators.required),
-    saida: new FormControl('', Validators.required),
-    atraso: new FormControl('', Validators.required),
-    justificativa: new FormControl('', Validators.required),
-  })
-
-  horariosAgentesFolgaForm = new FormGroup({
-    chegada: new FormControl('', Validators.required),
-    saida: new FormControl('', Validators.required),
-    atraso: new FormControl('', Validators.required),
-    justificativa: new FormControl('', Validators.required),
-  })
+  horariosForm!: FormGroup;
+  horariosAgentesFolgaForm!: FormGroup;
 
   text1!: string;
   text2!: string;
@@ -119,9 +108,34 @@ export class NovoRelatorioComponent implements OnInit {
     this.text3 = this.textRelatorioForm.controls['text3'].value;
   }
 
+  formatarData(date: Date, hora: number, minuto: number) {
+      const d = new Date(date);
+      d.setHours(hora, minuto, 0, 0);
+      return d.toISOString().slice(0, 16);
+  };
+
   atualizaControlDeDatas() {
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    const d = new Date(data.toISOString());
+
+    const chegada = this.formatarData(d, 5, 0);   // 08:00
+    const saida   = this.formatarData(d, 17, 0);  // 20:00
+
     this.dataRelatorio = data.format("DD/MM/YYYY");
+
+    this.horariosForm = new FormGroup({
+      chegada: new FormControl(chegada, Validators.required),
+      saida: new FormControl(saida, Validators.required),
+      atraso: new FormControl('', Validators.required),
+      justificativa: new FormControl('', Validators.required),
+    })
+
+    this.horariosAgentesFolgaForm = new FormGroup({
+      chegada: new FormControl(chegada, Validators.required),
+      saida: new FormControl(saida, Validators.required),
+      atraso: new FormControl('', Validators.required),
+      justificativa: new FormControl('', Validators.required),
+    })
   }
 
   listarAgentes() {
@@ -139,9 +153,8 @@ export class NovoRelatorioComponent implements OnInit {
   selecionarEquipe(equipe: EquipeResponse) {
     this.equipeSelecionada = equipe;
     this.equipeSelecionada2 = JSON.parse(JSON.stringify(equipe));
-    //this.agentesDaEquipeParaSalvar = equipe.membros
+
   }
- // this.equipeSelecionada2 = JSON.parse(JSON.stringify(this.equipeSelecionada1));
 
   escolherOutraEquipe() {
     this.agentesDaEquipe = [];
@@ -270,7 +283,6 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   salvarHorarios2(id: number, i: number) {
-    // const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const request: HorarioAgenteRequest = {
       agente_id: id,
       dataHoraInicio: this.horariosForm.controls['chegada'].value,
@@ -299,7 +311,6 @@ export class NovoRelatorioComponent implements OnInit {
     const inspetores = this.equipeSelecionada?.membros.filter(agente => agente.funcao === "INSPETOR")
                                                       .map(agente => agente.nome).join(", ");
 
-
     const dataAtual = moment();
     const request: RelatorioRequest = {
       datadorelatorio: this.dataRelatorio,
@@ -320,7 +331,6 @@ export class NovoRelatorioComponent implements OnInit {
     this.relatorioService.salvarRelatorio(request)
         .pipe(take(1))
         .subscribe((rel) => {
-
           this.limpar();
           const dialogReturn: DialogReturn = { hasDataChanged: true };
           this.dialogRef.close(dialogReturn);
