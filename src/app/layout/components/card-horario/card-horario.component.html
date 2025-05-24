@@ -1,5 +1,5 @@
 <div class="card-reg-horas">
-  <mat-card class="registro-card" >
+  <mat-card class="registro-card" *ngIf="!editar">
     <mat-card-header>
       <mat-card-title>Detalhes do Registro</mat-card-title>
     </mat-card-header>
@@ -16,23 +16,54 @@
         <!-- Data do Registro -->
         <mat-list-item>
           <mat-icon style="color: #3f51b5;" matListIcon>calendar_today</mat-icon>
-          <p matLine>Data: {{horariosResponse?.dataHoraInicio || "DD-MM-YYYY"}} </p>
+          <p matLine>Data: {{horariosResponse?.dataHoraInicio | date:'dd/MM/yyyy'}} </p>
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <!-- Horário de Entrada -->
         <mat-list-item>
           <mat-icon style="color: #3f51b5;" matListIcon>login</mat-icon>
-          <p matLine>Hora de Entrada:  {{horariosResponse?.dataHoraInicio}} </p>
+          <p matLine>Hora de Entrada:  {{horariosResponse?.dataHoraInicio | date:'dd/MM/yyyy HH:mm'}} </p>
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <!-- Horário de Saída -->
         <mat-list-item>
           <mat-icon style="color: #3f51b5;" matListIcon>logout</mat-icon>
-          <p matLine>Hora de Saída:  {{horariosResponse?.dataHoraFim}} </p>
+          <p matLine>Hora de Saída:  {{horariosResponse?.dataHoraFim | date:'dd/MM/yyyy HH:mm' }} </p>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
+    <button mat-raised-button (click)="editarHora()">Editar</button>
   </mat-card>
+  <mat-card class="mat-card" *ngIf="editar">
+        <form [formGroup]="horariosAgentesForm">
+          <div class="mat-card-agente">
+            <div class="mat-nome-permulta">
+              <mat-card-title> {{ horariosResponse.agente.nome }} </mat-card-title>
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Chegada</mat-label>
+              <input matInput formControlName="chegada" name="chegada" required type="datetime-local">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Saída</mat-label>
+              <input  matInput formControlName="saida" name="saida" required type="datetime-local">
+            </mat-form-field>
+
+            <td><mat-form-field class="example-full-width">
+              <mat-label>atraso</mat-label>
+              <input matInput formControlName="atraso" name="atraso" maxlength="3" placeholder="Ex. 105 min" value="0">
+            </mat-form-field></td>
+          </div>
+        </form>
+        <div class="mat-card-btn">
+          <button mat-raised-button (click)="cancelar()">Cancelar</button>
+          <button mat-raised-button color="primary" (click)="salvarEditarHorario()">Salvar horários</button>
+        </div>
+
+      </mat-card>
 </div>
+

@@ -15,6 +15,10 @@ export class HorarioService {
     return this.http.post<HorarioAgenteResponse>('http://localhost:8080/api/v2/horas/salvar', horarioAgente);
   }
 
+  atualizar(horarioAgente: HorarioAgenteRequest) {
+    return this.http.put<HorarioAgenteResponse>(`http://localhost:8080/api/v2/horas/${horarioAgente.agente_id}`, horarioAgente);
+  }
+
   calcularHoras(agenteId: number, dataInicio: string, dataFim: string): Observable<ResumoHoras> {
     const params = new URLSearchParams();
     params.set('agenteId', agenteId.toString());

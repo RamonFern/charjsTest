@@ -5,8 +5,8 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { HorarioService, ResumoHoras } from 'src/app/services/horario.sevice';
 import { AgenteUser } from 'src/app/models/AgenteUser';
-import { take } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { take } from 'rxjs';
 import { HorarioAgenteResponse } from 'src/app/models/horarioAgenteResponse';
 
 @Component({

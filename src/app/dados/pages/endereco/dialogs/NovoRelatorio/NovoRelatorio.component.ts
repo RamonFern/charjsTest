@@ -297,7 +297,7 @@ export class NovoRelatorioComponent implements OnInit {
     .pipe(take(1))
     .subscribe((a) => {
       this.registroDeHoras.push(a);
-      this.agentesDeFolgaParaReforco2.splice(i, 1);
+      this.agentesDeFolgaParaReforco.splice(i, 1);
       this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
     })
   }

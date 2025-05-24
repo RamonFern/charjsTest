@@ -11,3 +11,7 @@
   margin: 20px auto;
   padding: 20px;
 }
+
+.mat-card-btn {
+  display: flex;
+}
