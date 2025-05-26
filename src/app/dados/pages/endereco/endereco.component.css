@@ -12,7 +12,13 @@
 
 .list-relatorio {
   display: flex;
-  width: 80%;
+  max-width: 80%;
+  margin: 57px;
+}
+
+.rel-para-salvar {
+  display: flex;
+  max-width: 80%;
   margin: 57px;
 }
 

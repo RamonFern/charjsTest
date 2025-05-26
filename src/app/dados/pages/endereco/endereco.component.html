@@ -10,30 +10,32 @@
             Data do relatório: {{relatorio.datadorelatorio}}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        Data do Relatório:
-        <p>{{ relatorio.datadorelatorio }}</p>
-        Agentes da equipe:
-        <p>{{ relatorio.agentesdaequipe }}</p>
-        Permultas:
-        <p>{{ relatorio.agentesparapermultar }}</p> Permultou com <p>{{ relatorio.agentedefolgaparapermultar }}</p>
-        Reforço:
-        <p>{{ relatorio.agentesparareforco }}</p>
-        Faltas:
-        <p>{{ relatorio.agentesfaltoso }}</p>
+        <div class="rel-para-salvar">
+          Data do Relatório:
+          <p>{{ relatorio.datadorelatorio }}</p>
+          Agentes da equipe:
+          <p>{{ relatorio.agentesdaequipe }}</p>
+          Permultas:
+          <p>{{ relatorio.agentesparapermultar }}</p> Permultou com <p>{{ relatorio.agentedefolgaparapermultar }}</p>
+          Reforço:
+          <p>{{ relatorio.agentesparareforco }}</p>
+          Faltas:
+          <p>{{ relatorio.agentesfaltoso }}</p>
 
-        <p>{{ relatorio.texto1 }}</p>
-        <p>{{ relatorio.texto2 }}</p>
-        <p>{{ relatorio.texto3 }}</p>
-        <div class="nome_inspetor">
-          Inspetor:
-          <p>{{ relatorio.nomeinspetor }}</p>
-        </div>
-        <section>
-          <div class="example-button-row">
-            <!-- <a mat-raised-button (click)="editarRelatorio(relatorio)">Editar relatório</a> -->
-            <a mat-raised-button (click)="generatePDF2(relatorio)">Imprimir relatório</a>
+          <p>{{ relatorio.texto1 }}</p>
+          <p>{{ relatorio.texto2 }}</p>
+          <p>{{ relatorio.texto3 }}</p>
+          <div class="nome_inspetor">
+            Inspetor:
+            <p>{{ relatorio.nomeinspetor }}</p>
           </div>
-        </section>
+          <section>
+            <div class="example-button-row">
+              <!-- <a mat-raised-button (click)="editarRelatorio(relatorio)">Editar relatório</a> -->
+              <a mat-raised-button (click)="generatePDF2(relatorio)">Imprimir relatório</a>
+            </div>
+          </section>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
