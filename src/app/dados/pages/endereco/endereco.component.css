@@ -6,13 +6,17 @@
   margin-top: 16px;
 }
 
+.mat-accordion {
+  max-width: 90%;
+}
+
 .botao {
   display: flex;
 }
 
 .list-relatorio {
   display: flex;
-  max-width: 80%;
+  max-width: 100%;
   margin: 57px;
 }
 
