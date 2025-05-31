@@ -3,20 +3,23 @@ import { HorarioAgenteRequest } from './../models/horarioAgenteRequest';
 import { HorarioAgenteResponse } from './../models/horarioAgenteResponse';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorarioService {
 
+  baseURL = environment.baseURL;
+
   constructor(private http: HttpClient) { }
 
   salvar(horarioAgente: HorarioAgenteRequest) {
-    return this.http.post<HorarioAgenteResponse>('http://localhost:8080/api/v2/horas/salvar', horarioAgente);
+    return this.http.post<HorarioAgenteResponse>(`${this.baseURL}/api/v2/horas/salvar`, horarioAgente);
   }
 
   atualizar(horarioAgente: HorarioAgenteRequest) {
-    return this.http.put<HorarioAgenteResponse>(`http://localhost:8080/api/v2/horas/${horarioAgente.agente_id}`, horarioAgente);
+    return this.http.put<HorarioAgenteResponse>(`${this.baseURL}/api/v2/horas/${horarioAgente.agente_id}`, horarioAgente);
   }
 
   calcularHoras(agenteId: number, dataInicio: string, dataFim: string): Observable<ResumoHoras> {
@@ -26,7 +29,7 @@ export class HorarioService {
     params.set('dataFim', dataFim);
     // console.log(params.toString());
 
-    return this.http.get<ResumoHoras>(`http://localhost:8080/api/v2/horas/calcular-horas?${params.toString()}`);
+    return this.http.get<ResumoHoras>(`${this.baseURL}/api/v2/horas/calcular-horas?${params.toString()}`);
   }
 
   buscarRegistrosPeloIdAgente(agenteId: number, dataInicio: string, dataFim: string) {
@@ -35,7 +38,7 @@ export class HorarioService {
     params.set('dataFim', dataFim);
     // console.log(params.toString());
 
-    return this.http.get<HorarioAgenteResponse[]>(`http://localhost:8080/api/v2/horas/agente/${agenteId}?${params.toString()}`);
+    return this.http.get<HorarioAgenteResponse[]>(`${this.baseURL}/api/v2/horas/agente/${agenteId}?${params.toString()}`);
   }
 
 }
