@@ -21,6 +21,10 @@ export class EscalaServicoService {
     return this.http.post<EscalaServicoResponse>(`${this.baseURL}/api/v2/escala-servico`, escalaRequest);
   }
 
+  editarEscalaServico(id: number, escalaRequest: EscalaServicoRequest) {
+    return this.http.put<EscalaServicoResponse>(`${this.baseURL}/api/v2/escala-servico/${id}`, escalaRequest);
+  }
+
   buscarEscalaServicoDaEquipe(id: number) {
     return this.http.get<EscalaServicoResponse[]>(`${this.baseURL}/api/v2/escala-servico/equipe/${id}`);
   }

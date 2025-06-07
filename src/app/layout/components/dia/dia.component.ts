@@ -5,6 +5,8 @@ import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { EscalaServicoResponse } from 'src/app/models/escala-servico';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogReturn } from 'src/app/models/dialog-return';
+import { EditarEscalaComponent } from 'src/app/dashboard/dialogs/editar-escala/editar-escala.component';
 
 @Component({
   selector: 'app-dia',
@@ -38,12 +40,17 @@ export class DiaComponent implements OnInit {
         })
   }
 
-   // Abre o card de detalhes
-  // abrirCardDetalhes() {
-  //   this.dialog.open(this.DetalhesTamplateComponent, {
-  //     width: '400px',
-  //     data: this.equipe
-  //   });
-  // }
+  editar() {
+      const dialogRef = this.dialog.open(EditarEscalaComponent, {
+        width: '650px',
+        data: {dia: this.dia, equipe: this.equipe}
+      });
+
+      dialogRef.afterClosed().subscribe((result: DialogReturn) => {
+        // if (result?.hasDataChanged) {
+        //   this.buscarTodasEscalasServicos();
+        // }
+    });
+  }
 
 }

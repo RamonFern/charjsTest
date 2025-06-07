@@ -24,6 +24,7 @@
   display: flex;
   max-width: 80%;
   margin: 57px;
+  flex-direction: column;
 }
 
 .example-form {
@@ -51,6 +52,7 @@
 .mat-expansion {
   margin-top: 10px;
   margin-bottom: 10px;
+  max-width: 80%;
 }
 
 .nome_inspetor {

@@ -35,7 +35,7 @@ export class CriarEscalaComponent implements OnInit {
               public dialogRef: MatDialogRef<CriarEscalaComponent>,
               private equipeService: EquipeService,
               private escalaService: EscalaServicoService,
-              private notification: MatSnackBar,) { }
+              private notification: MatSnackBar) { }
 
   ngOnInit(): void {
     this.currentDate = moment(this.data, "DD/MM/YYYY" , 'br');

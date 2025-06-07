@@ -198,6 +198,13 @@ mat-list-item {
   font-family: Arial, sans-serif; /* Escolha a fonte desejada */
 }
 
+.relatorio {
+  display: flex;
+  max-width: 80%;
+  margin: 57px;
+  flex-direction: column;
+}
+
 .relatorio__header {
   display: flex;
   flex-direction: column;

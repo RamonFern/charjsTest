@@ -1,0 +1,20 @@
+.container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.equipe-card {
+  width: 600px;
+  padding: 20px;
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+}

@@ -17,18 +17,24 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatCardModule } from '@angular/material/card';
+import { EditarEscalaComponent } from './dialogs/editar-escala/editar-escala.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
         DashboardComponent,
         CriarEscalaComponent,
         DiaComponent,
-        EquipePlantaoComponent
+        EquipePlantaoComponent,
+        EditarEscalaComponent
     ],
     providers: [],
     imports: [
         BrowserModule,
+        MatDividerModule,
         MatIconModule,
+        MatTableModule,
         FormsModule,
         ReactiveFormsModule,
         MatDialogModule,
