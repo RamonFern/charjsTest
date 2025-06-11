@@ -81,6 +81,9 @@ export class NovoRelatorioComponent implements OnInit {
 
   horariosForms: FormGroup[] = [];
   horariosFolgaForms: FormGroup[] = [];
+  agentesComHorarioSalvo: number[] = [];
+  agentesDeReforcoComHorarioSalvo: number[] = [];
+
 
 
   text1!: string;
@@ -222,6 +225,7 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   addAgenteReforco() {
+    const novoAgente = { ...this.agenteEscolhidoParaReforco };
     this.agentesDeFolgaParaReforco.push(this.agenteEscolhidoParaReforco);
     this.agentesDeFolgaParaReforco2.push(this.agenteEscolhidoParaReforco);
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
@@ -291,6 +295,7 @@ export class NovoRelatorioComponent implements OnInit {
         .subscribe((a) => {
           this.registroDeHoras.push(a);
           this.registroDeHora = a;
+          this.agentesComHorarioSalvo.push(id); // marca como salvo
           this.equipeSelecionada2.membros.splice(i, 1);
           this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
         })
@@ -313,6 +318,7 @@ export class NovoRelatorioComponent implements OnInit {
     .pipe(take(1))
     .subscribe((a) => {
       this.registroDeHoras.push(a);
+      this.agentesDeReforcoComHorarioSalvo.push(id);
       this.agentesDeFolgaParaReforco2.splice(i, 1);
       this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
     })
