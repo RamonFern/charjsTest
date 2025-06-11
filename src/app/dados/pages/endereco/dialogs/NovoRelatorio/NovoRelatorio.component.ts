@@ -79,8 +79,12 @@ export class NovoRelatorioComponent implements OnInit {
     text3: new FormControl(''),
   })
 
-  horariosForm!: FormGroup;
-  horariosAgentesFolgaForm!: FormGroup;
+  // horariosForm!: FormGroup;
+  horariosForms: FormGroup[] = [];
+
+  // horariosAgentesFolgaForm!: FormGroup;
+  horariosFolgaForms: FormGroup[] = [];
+
 
   text1!: string;
   text2!: string;
@@ -123,19 +127,37 @@ export class NovoRelatorioComponent implements OnInit {
 
     this.dataRelatorio = data.format("DD/MM/YYYY");
 
-    this.horariosForm = new FormGroup({
-      chegada: new FormControl(chegada, Validators.required),
-      saida: new FormControl(saida, Validators.required),
-      atraso: new FormControl('', Validators.required),
-      justificativa: new FormControl('', Validators.required),
-    })
+    // this.horariosForm = new FormGroup({
+    //   chegada: new FormControl(chegada, Validators.required),
+    //   saida: new FormControl(saida, Validators.required),
+    //   atraso: new FormControl('', Validators.required),
+    //   justificativa: new FormControl('', Validators.required),
+    // })
+    // this.horariosForms = this.equipeSelecionada2?.membros?.map(agente =>
+    //   this.fb.group({
+    //     chegada: [chegada, Validators.required],
+    //     saida: [saida, Validators.required],
+    //     atraso: [0],
+    //     justificativa: ['']
+    //   })
+    // );
 
-    this.horariosAgentesFolgaForm = new FormGroup({
-      chegada: new FormControl(chegada, Validators.required),
-      saida: new FormControl(saida, Validators.required),
-      atraso: new FormControl('', Validators.required),
-      justificativa: new FormControl('', Validators.required),
-    })
+    // this.horariosFolgaForms = this.agentesDeFolgaParaReforco2?.map(agente =>
+    //   this.fb.group({
+    //     chegada: [chegada, Validators.required],
+    //     saida: [saida, Validators.required],
+    //     atraso: [0],
+    //     justificativa: ['']
+    //   })
+    // );
+
+
+  //   this.horariosAgentesFolgaForm = new FormGroup({
+  //     chegada: new FormControl(chegada, Validators.required),
+  //     saida: new FormControl(saida, Validators.required),
+  //     atraso: new FormControl('', Validators.required),
+  //     justificativa: new FormControl('', Validators.required),
+  //   })
   }
 
   listarAgentes() {
@@ -151,8 +173,23 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   selecionarEquipe(equipe: EquipeResponse) {
+    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    const d = new Date(data.toISOString());
+
+    const chegada = this.formatarData(d, 5, 0);   // 08:00
+    const saida   = this.formatarData(d, 17, 0);  // 20:00
+
     this.equipeSelecionada = equipe;
     this.equipeSelecionada2 = JSON.parse(JSON.stringify(equipe));
+
+    this.horariosForms = this.equipeSelecionada2?.membros?.map(agente =>
+      this.fb.group({
+        chegada: [chegada, Validators.required],
+        saida: [saida, Validators.required],
+        atraso: [0],
+        justificativa: ['']
+      })
+    );
 
   }
 
@@ -207,7 +244,22 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   selecionarAgenteDeFolgaParaReforco(agente: AgenteUser) {
+    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    const d = new Date(data.toISOString());
+
+    const chegada = this.formatarData(d, 5, 0);   // 08:00
+    const saida   = this.formatarData(d, 17, 0);  // 20:00
+
     this.agenteEscolhidoParaReforco = agente;
+
+    this.horariosFolgaForms = this.agentesDeFolgaParaReforco2?.map(agente =>
+    this.fb.group({
+      chegada: [chegada, Validators.required],
+      saida: [saida, Validators.required],
+      atraso: [0],
+      justificativa: ['']
+    })
+    );
   }
 
   selecionarAgenteQueFaltou(agente: AgenteUser) {
@@ -263,13 +315,15 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   salvarHorarios(id: number, i: number) {
+    const form = this.horariosForms[i];
+
     const request: HorarioAgenteRequest = {
       agente_id: id,
-      dataHoraInicio: this.horariosForm.controls['chegada'].value,
-      dataHoraFim: this.horariosForm.controls['saida'].value,
-      atraso: this.horariosForm.controls['atraso'].value,
-      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false,
-      justificativaFalta: this.horariosForm.controls['justificativa'].value,
+      dataHoraInicio: form.controls['chegada'].value,
+      dataHoraFim: form.controls['saida'].value,
+      atraso: form.controls['atraso'].value,
+      falta: this.agentesFaltosos2.some(agente => agente.id === id),
+      justificativaFalta: form.controls['justificativa'].value,
     }
 
     this.horarioService.salvar(request)
@@ -283,13 +337,15 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   salvarHorarios2(id: number, i: number) {
+    const form = this.horariosFolgaForms[i];
+
     const request: HorarioAgenteRequest = {
       agente_id: id,
-      dataHoraInicio: this.horariosForm.controls['chegada'].value,
-      dataHoraFim: this.horariosForm.controls['saida'].value,
-      atraso: this.horariosForm.controls['atraso'].value,
-      falta: this.agentesFaltosos2.some(agente => agente.id === id) ? true : false,
-      justificativaFalta: this.horariosForm.controls['justificativa'].value,
+      dataHoraInicio: form.controls['chegada'].value,
+      dataHoraFim: form.controls['saida'].value,
+      atraso: form.controls['atraso'].value,
+      falta: this.agentesFaltosos2.some(agente => agente.id === id),
+      justificativaFalta: form.controls['justificativa'].value,
     }
 
 
