@@ -1,6 +1,6 @@
 import { AgenteUser } from './../../../../../models/AgenteUser';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -64,7 +64,6 @@ export class NovoRelatorioComponent implements OnInit {
   registroDeHoras: HorarioAgenteResponse[] = [];
   registroDeHora!: HorarioAgenteResponse;
 
-
   alteracao: string[] = ['sim', 'não'];
   faltas: string[] = ['sim', 'não'];
   alteracaoEscolha!: string;
@@ -84,8 +83,6 @@ export class NovoRelatorioComponent implements OnInit {
   agentesComHorarioSalvo: number[] = [];
   agentesDeReforcoComHorarioSalvo: number[] = [];
 
-
-
   text1!: string;
   text2!: string;
   text3!: string;
@@ -94,6 +91,7 @@ export class NovoRelatorioComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { relatorio: RelatorioRequest },
               private agenteService: AgenteService, private fb: FormBuilder,
               public dialogRef: MatDialogRef<NovoRelatorioComponent>,
+              private cdr: ChangeDetectorRef,
               private notification: MatSnackBar,
               private horarioService: HorarioService,
               private equipeService: EquipeService,
@@ -153,7 +151,6 @@ export class NovoRelatorioComponent implements OnInit {
         justificativa: ['']
       })
     );
-
   }
 
   escolherOutraEquipe() {
@@ -226,8 +223,8 @@ export class NovoRelatorioComponent implements OnInit {
 
   addAgenteReforco() {
     const novoAgente = { ...this.agenteEscolhidoParaReforco };
-    this.agentesDeFolgaParaReforco.push(this.agenteEscolhidoParaReforco);
-    this.agentesDeFolgaParaReforco2.push(this.agenteEscolhidoParaReforco);
+    this.agentesDeFolgaParaReforco.push(novoAgente);
+    this.agentesDeFolgaParaReforco2.push(novoAgente);
     const data = moment(this.dataForm.controls['dataRelatorio'].value);
     const d = new Date(data.toISOString());
 
@@ -242,7 +239,6 @@ export class NovoRelatorioComponent implements OnInit {
         justificativa: ['']
       })
     );
-
   }
 
   removerAgenteReforco() {
@@ -295,8 +291,9 @@ export class NovoRelatorioComponent implements OnInit {
         .subscribe((a) => {
           this.registroDeHoras.push(a);
           this.registroDeHora = a;
-          this.agentesComHorarioSalvo.push(id); // marca como salvo
-          this.equipeSelecionada2.membros.splice(i, 1);
+          this.agentesComHorarioSalvo.push(id);
+          this.equipeSelecionada2.membros = this.equipeSelecionada2.membros.filter((_, index) => index !== i);
+          this.cdr.detectChanges();
           this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
         })
   }
@@ -313,13 +310,13 @@ export class NovoRelatorioComponent implements OnInit {
       justificativaFalta: form.controls['justificativa'].value,
     }
 
-
     this.horarioService.salvar(request)
     .pipe(take(1))
     .subscribe((a) => {
       this.registroDeHoras.push(a);
-      this.agentesDeReforcoComHorarioSalvo.push(id);
-      this.agentesDeFolgaParaReforco2.splice(i, 1);
+      this.agentesComHorarioSalvo.push(id);
+      this.agentesDeFolgaParaReforco2 = this.agentesDeFolgaParaReforco2.filter((_, index) => index !== i);
+      this.cdr.detectChanges();
       this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
     })
   }
