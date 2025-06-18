@@ -1,9 +1,58 @@
-.dashboard {
+/* .dashboard {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   justify-items: center;
   margin-top: 50px;
 }
+
+@media (max-width: 1350px) {
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    margin-top: 50px;
+  }
+} */
+.dashboard {
+  display: grid;
+  justify-items: center;
+  margin-top: 50px;
+  grid-template-columns: repeat(1, 1fr); /* Layout padrão para telas menores */
+}
+
+@media (min-width: 600px) {
+  .dashboard {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1165px) {
+  .dashboard {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1166px) and (max-width: 1350px) {
+  .dashboard {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1351px) {
+  .dashboard {
+    grid-template-columns: repeat(6, 1fr); /* Exemplo para telas maiores ainda */
+  }
+}
+
 
 .dia-sem {
   font-weight: bold;

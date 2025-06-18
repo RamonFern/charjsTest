@@ -34,13 +34,13 @@
 }
 
 .dia {
-  width: 200px;
+  width: 168px;
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .dia_hoje {
-  width: 200px;
+  width: 168px;
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
