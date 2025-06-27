@@ -8,6 +8,7 @@ import { AgenteUser } from 'src/app/models/AgenteUser';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs';
 import { HorarioAgenteResponse } from 'src/app/models/horarioAgenteResponse';
+import { PermutasResumo, RelatorioService } from 'src/app/services/relatorio.service';
 
 @Component({
   selector: 'app-resumo-horas',
@@ -18,14 +19,21 @@ export class ResumoHorasComponent implements OnInit {
   @Input() agenteId!: number; // O ID do agente vem da tela anterior
   dataInicio!: Date;
   dataFim!: Date;
+  nomeAgente = '';
   resumoHoras: ResumoHoras | null = null;
   registroHorasPorAgente: HorarioAgenteResponse[] = [];
   isLoading: boolean = false;
   error: string | null = null;
+  permutaSolicitada!: number;
+  permutaRealizada!: number;
   agente!: AgenteUser;
+
+  resultado: PermutasResumo | null = null;
+  erro: string | null = null;
   constructor(
               @Inject(MAT_DIALOG_DATA) public data: number,
               private resumoHorasService: HorarioService,
+              private relatorioService: RelatorioService,
               private agenteService: AgenteService) { }
 
   ngOnInit(): void {
@@ -43,6 +51,24 @@ export class ResumoHorasComponent implements OnInit {
           this.agente = a;
         })
   }
+
+  formatarDataISO(data: Date): string {
+  return data.toISOString().split('T')[0]; // formato yyyy-MM-dd
+}
+
+  buscarPermutas() {
+    const nomeAgente2 = this.agente.nome;
+    const dataInicio2 = this.formatarDataISO(this.dataInicio);
+    const dataFim2 = this.formatarDataISO(this.dataFim);
+    this.erro = null;
+    this.relatorioService.contarPermutas(nomeAgente2, dataInicio2, dataFim2)
+        .pipe(take(1))
+        .subscribe((res) => {
+          this.permutaRealizada = res.realizadas;
+          this.permutaSolicitada = res.solicitadas;
+        })
+  }
+
 
   buscarHoras() {
     if (!this.dataInicio || !this.dataFim) {
@@ -63,6 +89,7 @@ export class ResumoHorasComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.resumoHoras = data;
+          this. buscarPermutas();
           this.isLoading = false;
         })
   }
@@ -126,6 +153,8 @@ export class ResumoHorasComponent implements OnInit {
     doc.text(`Resumo de Horas Trabalhadas` , 20, 175, { align: 'left' });
     doc.text(`Total de horas: ${this.resumoHoras?.horas}h ${this.resumoHoras?.minutos}min` , 20, 180, { align: 'left' });
     doc.text(`Total de Faltas: ${this.resumoHoras?.totalFaltas}` , 20, 185, { align: 'left' });
+    doc.text(`Permultas Solicitadas:: ${ this.permutaSolicitada! }` , 20, 190, { align: 'left' });
+    doc.text(`Permulta Realizadas: ${ this.permutaRealizada! }` , 20, 195, { align: 'left' });
 
     // Baixar o PDF
     doc.save(`relatorio_de_horas${this.agente.nome}.pdf`);

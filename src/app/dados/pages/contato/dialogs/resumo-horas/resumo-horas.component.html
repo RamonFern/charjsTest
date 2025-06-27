@@ -31,6 +31,8 @@
       <mat-card-content>
         <p><strong>Total de Horas:</strong> {{ resumoHoras.horas }}h {{ resumoHoras.minutos }}min</p>
         <p><strong>Quantidade de Faltas:</strong> {{ resumoHoras.totalFaltas }}</p>
+        <p><strong>Permultas Solicitadas:</strong> {{ permutaSolicitada! }}</p>
+        <p><strong>Permulta Realizadas:</strong> {{ permutaRealizada! }}</p>
       </mat-card-content>
     </mat-card>
 
@@ -89,7 +91,10 @@
             <tr mat-row *matRowDef="let row; columns: ['data', 'nome', 'inicio', 'fim', 'horas', 'justificativa'];"></tr>
           </table>
         </mat-card-content>
-
+        <div>
+          <p><strong>Permultas Solicitadas:</strong> {{ permutaSolicitada! }}</p>
+          <p><strong>Permulta Realizadas:</strong> {{ permutaRealizada! }}</p>
+        </div>
       </div>
       <button mat-raised-button color="primary" (click)="imprimir()">IMPRIMIR</button>
     </mat-card>
