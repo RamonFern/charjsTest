@@ -180,6 +180,7 @@ mat-list-item {
   align-content: center;
   align-items: center;
   justify-items: center;
+  gap: 16px;
 }
 
 .example-viewport {
@@ -241,4 +242,52 @@ mat-list-item {
   margin-top: 60px;
 }
 
+@media (max-width: 768px) {
+  .mat-card-agente {
+    grid-template-columns: 1fr;
+  }
 
+  .equipe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-direction: column;
+  }
+
+  .agentes__plantao {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .permultas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .reforco {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 20px;
+    max-width: fit-content;
+  }
+
+  .agente__reforco {
+    display: flex;
+    justify-content: space-between;
+    width: -webkit-fill-available;
+    flex-direction: column;
+  }
+
+  .mat-card-btn {
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AgenteUser } from './../../../../../models/AgenteUser';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
@@ -6,7 +7,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { DialogReturn } from 'src/app/models/dialog-return';
 import { HorarioAgenteRequest } from 'src/app/models/horarioAgenteRequest';
@@ -82,6 +83,7 @@ export class NovoRelatorioComponent implements OnInit {
   horariosFolgaForms: FormGroup[] = [];
   agentesComHorarioSalvo: number[] = [];
   agentesDeReforcoComHorarioSalvo: number[] = [];
+  stepperOrientation: 'horizontal' | 'vertical' = 'horizontal';
 
   text1!: string;
   text2!: string;
@@ -89,18 +91,29 @@ export class NovoRelatorioComponent implements OnInit {
   dataRelatorio!: string
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { relatorio: RelatorioRequest },
+              private breakpointObserver: BreakpointObserver,
               private agenteService: AgenteService, private fb: FormBuilder,
               public dialogRef: MatDialogRef<NovoRelatorioComponent>,
-              private cdr: ChangeDetectorRef,
               private notification: MatSnackBar,
               private horarioService: HorarioService,
               private equipeService: EquipeService,
-              private relatorioService: RelatorioService) { }
+              private cdr: ChangeDetectorRef,
+              private relatorioService: RelatorioService) {
+
+              }
 
   ngOnInit() {
     this.alteracaoEscolha = this.alteracao[1].toString();
     this.listarAgentes();
     this.listarEquipes();
+
+    this.breakpointObserver
+        .observe(['(max-width: 768px)'])
+        .subscribe(result => {
+          this.stepperOrientation = result.matches ? 'vertical' : 'horizontal';
+          this.cdr.detectChanges(); // força update na tela
+        });
+
 
   }
 
@@ -292,6 +305,7 @@ export class NovoRelatorioComponent implements OnInit {
           this.registroDeHoras.push(a);
           this.registroDeHora = a;
           this.agentesComHorarioSalvo.push(id);
+          this.horariosForms[i].controls['justificativa'].setValue('');          
           this.equipeSelecionada2.membros = this.equipeSelecionada2.membros.filter((_, index) => index !== i);
           this.cdr.detectChanges();
           this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
@@ -315,6 +329,7 @@ export class NovoRelatorioComponent implements OnInit {
     .subscribe((a) => {
       this.registroDeHoras.push(a);
       this.agentesComHorarioSalvo.push(id);
+      this.horariosFolgaForms[i].controls['justificativa'].setValue('');
       this.agentesDeFolgaParaReforco2 = this.agentesDeFolgaParaReforco2.filter((_, index) => index !== i);
       this.cdr.detectChanges();
       this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });

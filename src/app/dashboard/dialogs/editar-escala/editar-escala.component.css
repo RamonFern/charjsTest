@@ -11,6 +11,12 @@
   padding: 20px;
 }
 
+@media (max-width: 768px) {
+  .equipe-card {
+    width: 390px;
+    padding: 20px;
+  }
+}
 .table-container {
   margin-top: 20px;
 }

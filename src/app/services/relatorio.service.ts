@@ -19,6 +19,7 @@ salvarRelatorio(relatorioRequest: RelatorioRequest) {
 
 buscarTodos() {
   return this.http.get<RelatorioRequest[]>(`${this.baseURL}/api/v1/relatorio`);
+  
 }
 
 contarPermutas(nomeAgente: string, dataInicio: string, dataFim: string): Observable<PermutasResumo> {

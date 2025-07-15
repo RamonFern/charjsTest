@@ -79,14 +79,14 @@ export class AppMenuConfig {
            // authService: this.authService,
             submenus: [
                 new MenuItem({
-                    label: 'Especializações',
+                    label: 'Veículos',
                     icon: 'splitscreen',
                     link: 'app/gerenciar/selecionar-config-especializacao',
                     // permissao: PermissaoType.ACESSO_PAGINA_ESPECIALIZACOES,
                     // authService: this.authService,
                 }),
                 new MenuItem({
-                    label: 'Tabela de Valores',
+                    label: 'Relatório da KM do veículo',
                     icon: 'price_check',
                     link: 'app/gerenciar/tabela-de-valores',
                     // permissao: PermissaoType.ACESSO_PAGINA_TABELA_VALORES,
@@ -94,7 +94,7 @@ export class AppMenuConfig {
                 }),
 
                 new MenuItem({
-                    label: 'Salas',
+                    label: 'Cadastrar veículos',
                     icon: 'group_work',
                     link: 'app/gerenciar/config-salas',
                     // permissao: PermissaoType.ACESSO_PAGINA_SALAS,

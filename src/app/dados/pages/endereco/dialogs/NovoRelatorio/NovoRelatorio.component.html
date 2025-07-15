@@ -1,5 +1,5 @@
 <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
-<mat-stepper #stepper>
+<mat-stepper [orientation]="stepperOrientation" linear #stepper>
   <mat-step label="Step 1" state="phone">
     <div>
       <h2>Selecione a data do relatório</h2>
@@ -431,7 +431,7 @@
                       class="text-area"
                       formControlName="text3" name="text3"
                       #message3
-                      maxlength="253"
+                      maxlength="800"
                       placeholder="Ex. Fiz o serviço com equipe especificada anterior...">
             </textarea>
             <mat-hint align="start"><strong>Ultimo.</strong> </mat-hint>
