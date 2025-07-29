@@ -64,6 +64,7 @@ export class NovoRelatorioComponent implements OnInit {
   equipe!: EquipeResponse;
   registroDeHoras: HorarioAgenteResponse[] = [];
   registroDeHora!: HorarioAgenteResponse;
+  isLoading: boolean = false;
 
   alteracao: string[] = ['sim', 'não'];
   faltas: string[] = ['sim', 'não'];
@@ -305,7 +306,7 @@ export class NovoRelatorioComponent implements OnInit {
           this.registroDeHoras.push(a);
           this.registroDeHora = a;
           this.agentesComHorarioSalvo.push(id);
-          this.horariosForms[i].controls['justificativa'].setValue('');          
+          this.horariosForms[i].controls['justificativa'].setValue('');
           this.equipeSelecionada2.membros = this.equipeSelecionada2.membros.filter((_, index) => index !== i);
           this.cdr.detectChanges();
           this.notification.open(`Hora adicionada com sucesso!`, 'Sucesso', { duration: 3000 });
@@ -344,6 +345,7 @@ export class NovoRelatorioComponent implements OnInit {
     const agentesQueFaltaram = this.agentesFaltosos2.map((a) => a.nome).join(", ");
     const inspetores = this.equipeSelecionada?.membros.filter(agente => agente.funcao === "INSPETOR")
                                                       .map(agente => agente.nome).join(", ");
+    this.isLoading = true;
 
     const dataAtual = moment();
     const request: RelatorioRequest = {
@@ -366,6 +368,7 @@ export class NovoRelatorioComponent implements OnInit {
         .pipe(take(1))
         .subscribe((rel) => {
           this.limpar();
+          this.isLoading = false;
           const dialogReturn: DialogReturn = { hasDataChanged: true };
           this.dialogRef.close(dialogReturn);
           this.notification.open('Relatório Criado', 'Sucesso', { duration: 3000 });

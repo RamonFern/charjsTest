@@ -12,36 +12,36 @@ export class AppMenuConfig {
             // authService: this.authService,
         }),
         new MenuItem({
-            label: 'Ferramentas',
-            icon: 'account_tree',
-            link: '',
-            // authService: this.authService,
+          label: 'Ferramentas',
+          icon: 'account_tree',
+          link: '',
+          // authService: this.authService,
 
-            submenus: [
-                new MenuItem({
-                    label: 'Relatório',
-                    icon: 'receipt_long',
-                    link: 'dados/endereco',
-                    // permissao: PermissaoType.ACESSO_PAGINA_PACIENTES,
-                    // authService: this.authService,
-                }),
-                new MenuItem({
-                    label: 'Agentes',
-                    icon: 'groups_2',
-                    link: 'dados/contato',
-                    // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
-                    // authService: this.authService,
-                }),
-                new MenuItem({
-                  label: 'Equipes',
-                  icon: 'group_work',
-                  link: 'dados/equipe',
-                  // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
-                  // authService: this.authService,
-              }),
+          submenus: [
+            new MenuItem({
+              label: 'Relatório',
+              icon: 'receipt_long',
+              link: 'dados/endereco',
+              // permissao: PermissaoType.ACESSO_PAGINA_PACIENTES,
+              // authService: this.authService,
+            }),
+            new MenuItem({
+              label: 'Agentes',
+              icon: 'groups_2',
+              link: 'dados/contato',
+              // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
+              // authService: this.authService,
+            }),
+            new MenuItem({
+              label: 'Equipes',
+              icon: 'group_work',
+              link: 'dados/equipe',
+              // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
+              // authService: this.authService,
+            }),
 
 
-            ],
+          ],
         }),
         new MenuItem({
             label: 'Notificações',

@@ -516,8 +516,10 @@
               </div>
             </div>
           </main>
-          <button mat-raised-button  color="primary" (click)="salvarRelatorio()">Salvar</button>
-
+          <button mat-raised-button *ngIf="!isLoading"  color="primary" (click)="salvarRelatorio()">Salvar</button>
+          <div class="spinner">
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+          </div>
       </div>
     </div>
   </mat-step>

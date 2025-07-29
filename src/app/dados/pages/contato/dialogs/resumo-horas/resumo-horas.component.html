@@ -35,9 +35,9 @@
         <p><strong>Permulta Realizadas:</strong> {{ permutaRealizada! }}</p>
       </mat-card-content>
     </mat-card>
-
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-
+    <div class="spinner">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
     <mat-card *ngIf="error">
       <mat-card-content class="error">{{ error }}</mat-card-content>
     </mat-card>

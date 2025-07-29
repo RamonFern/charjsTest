@@ -41,7 +41,6 @@ export class EnderecoComponent implements OnInit {
   novoRelatorio() {
     const dialogRef = this.dialog.open(NovoRelatorioComponent, {
             width: '1250px',
-            // data: { equipe: this.equipe, agentes: this.agentesDaEquipe }
           });
 
           dialogRef.afterClosed().subscribe((result: DialogReturn) => {
@@ -72,8 +71,7 @@ export class EnderecoComponent implements OnInit {
     this.relatorioService.buscarTodos()
         .pipe((take(1)))
         .subscribe((rel) => {
-          this.relatorios = rel;
-          // console.log(this.relatorios);
+          this.relatorios = rel.reverse();
         })
   }
 

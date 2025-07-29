@@ -242,6 +242,11 @@ mat-list-item {
   margin-top: 60px;
 }
 
+.spinner {
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
   .mat-card-agente {
     grid-template-columns: 1fr;
