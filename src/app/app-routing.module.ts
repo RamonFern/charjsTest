@@ -19,7 +19,8 @@ const routes: Routes = [
             // },
         },
         { path: 'dados', loadChildren: () => import('./dados/dados.module').then((m) => m.DadosModule) },
-        { path: 'notificacoes', loadChildren: () => import('./notificacoes/notificacoes.module').then((m) => m.NotificacoesModule) }
+        { path: 'notificacoes', loadChildren: () => import('./notificacoes/notificacoes.module').then((m) => m.NotificacoesModule) },
+        { path: 'gerenciar', loadChildren: () => import('./gerenciar/gerenciar.module').then((m) => m.GerenciarModule) }
 
     ],
   },

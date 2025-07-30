@@ -81,14 +81,14 @@ export class AppMenuConfig {
                 new MenuItem({
                     label: 'Veículos',
                     icon: 'splitscreen',
-                    link: 'app/gerenciar/selecionar-config-especializacao',
+                    link: 'gerenciar/relatorio-geral-horas',
                     // permissao: PermissaoType.ACESSO_PAGINA_ESPECIALIZACOES,
                     // authService: this.authService,
                 }),
                 new MenuItem({
                     label: 'Relatório da KM do veículo',
                     icon: 'price_check',
-                    link: 'app/gerenciar/tabela-de-valores',
+                    link: 'gerenciar/relatorio-geral-horas',
                     // permissao: PermissaoType.ACESSO_PAGINA_TABELA_VALORES,
                     // authService: this.authService,
                 }),
@@ -96,7 +96,15 @@ export class AppMenuConfig {
                 new MenuItem({
                     label: 'Cadastrar veículos',
                     icon: 'group_work',
-                    link: 'app/gerenciar/config-salas',
+                    link: 'gerenciar/relatorio-geral-horas',
+                    // permissao: PermissaoType.ACESSO_PAGINA_SALAS,
+                    // authService: this.authService,
+                }),
+
+                new MenuItem({
+                    label: 'Relatorio de horas geral',
+                    icon: 'group_work',
+                    link: 'gerenciar/relatorio-geral-horas',
                     // permissao: PermissaoType.ACESSO_PAGINA_SALAS,
                     // authService: this.authService,
                 }),

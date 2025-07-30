@@ -21,11 +21,11 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificacoesModule } from './notificacoes/notificacoes.module';
 import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.module';
 import { NoResultsComponent } from './layout/components/no-results/no-results.component';
-import { DetalhesTamplateComponent } from './layout/components/detalhes-tamplate/detalhes-tamplate.component';
-import { CardHorarioComponent } from './layout/components/card-horario/card-horario.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { GerenciarRoutingModule } from './gerenciar/gerenciar-routing.module';
+import { GerenciarModule } from './gerenciar/gerenciar.module';
 
 
 @NgModule({
@@ -34,8 +34,6 @@ import { MatListModule } from '@angular/material/list';
         LayoutComponent,
         MenuComponent,
         NoResultsComponent,
-        DetalhesTamplateComponent,
-        // CardHorarioComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -59,7 +57,9 @@ import { MatListModule } from '@angular/material/list';
       DashboardModule,
       DadosModule,
       NotificacoesModule,
-      NotificacoesRoutingModule
+      NotificacoesRoutingModule,
+      GerenciarModule,
+      GerenciarRoutingModule
     ],
     exports: [ NoResultsComponent ]
 
