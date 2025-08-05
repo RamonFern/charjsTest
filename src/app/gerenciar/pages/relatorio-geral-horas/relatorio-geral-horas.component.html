@@ -1,1 +1,60 @@
-<p>relatorio-geral-horas works!</p>
+<div class="filtro-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Data Início</mat-label>
+    <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="dataInicio">
+    <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+    <mat-datepicker #pickerInicio></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Data Fim</mat-label>
+    <input matInput [matDatepicker]="pickerFim" [(ngModel)]="dataFim">
+    <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFim></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="buscarResumoTodos()">
+    Buscar Resumo
+  </button>
+</div>
+
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<p *ngIf="error" class="erro-msg">{{ error }}</p>
+
+<mat-table [dataSource]="resumoTodos" class="mat-elevation-z8" *ngIf="!isLoading && resumoTodos.length">
+
+  <ng-container matColumnDef="nome">
+    <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+    <mat-cell *matCellDef="let r"> {{ r.nome }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="cargo">
+    <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
+    <mat-cell *matCellDef="let r"> {{ r.cargo }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="horas">
+    <mat-header-cell *matHeaderCellDef> Total de Horas </mat-header-cell>
+    <mat-cell *matCellDef="let r"> {{ r.totalHoras }}h {{ r.minutosRestantes }}min </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="faltas">
+    <mat-header-cell *matHeaderCellDef> Faltas </mat-header-cell>
+    <mat-cell *matCellDef="let r"> {{ r.faltas }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="solicitadas">
+    <mat-header-cell *matHeaderCellDef> Permutas Solicitadas </mat-header-cell>
+    <mat-cell *matCellDef="let r"> {{ r.permutasSolicitadas }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="realizadas">
+    <mat-header-cell *matHeaderCellDef> Permutas Realizadas </mat-header-cell>
+    <mat-cell *matCellDef="let r"> {{ r.permutasRealizadas }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>
+

@@ -1,0 +1,14 @@
+.filtro-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.erro-msg {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

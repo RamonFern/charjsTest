@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { HorarioAgenteRequest } from './../models/horarioAgenteRequest';
 import { HorarioAgenteResponse } from './../models/horarioAgenteResponse';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -39,6 +39,14 @@ export class HorarioService {
     // console.log(params.toString());
 
     return this.http.get<HorarioAgenteResponse[]>(`${this.baseURL}/api/v2/horas/agente/${agenteId}?${params.toString()}`);
+  }
+
+  calcularHorasTodos(dataInicio: string, dataFim: string): Observable<ResumoHoras[]> {
+    const params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+  
+    return this.http.get<ResumoHoras[]>(`${this.baseURL}/api/v2/horas/calcular-todos`, { params });
   }
 
 }

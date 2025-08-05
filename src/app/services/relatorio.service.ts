@@ -4,6 +4,7 @@ import { RelatorioRequest } from '../models/relatorio-request';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +20,7 @@ salvarRelatorio(relatorioRequest: RelatorioRequest) {
 
 buscarTodos() {
   return this.http.get<RelatorioRequest[]>(`${this.baseURL}/api/v1/relatorio`);
-  
+
 }
 
 contarPermutas(nomeAgente: string, dataInicio: string, dataFim: string): Observable<PermutasResumo> {
@@ -29,7 +30,9 @@ contarPermutas(nomeAgente: string, dataInicio: string, dataFim: string): Observa
       .set('dataFim', dataFim);
 
     return this.http.get<PermutasResumo>(`${this.baseURL}/api/v1/relatorio/contar-permutas`, { params });
-  }
+}
+
+
 
 }
 
