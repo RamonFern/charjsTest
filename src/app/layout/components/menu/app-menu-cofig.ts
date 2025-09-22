@@ -81,7 +81,7 @@ export class AppMenuConfig {
                 new MenuItem({
                     label: 'Veículos',
                     icon: 'splitscreen',
-                    link: 'gerenciar/relatorio-geral-horas',
+                    link: 'gerenciar/relatorio-veiculo',
                     // permissao: PermissaoType.ACESSO_PAGINA_ESPECIALIZACOES,
                     // authService: this.authService,
                 }),
@@ -94,9 +94,9 @@ export class AppMenuConfig {
                 }),
 
                 new MenuItem({
-                    label: 'Cadastrar veículos',
+                    label: 'grafico veículos',
                     icon: 'group_work',
-                    link: 'gerenciar/relatorio-geral-horas',
+                    link: 'gerenciar/grafico-veiculo',
                     // permissao: PermissaoType.ACESSO_PAGINA_SALAS,
                     // authService: this.authService,
                 }),

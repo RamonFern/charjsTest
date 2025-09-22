@@ -1,0 +1,149 @@
+<form [formGroup]="form" (ngSubmit)="salvarRelatorio()" class="p-4 grid gap-4">
+
+  <!-- Data -->
+  <mat-form-field appearance="outline">
+    <mat-label>Data</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="data" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Hora Saída -->
+  <mat-form-field appearance="outline">
+    <mat-label>Hora de Saída</mat-label>
+    <input matInput type="time" formControlName="horaSaida" required>
+  </mat-form-field>
+
+  <!-- Hora Retorno -->
+  <mat-form-field appearance="outline">
+    <mat-label>Hora de Retorno</mat-label>
+    <input matInput type="time" formControlName="horaRetorno" required>
+  </mat-form-field>
+
+  <!-- Placa -->
+  <mat-form-field appearance="outline">
+    <mat-label>Placa</mat-label>
+    <input matInput formControlName="placa" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Modelo</mat-label>
+    <input matInput formControlName="modelo" required>
+  </mat-form-field>
+
+  <!-- Motorista -->
+  <mat-form-field appearance="outline">
+    <mat-label>Motorista</mat-label>
+    <input matInput formControlName="motorista" required>
+  </mat-form-field>
+
+  <!-- Km Inicial -->
+  <mat-form-field appearance="outline">
+    <mat-label>Km Inicial</mat-label>
+    <input matInput type="number" formControlName="kmInicial" required>
+  </mat-form-field>
+
+  <!-- Km Final -->
+  <mat-form-field appearance="outline">
+    <mat-label>Km Final</mat-label>
+    <input matInput type="number" formControlName="kmFinal" required>
+  </mat-form-field>
+
+  <!-- Destino -->
+  <mat-form-field appearance="outline">
+    <mat-label>Destino</mat-label>
+    <input matInput formControlName="destino" required>
+  </mat-form-field>
+
+  <!-- Finalidade -->
+  <mat-form-field appearance="outline">
+    <mat-label>Finalidade</mat-label>
+    <input matInput formControlName="finalidade" required>
+  </mat-form-field>
+
+  <!-- Finalidade -->
+  <mat-form-field appearance="outline">
+    <mat-label>Abastecimento?</mat-label>
+    <input matInput formControlName="abastecimentoLitros" type="number" required>
+  </mat-form-field>
+
+  <!-- Observações -->
+  <mat-form-field appearance="outline">
+    <mat-label>Observações</mat-label>
+    <textarea matInput formControlName="observacoes"></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Salvar Relatório</button>
+</form>
+
+
+<div class="p-4">
+  <h2>Relatório de Viaturas</h2>
+
+  <button mat-raised-button color="primary" (click)="exportarPdf()">
+    Exportar PDF
+  </button>
+
+  <mat-table [dataSource]="relatorios" class="mat-elevation-z8 mt-4">
+
+    <ng-container matColumnDef="data">
+      <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.data}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="placa">
+      <mat-header-cell *matHeaderCellDef> Placa </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.placa}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modelo">
+      <mat-header-cell *matHeaderCellDef> Modelo </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.modelo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="motorista">
+      <mat-header-cell *matHeaderCellDef> Motorista </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.motorista}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="kmInicial">
+      <mat-header-cell *matHeaderCellDef> KM Inicial </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.kmInicial}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="kmFinal">
+      <mat-header-cell *matHeaderCellDef> KM Final </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.kmFinal}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="kmRodado">
+      <mat-header-cell *matHeaderCellDef> Rodado </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.kmRodada}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="abastecimentoLitros">
+      <mat-header-cell *matHeaderCellDef> Litros </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.abastecimentoLitros}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="destino">
+      <mat-header-cell *matHeaderCellDef> Destino </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.destino}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="finalidade">
+      <mat-header-cell *matHeaderCellDef> Finalidade </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.finalidade}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="observacoes">
+      <mat-header-cell *matHeaderCellDef> Observações </mat-header-cell>
+      <mat-cell *matCellDef="let r"> {{r.observacoes}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
+
