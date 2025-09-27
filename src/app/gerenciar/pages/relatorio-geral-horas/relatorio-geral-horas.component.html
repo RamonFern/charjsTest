@@ -21,7 +21,7 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <p *ngIf="error" class="erro-msg">{{ error }}</p>
 
-<mat-table [dataSource]="resumoTodos" class="mat-elevation-z8" *ngIf="!isLoading && resumoTodos.length">
+<mat-table [dataSource]="resumoTodos" id="tabela-pdf" class="mat-elevation-z8" *ngIf="!isLoading && resumoTodos.length">
 
   <ng-container matColumnDef="nome">
     <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
@@ -55,6 +55,7 @@
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
 </mat-table>
-
+<button mat-raised-button color="primary" (click)="exportarPDF()" *ngIf="!isLoading && resumoTodos.length">
+  Exportar PDF
+</button>

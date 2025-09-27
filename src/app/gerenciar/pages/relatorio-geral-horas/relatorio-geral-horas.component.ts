@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { HorarioService, ResumoHoras } from 'src/app/services/horario.sevice';
 
 @Component({
@@ -46,5 +48,41 @@ export class RelatorioGeralHorasComponent implements OnInit {
         }
       });
   }
+
+
+  exportarPDF() {
+  if (!this.resumoTodos?.length) {
+    console.warn('Nenhum dado para exportar');
+    return;
+  }
+
+  const doc = new jsPDF();
+
+  doc.setFontSize(14);
+  doc.text('Relatório de Horas', 14, 15);
+
+  const head = [['Nome', 'Cargo', 'Total de Horas', 'Faltas', 'Permutas Solicitadas', 'Permutas Realizadas']];
+
+  const body = (this.resumoTodos as any[]).map(r => [
+  r.nome,
+  r.cargo,
+  `${r.totalHoras}h ${r.minutosRestantes}min`,
+  r.faltas,
+  r.permutasSolicitadas,
+  r.permutasRealizadas
+]);
+
+  autoTable(doc, {
+    head,
+    body,
+    startY: 25,
+    theme: 'striped',
+    headStyles: { fillColor: [41, 128, 185] },
+    styles: { fontSize: 10 }
+  });
+
+  doc.save('relatorio-horas.pdf');
+}
+
 
 }
