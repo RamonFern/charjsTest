@@ -43,16 +43,6 @@ export class EnderecoComponent implements OnInit {
 
   }
 
-  onFiltroChange(valor: string) {
-    console.log('Filtro selecionado:', valor);
-    // aqui você pode emitir um evento ou chamar um service
-  }
-
-  buscarPorData() {
-    console.log('Buscando relatórios entre:', this.dataInicio, 'e', this.dataFim);
-    // lógica de busca
-  }
-
   novoRelatorio() {
     const dialogRef = this.dialog.open(NovoRelatorioComponent, {
             width: '1250px',

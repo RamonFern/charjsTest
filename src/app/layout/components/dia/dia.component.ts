@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogReturn } from 'src/app/models/dialog-return';
 import { EditarEscalaComponent } from 'src/app/dashboard/dialogs/editar-escala/editar-escala.component';
 
+
 @Component({
   selector: 'app-dia',
   templateUrl: './dia.component.html',
@@ -28,11 +29,16 @@ export class DiaComponent implements OnInit {
     // this.diaSemana = dateDia.format('dddd');
     // // console.log(dateDia.format('dd'))
     // this.dataAtual = moment().format("DD/MM/YYYY");
-    const dateDia = dayjs(this.dia.data, "DD/MM/YYYY");
+    const dateDia = dayjs(this.dia.data, "DD/MM/YYYY")
+    // console.log(dateDia);
+    // console.log("dia => "+this.dia);
     this.diaSemana = dateDia.format('dddd');
+    // console.log("diaSemana => "+this.diaSemana);
     this.dataAtual = dayjs().format("DD/MM/YYYY");
+    // console.log("dataAtual => "+this.dataAtual);
     // this.id = this.dia.equipeid ? this.dia.equipeid : null;
     this.dia.equipeid ? this.id = this.dia.equipeid : null;
+    // console.log("id => "+this.id);
     this.buscarEquipe();
   }
 

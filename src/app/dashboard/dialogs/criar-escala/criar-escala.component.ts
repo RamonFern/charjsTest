@@ -44,7 +44,7 @@ export class CriarEscalaComponent implements OnInit {
     // this.escalaForm.controls['data'].setValue(this.currentDate.format("DD/MM/YYYY"));
 
     this.currentDate = dayjs(this.data, "DD/MM/YYYY").add(1, 'day');
-
+    // console.log(this.currentDate);
     this.escalaForm.controls['data'].setValue(
       this.currentDate.format("DD/MM/YYYY")
     );
