@@ -382,7 +382,122 @@
     </div>
   </mat-step>
 
-  <mat-step label="Step 6" state="chat">
+  <!-- <mat-step label="Step 6" state="chat">
+    <h2>HORA EXTRA DOS AGENTES</h2>
+
+      <mat-radio-group [(ngModel)]="horaExtra" (change)="ouveHoraExtra()">
+        <mat-radio-button color="primary" class="margin" value="sim">sim</mat-radio-button>
+        <mat-radio-button color="primary" class="margin" value="não">não</mat-radio-button>
+      </mat-radio-group>
+
+    <div class="container_horarios" *ngIf="horaExtra === 'sim'">
+      <h2>Agentes da equipe do dia.</h2>
+      <ng-container *ngFor="let agente of equipeSelecionada2.membros; let i = index">
+        <mat-card class="mat-card">
+            <ng-container *ngIf="horariosForms && horariosForms[i]">
+              <form [formGroup]="horariosForms[i]">
+                <div class="mat-card-agente">
+                  <div class="mat-nome-permulta">
+                    <div class="mat-nome-horario">
+                      <mat-card-title>{{ agente.nome }}</mat-card-title>
+                      <ng-container *ngFor="let agenteFaltou of agentesFaltosos">
+                        <mat-radio-button *ngIf="agente.id === agenteFaltou.id" checked="true" color="primary" class="margin" value="falta">falta</mat-radio-button>
+                      </ng-container>
+
+                    </div>
+                    <ng-container *ngFor="let itemAgente of agentesParaPermulta; let i = index">
+                      <ng-container *ngIf="itemAgente.id === agente.id">
+                        <div class="icon-permulta">
+                          <mat-icon>sync</mat-icon>
+                          <span>
+                            PERMULTA
+                          </span>
+                        </div>
+                        <mat-card-title>{{ agentesDeFolgaEscolhidoParaPermulta2[i].nome }} </mat-card-title>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+
+                  <ng-container>
+                    <ng-container>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Chegada</mat-label>
+                        <input matInput  formControlName="chegada" name="chegada" required type="datetime-local">
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill">
+                        <mat-label>Saída</mat-label>
+                        <input  matInput formControlName="saida" name="saida" required type="datetime-local">
+                      </mat-form-field>
+
+                    </ng-container>
+                      <ng-container *ngFor="let agenteNaFalta of agentesFaltosos">
+                        <mat-form-field appearance="fill" *ngIf="agenteNaFalta.id === agente.id">
+                          <mat-label>Justificativa</mat-label>
+                          <textarea matInput formControlName="justificativa" name="justificativa" placeholder="Ex. It makes me feel..."></textarea>
+                        </mat-form-field>
+                      </ng-container>
+                    </ng-container>
+                </div>
+              </form>
+            </ng-container>
+          <div class="mat-card-btn">
+            <button mat-raised-button color="primary" (click)="salvarHorarios(agente.id, i)">Salvar horários</button>
+          </div>
+        </mat-card>
+      </ng-container>
+    </div>
+
+    <div class="container_horarios" *ngIf="agentesDeFolgaParaReforco2.length">
+      <h2>Agentes de reforço.</h2>
+      <mat-card class="mat-card" *ngFor="let agente of agentesDeFolgaParaReforco2; let i = index">
+          <form [formGroup]="horariosFolgaForms[i]">
+            <div class="mat-card-agente">
+              <div class="mat-nome-permulta">
+                <mat-card-title>{{ agente?.nome }}</mat-card-title>
+                  <ng-container *ngFor="let agenteFaltou of agentesFaltosos">
+                    <mat-radio-button *ngIf="agente.id === agenteFaltou.id" checked="true" color="primary" class="margin" value="falta">falta</mat-radio-button>
+                  </ng-container>
+              </div>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Chegada</mat-label>
+                <input matInput formControlName="chegada" name="chegada" required type="datetime-local">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Saída</mat-label>
+                <input  matInput formControlName="saida" name="saida" required type="datetime-local">
+              </mat-form-field>
+
+              <ng-container *ngFor="let agenteNaFalta of agentesFaltosos">
+                <mat-form-field appearance="fill" *ngIf="agenteNaFalta.id === agente.id">
+                  <mat-label>Justificativa</mat-label>
+                  <textarea matInput formControlName="justificativa" name="justificativa" placeholder="Ex. It makes me feel..."></textarea>
+                </mat-form-field>
+              </ng-container>
+            </div>
+          </form>
+        <div class="mat-card-btn">
+          <button mat-raised-button color="primary" (click)="salvarHorarios2(agente.id, i)">Salvar horários</button>
+        </div>
+      </mat-card>
+    </div>
+    <div class="reg-horas">
+      <ng-container *ngIf="registroDeHoras.length">
+        <ng-container *ngFor="let registro of registroDeHoras">
+          <app-card-horario [horariosResponse]="registro"></app-card-horario>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step> -->
+
+  <mat-step label="Step 7" state="chat">
     <h2>Houve alteração</h2>
     <mat-radio-group [(ngModel)]="alteracaoEscolha" aria-label="Select an option" color="primary" class="radio">
       <mat-radio-button *ngFor="let item of alteracao" [value]="item">{{ item }}</mat-radio-button>
@@ -447,7 +562,7 @@
     </div>
   </mat-step>
 
-  <mat-step label="Step 7">
+  <mat-step label="Step 8">
     <p>RELATÓRIO PARA CONFERENCIA E SALVAR</p>
     <div class="step5">
       <div class="relatorio">

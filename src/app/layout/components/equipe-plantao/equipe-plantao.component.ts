@@ -20,7 +20,6 @@ export class EquipePlantaoComponent implements OnInit {
   constructor(private agenteService: AgenteService) { }
 
   ngOnInit(): void {
-    // console.log(this.escalaResponse);
     this.listarAgenteDaEscala();
   }
 

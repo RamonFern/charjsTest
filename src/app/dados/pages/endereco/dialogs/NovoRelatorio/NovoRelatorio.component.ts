@@ -58,6 +58,7 @@ export class NovoRelatorioComponent implements OnInit {
   escolha!: string
   escolha2!: string;
   escolha3!: string;
+  horaExtra!: string;
   equipes: EquipeResponse[] = [];
   equipeSelecionada!: EquipeResponse;
   equipeSelecionada2!: EquipeResponse;
@@ -233,6 +234,10 @@ export class NovoRelatorioComponent implements OnInit {
   ouveFaltas() {
     this.agentesFaltosos2 = this.agentesFaltosos.filter( a => !this.agentesDaEquipe.includes( a ));
     this.escolha3 === "sim" ? null : this.removerAgentesFalta();
+  }
+
+  ouveHoraExtra() {
+    this.horaExtra === "sim" ? null : null;
   }
 
   addAgenteReforco() {

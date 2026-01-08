@@ -74,6 +74,39 @@
   margin-bottom: 30px;
 }
 
+/* **************** */
+.filtro-card {
+  max-width: 700px;
+  margin: 20px auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  background: #fff;
+}
+
+.filtro-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filtro-toggle-group {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.data-picker {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button[mat-raised-button] {
+  height: 56px;
+}
 
 
 

@@ -1,11 +1,14 @@
-.form-grid {
+form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
-.full-width {
-  grid-column: span 2;
+
+.actions {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 8px;
+  text-align: right;
 }
-.mt-3 {
-  margin-top: 2rem;
-}
+

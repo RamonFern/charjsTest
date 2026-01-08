@@ -25,7 +25,9 @@ import { environment } from 'src/environments/environment';
 })
 export class EnderecoComponent implements OnInit {
 
-
+  filtroSelecionado: string = 'todos';
+  dataInicio?: Date | null;
+  dataFim?: Date | null;
 
   relatorios: RelatorioRequest[] = [];
   addRelatorio = false;
@@ -34,8 +36,17 @@ export class EnderecoComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
-
     this.buscarRelatorios();
+  }
+
+  onFiltroChange(valor: string) {
+    console.log('Filtro selecionado:', valor);
+    // aqui você pode emitir um evento ou chamar um service
+  }
+
+  buscarPorData() {
+    console.log('Buscando relatórios entre:', this.dataInicio, 'e', this.dataFim);
+    // lógica de busca
   }
 
   novoRelatorio() {
@@ -54,7 +65,9 @@ export class EnderecoComponent implements OnInit {
     // const dialogRef = this.dialog.open(NovoRelatorioComponent, {
     //         width: '1250px',
     //         data: relatorio
-    //       });// CONTINUAR FAZENDO O EDITAR RELATORIO
+          // });
+
+          // CONTINUAR FAZENDO O EDITAR RELATORIO
 
     //       dialogRef.afterClosed().subscribe((result: DialogReturn) => {
     //         if (result?.hasDataChanged) {
@@ -71,6 +84,7 @@ export class EnderecoComponent implements OnInit {
     this.relatorioService.buscarTodos()
         .pipe((take(1)))
         .subscribe((rel) => {
+          this.relatorios = rel;
           this.relatorios = rel.reverse();
         })
   }

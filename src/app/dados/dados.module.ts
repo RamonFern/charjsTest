@@ -30,6 +30,7 @@ import { NovoRelatorioComponent } from './pages/endereco/dialogs/NovoRelatorio/N
 import { CardHorarioComponent } from '../layout/components/card-horario/card-horario.component';
 import { ResumoHorasComponent } from './pages/contato/dialogs/resumo-horas/resumo-horas.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     ScrollingModule,
+    MatButtonToggleModule,
     HttpClientModule,
     DragDropModule,
     MatTableModule,
@@ -65,7 +67,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatMenuModule,
     MatDatepickerModule,
     MatExpansionModule,
-    MatDatepickerModule,
     MatCheckboxModule,
     MatDividerModule,
     MatButtonModule,

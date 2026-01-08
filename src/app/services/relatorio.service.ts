@@ -22,6 +22,9 @@ buscarTodos() {
   return this.http.get<RelatorioRequest[]>(`${this.baseURL}/api/v1/relatorio`);
 
 }
+// buscarTodos() {
+//   return this.http.get<RelatorioRequest[]>(`${this.baseURL}/api/v1/relatorio/ultimos30`);
+// }
 
 contarPermutas(nomeAgente: string, dataInicio: string, dataFim: string): Observable<PermutasResumo> {
     const params = new HttpParams()

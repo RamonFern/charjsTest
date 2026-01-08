@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit {
 
   dataHora!: string;
 
-  // namesOfDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
   escalasResponse: EscalaServicoResponse[] = [];
   escalaResponse!: EscalaServicoResponse;
   escalasFiltradas: EscalaServicoResponse[] = [];
@@ -49,7 +48,7 @@ export class DashboardComponent implements OnInit {
           })
 
           this.escalasResponse.filter((a) => {
-            a.data === this.dataHora ? this.escalaResponse = a : null
+            a.data === this.dataHora ? this.escalaResponse = a : null;
           })
         });
   }

@@ -1,79 +1,99 @@
 <form [formGroup]="form" (ngSubmit)="salvarRelatorio()" class="p-4 grid gap-4">
 
-  <!-- Data -->
-  <mat-form-field appearance="outline">
-    <mat-label>Data</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="data" required>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <mat-card>
+    <mat-card-title>Dados da Viagem</mat-card-title>
+    <mat-card-content>
+      <!-- Data -->
+      <mat-form-field appearance="outline">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="data" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    
+      <!-- Hora Saída -->
+      <mat-form-field appearance="outline">
+        <mat-label>Hora de Saída</mat-label>
+        <input matInput type="time" formControlName="horaSaida" required>
+      </mat-form-field>
+    
+      <!-- Hora Retorno -->
+      <mat-form-field appearance="outline">
+        <mat-label>Hora de Retorno</mat-label>
+        <input matInput type="time" formControlName="horaRetorno" required>
+      </mat-form-field>
 
-  <!-- Hora Saída -->
-  <mat-form-field appearance="outline">
-    <mat-label>Hora de Saída</mat-label>
-    <input matInput type="time" formControlName="horaSaida" required>
-  </mat-form-field>
+       <!-- Finalidade -->
+      <mat-form-field appearance="outline">
+        <mat-label>Finalidade</mat-label>
+        <input matInput formControlName="finalidade" required>
+      </mat-form-field>
+      <!-- Data, Horas, Destino, Finalidade -->
+    </mat-card-content>
+  </mat-card>
 
-  <!-- Hora Retorno -->
-  <mat-form-field appearance="outline">
-    <mat-label>Hora de Retorno</mat-label>
-    <input matInput type="time" formControlName="horaRetorno" required>
-  </mat-form-field>
+  <mat-card>
+    <mat-card-title>Veículo</mat-card-title>
+    <mat-card-content>
+      <!-- Placa -->
+      <mat-form-field appearance="outline">
+        <mat-label>Placa</mat-label>
+        <input matInput formControlName="placa" required>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline">
+        <mat-label>Modelo</mat-label>
+        <input matInput formControlName="modelo" required>
+      </mat-form-field>
 
-  <!-- Placa -->
-  <mat-form-field appearance="outline">
-    <mat-label>Placa</mat-label>
-    <input matInput formControlName="placa" required>
-  </mat-form-field>
+      <!-- Km Inicial -->
+      <mat-form-field appearance="outline">
+        <mat-label>Km Inicial</mat-label>
+        <input matInput type="number" formControlName="kmInicial" required>
+      </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Modelo</mat-label>
-    <input matInput formControlName="modelo" required>
-  </mat-form-field>
+      <!-- Km Final -->
+      <mat-form-field appearance="outline">
+        <mat-label>Km Final</mat-label>
+        <input matInput type="number" formControlName="kmFinal" required>
+      </mat-form-field>
+      <!-- Placa, Modelo, Km -->
+    </mat-card-content>
+  </mat-card>
 
-  <!-- Motorista -->
-  <mat-form-field appearance="outline">
-    <mat-label>Motorista</mat-label>
-    <input matInput formControlName="motorista" required>
-  </mat-form-field>
+  <mat-card>
+    <mat-card-title>Motorista & Abastecimento</mat-card-title>
+    <mat-card-content>
+      <!-- Motorista -->
+      <mat-form-field appearance="outline">
+        <mat-label>Motorista</mat-label>
+        <input matInput formControlName="motorista" required>
+      </mat-form-field>
+    
+      
+      <!-- Destino -->
+      <mat-form-field appearance="outline">
+        <mat-label>Destino</mat-label>
+        <input matInput formControlName="destino" required>
+      </mat-form-field>
 
-  <!-- Km Inicial -->
-  <mat-form-field appearance="outline">
-    <mat-label>Km Inicial</mat-label>
-    <input matInput type="number" formControlName="kmInicial" required>
-  </mat-form-field>
-
-  <!-- Km Final -->
-  <mat-form-field appearance="outline">
-    <mat-label>Km Final</mat-label>
-    <input matInput type="number" formControlName="kmFinal" required>
-  </mat-form-field>
-
-  <!-- Destino -->
-  <mat-form-field appearance="outline">
-    <mat-label>Destino</mat-label>
-    <input matInput formControlName="destino" required>
-  </mat-form-field>
-
-  <!-- Finalidade -->
-  <mat-form-field appearance="outline">
-    <mat-label>Finalidade</mat-label>
-    <input matInput formControlName="finalidade" required>
-  </mat-form-field>
-
-  <!-- Finalidade -->
-  <mat-form-field appearance="outline">
-    <mat-label>Abastecimento?</mat-label>
-    <input matInput formControlName="abastecimentoLitros" type="number" required>
-  </mat-form-field>
-
-  <!-- Observações -->
-  <mat-form-field appearance="outline">
-    <mat-label>Observações</mat-label>
-    <textarea matInput formControlName="observacoes"></textarea>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Salvar Relatório</button>
+      <mat-form-field appearance="outline">
+        <mat-label>Litros abastecidos</mat-label>
+        <input matInput type="number" formControlName="abastecimentoLitros">
+      </mat-form-field>
+    
+      <!-- Observações -->
+      <mat-form-field appearance="outline">
+        <mat-label>Observações</mat-label>
+        <textarea matInput formControlName="observacoes"></textarea>
+      </mat-form-field>
+      <!-- Motorista, Abastecimento, Observações -->
+    </mat-card-content>
+  </mat-card>
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit">Salvar Relatório</button>
+  </div>
+  <!-- <button mat-raised-button color="primary" type="submit">Salvar Relatório</button> -->
 </form>
 
 
