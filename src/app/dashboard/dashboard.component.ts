@@ -32,10 +32,11 @@ export class DashboardComponent implements OnInit {
 
   buscarTodasEscalasServicos() {
     this.escalasFiltradas = [];
-    this.escalaServicoService.listarEscala()
+    this.escalaServicoService.listarEscalaUltimos30()
         .pipe(take(1))
         .subscribe((escala) => {
           this.escalasResponse = escala;
+          this.escalasResponse.reverse();
           const dataHoraInicio = moment(this.dataHora, 'DD/MM/YYYY').subtract(7,'day');
           const dataHoraFim = moment(this.dataHora, 'DD/MM/YYYY').add(7, 'day');
 

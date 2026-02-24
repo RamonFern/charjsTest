@@ -17,6 +17,10 @@ export class EscalaServicoService {
     return this.http.get<EscalaServicoResponse[]>(`${this.baseURL}/api/v2/escala-servico`);
   }
 
+  listarEscalaUltimos30() {
+    return this.http.get<EscalaServicoResponse[]>(`${this.baseURL}/api/v2/escala-servico/ultimos30`);
+  }
+
   criarEscalaServico(escalaRequest: EscalaServicoRequest) {
     return this.http.post<EscalaServicoResponse>(`${this.baseURL}/api/v2/escala-servico`, escalaRequest);
   }
