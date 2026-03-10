@@ -1,5 +1,5 @@
 .container {
-  display: inline-flex;
+  display: flex;
   background-color: #f9f9fa;
 
 }
