@@ -1,0 +1,131 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #92588d, #2a5298);
+}
+
+.login-card {
+  width: 350px;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+
+
+
+/* .container {
+    display: flex;
+    height: 100%;
+}
+
+.side-left {
+
+    background-repeat: no-repeat;
+    background-position: 0px -45px;
+    width: 50%;
+    height: 100%;
+    background-color: #e5eaf7;
+}
+
+.logo {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.slogan {
+    margin: auto;
+    margin-top: 550px;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.slogan__text {
+    font-size: 13px;
+    margin-bottom: 20px;
+    line-height: 18px;
+}
+
+.slogan h2 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.side-right {
+
+    background-repeat: no-repeat;
+    background-position: 0px -30px;
+    width: 50%;
+    height: 100%;
+}
+
+.login-form {
+    margin: auto;
+    margin-top: 150px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form__info {
+    margin-bottom: 42px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.login-form__pass-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.login-form__link {
+    color: #007eff;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.login-form__pass {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-form__pass-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+@media (max-width: 700px) {
+    .side-left {
+        display: none;
+    }
+    .side-right {
+        width: 100%;
+    }
+    .login-form__pass-options {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.load {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+} */

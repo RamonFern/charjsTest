@@ -37,9 +37,11 @@ export class ResumoHorasComponent implements OnInit {
               private agenteService: AgenteService) { }
 
   ngOnInit(): void {
-    this.agenteId = this.data;
-    this.buscarHoras();
-    this.buscarAgentePeloId();
+    if (localStorage.getItem('token')) {
+      this.agenteId = this.data;
+      this.buscarHoras();
+      this.buscarAgentePeloId();
+    }
 
   }
 

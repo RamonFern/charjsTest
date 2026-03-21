@@ -36,7 +36,10 @@ export class EnderecoComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.buscarRelatorios();
+    if (localStorage.getItem('token')) {
+      this.buscarRelatorios();
+    }
+    
   }
 
   onFiltroChange(valor: string) {

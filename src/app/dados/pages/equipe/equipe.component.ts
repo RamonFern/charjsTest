@@ -36,14 +36,16 @@ export class EquipeComponent implements OnInit {
               private notification: MatSnackBar) { }
 
   ngOnInit() {
-    this.buscarEquipes();
-    this.buscarAgentesSemEquipes();
+    if (localStorage.getItem('token')) {
+      this.buscarEquipes();
+      this.buscarAgentesSemEquipes();
 
-    this.listarAgentes();
-    this.equipe01 = this.separarAgentesPorEquipe(this.equipes[0]);
-    this.equipe02 = this.separarAgentesPorEquipe(this.equipes[1]);
-    this.equipe03 = this.separarAgentesPorEquipe(this.equipes[2]);
-    this.equipe04 = this.separarAgentesPorEquipe(this.equipes[3]);
+      this.listarAgentes();
+      this.equipe01 = this.separarAgentesPorEquipe(this.equipes[0]);
+      this.equipe02 = this.separarAgentesPorEquipe(this.equipes[1]);
+      this.equipe03 = this.separarAgentesPorEquipe(this.equipes[2]);
+      this.equipe04 = this.separarAgentesPorEquipe(this.equipes[3]);
+    }
   }
 
   salvarEquipe() {

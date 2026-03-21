@@ -105,9 +105,11 @@ export class NovoRelatorioComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.alteracaoEscolha = this.alteracao[1].toString();
-    this.listarAgentes();
-    this.listarEquipes();
+    if (localStorage.getItem('token')) {
+      this.alteracaoEscolha = this.alteracao[1].toString();
+      this.listarAgentes();
+      this.listarEquipes();     
+    }
 
     this.breakpointObserver
         .observe(['(max-width: 768px)'])

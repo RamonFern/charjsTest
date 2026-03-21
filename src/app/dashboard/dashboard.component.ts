@@ -26,7 +26,10 @@ export class DashboardComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.buscarTodasEscalasServicos();
+    if (localStorage.getItem('token')) {
+      this.buscarTodasEscalasServicos();
+    }
+    //this.buscarTodasEscalasServicos();
     this.dataHora = moment().format("DD/MM/YYYY");
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -11,12 +12,16 @@ export class LayoutComponent implements OnInit {
 
   searchTxt: any;
   buscasGerais!: any[];
+  logado: boolean = false;
 
-
-
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.estaLogado();
+  }
+
+  estaLogado(){// adicionar em todas as telas
+    this.logado = this.authService.estaLogado();
   }
 
 }

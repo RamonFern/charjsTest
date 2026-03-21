@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { AppMenuConfig } from './app-menu-cofig';
 import { MenuItem } from './menu-item';
 
@@ -15,7 +16,7 @@ export class MenuComponent implements OnInit {
     activeMenu: any;
     mostrarCalendario: boolean = true;
 
-    constructor(private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) {}
 
     ngOnInit(): void {
         this.initMenu();
@@ -66,8 +67,8 @@ export class MenuComponent implements OnInit {
         this.menuOpened = false;
     }
 
-    logout() {
-        // this.loginService.logout();
-        this.router.navigate(['/login']);
+    logout(){
+      this.authService.logout();
+      this.router.navigate(['/login']);
     }
 }

@@ -31,7 +31,9 @@ export class ContatoComponent implements OnInit {
               private form: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.listarTodos();
+    if (localStorage.getItem('token')) {
+      this.listarTodos();
+    }
 
   }
   BuscarHorasDeAgente(agenteId: number) {

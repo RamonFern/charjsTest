@@ -3,13 +3,15 @@ import { RouterModule, Routes } from "@angular/router";
 import { ContatoComponent } from "./pages/contato/contato.component";
 import { EnderecoComponent } from "./pages/endereco/endereco.component";
 import { EquipeComponent } from "./pages/equipe/equipe.component";
+import { AuthGuard } from "../guard/auth.guard";
+
 
 
 const routes: Routes = [
   {
       path: 'dados/endereco',
       component: EnderecoComponent,
-      // canActivate: [AuthGuard],
+      canActivate: [AuthGuard],
       // data: {
       //     permissao: PermissaoType.ACESSO_PAGINA_FATURAMENTO,
       // },
@@ -17,7 +19,7 @@ const routes: Routes = [
   {
       path: 'dados/contato',
       component: ContatoComponent,
-      // canActivate: [AuthGuard],
+      canActivate: [AuthGuard],
       // data: {
       //     permissao: PermissaoType.ACESSO_PAGINA_REPASSE,
       // },
@@ -25,7 +27,7 @@ const routes: Routes = [
   {
     path: 'dados/equipe',
     component: EquipeComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     // data: {
     //     permissao: PermissaoType.ACESSO_PAGINA_REPASSE,
     // },
