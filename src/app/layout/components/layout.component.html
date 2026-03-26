@@ -1,17 +1,18 @@
 <div class="container">
+  <!-- *ngIf="authService.temPermissao('ADMIN')" -->
   <div class="menu-lateral">
     <app-menu></app-menu>
   </div>
 
   <div class="main">
-    <div class="toolbar-wrapper">
+    <!-- <div class="toolbar-wrapper">
       <div class="toolbar">
         <div class="toolbar__tools">
           <mat-icon [ngClass]="searchTxt ? 'toolbar__icon-azul' : 'toolbar__icon-cinza'">search</mat-icon>
           <input class="toolbar__search" placeholder="Buscar"  />
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="page-content">
       <router-outlet></router-outlet>
     </div>

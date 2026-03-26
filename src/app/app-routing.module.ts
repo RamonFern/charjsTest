@@ -1,4 +1,3 @@
-import { LayoutComponent } from './layout/components/layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -12,15 +11,40 @@ const routes: Routes = [
 
   {
     path: '',
-    component: LayoutComponent,
+    component: AppComponent,
     canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'dados', loadChildren: () => import('./dados/dados.module').then(m => m.DadosModule) },
-      { path: 'notificacoes', loadChildren: () => import('./notificacoes/notificacoes.module').then(m => m.NotificacoesModule) },
-      { path: 'gerenciar', loadChildren: () => import('./gerenciar/gerenciar.module').then(m => m.GerenciarModule) }
+      {
+        path: 'dashboard', component: DashboardComponent,
+        canLoad: [AuthGuard],
+        data: {
+          permissoes: ['ADMIN' , 'DIRETOR' , 'INSPETOR']
+        }
+      },
+      {
+        path: 'dados', loadChildren: () => import('./dados/dados.module').then(m => m.DadosModule),
+        canLoad: [AuthGuard],
+        data: {
+          permissoes: ['ADMIN', 'DIRETOR' , 'INSPETOR']
+        }
+      },
+      {
+        path: 'notificacoes', loadChildren: () => import('./notificacoes/notificacoes.module').then(m => m.NotificacoesModule),
+        canLoad: [AuthGuard],
+        data: {
+          permissoes: ['ADMIN' , 'DIRETOR']
+        }
+      },
+      {
+        path: 'gerenciar', loadChildren: () => import('./gerenciar/gerenciar.module').then(m => m.GerenciarModule),
+        canLoad: [AuthGuard],
+        data: {
+          permissoes: ['ADMIN' , 'DIRETOR']
+        }
+      }
     ]
-  }
+  },
   // { path: '**', redirectTo: 'login' }
 ];
 

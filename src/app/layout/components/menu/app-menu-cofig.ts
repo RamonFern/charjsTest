@@ -1,5 +1,3 @@
-// import { AuthService } from 'src/app/core/auth/auth.service';
-// import { PermissaoType } from 'src/app/shared/models/permissao-type';
 import { MenuItem } from './menu-item';
 
 export class AppMenuConfig {
@@ -8,28 +6,28 @@ export class AppMenuConfig {
             label: 'Dashboard',
             icon: 'dashboard',
             link: 'dashboard',
-            // permissao: PermissaoType.ACESSO_PAGINA_DASHBOARD,
+            permissao: 'ADMIN',
             // authService: this.authService,
         }),
         new MenuItem({
           label: 'Ferramentas',
           icon: 'account_tree',
           link: '',
-          // authService: this.authService,
+          permissao: 'ADMIN',
 
           submenus: [
             new MenuItem({
               label: 'Relatório',
               icon: 'receipt_long',
               link: 'dados/endereco',
-              // permissao: PermissaoType.ACESSO_PAGINA_PACIENTES,
+              permissao: 'ADMIN',
               // authService: this.authService,
             }),
             new MenuItem({
               label: 'Agentes',
               icon: 'groups_2',
               link: 'dados/contato',
-              // permissao: PermissaoType.ACESSO_PAGINA_ROTINA_SALA,
+              permissao: 'ADMIN',
               // authService: this.authService,
             }),
             new MenuItem({
@@ -62,14 +60,14 @@ export class AppMenuConfig {
                     link: 'notificacoes/pesquisar',
                     // permissao: PermissaoType.ACESSO_PAGINA_REPASSE,
                     // authService: this.authService,
-                }),
-                new MenuItem({
-                    label: 'Ranking',
-                    icon: 'credit_score',
-                    link: 'notificacoes/pagamento-fixo',
-                    // permissao: PermissaoType.ACESSO_PAGINA_REPASSE,
-                    // authService: this.authService,
-                }),
+                })
+                // new MenuItem({
+                //     label: 'Ranking',
+                //     icon: 'credit_score',
+                //     link: 'notificacoes/pagamento-fixo',
+                //     // permissao: PermissaoType.ACESSO_PAGINA_REPASSE,
+                //     // authService: this.authService,
+                // }),
             ],
         }),
         new MenuItem({
@@ -115,6 +113,6 @@ export class AppMenuConfig {
 
     ];
 
-    // constructor(private authService: AuthService) {}
+
     constructor() {}
 }

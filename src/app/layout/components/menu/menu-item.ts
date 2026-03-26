@@ -4,9 +4,9 @@ export class MenuItem {
     icon!: string;
     link?: string;
     submenus?: MenuItem[];
-    //permissao?: PermissaoType;
+    permissao?: string;
     permitido?: boolean;
-    //authService!: AuthService;
+
 
     public constructor(init?: Partial<MenuItem>) {
         Object.assign(this, init);

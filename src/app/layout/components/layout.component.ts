@@ -14,7 +14,7 @@ export class LayoutComponent implements OnInit {
   buscasGerais!: any[];
   logado: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.estaLogado();
