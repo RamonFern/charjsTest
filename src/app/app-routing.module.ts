@@ -33,7 +33,7 @@ const routes: Routes = [
         path: 'notificacoes', loadChildren: () => import('./notificacoes/notificacoes.module').then(m => m.NotificacoesModule),
         canLoad: [AuthGuard],
         data: {
-          permissoes: ['ADMIN' , 'DIRETOR']
+          permissoes: ['ADMIN']
         }
       },
       {

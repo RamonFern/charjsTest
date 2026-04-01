@@ -28,8 +28,15 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  logout(){
+  logout() {
+    // limpa tudo que for de autenticação
     localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('permissoes');
+
+    // ou mais agressivo (recomendado)
+    localStorage.clear();
+    window.location.href = '/login';
   }
 
   estaLogado(): boolean {

@@ -66,6 +66,7 @@ export class NovoRelatorioComponent implements OnInit {
   registroDeHoras: HorarioAgenteResponse[] = [];
   registroDeHora!: HorarioAgenteResponse;
   isLoading: boolean = false;
+  isLoadingHorario: boolean = false;
 
   alteracao: string[] = ['sim', 'não'];
   faltas: string[] = ['sim', 'não'];
@@ -108,7 +109,7 @@ export class NovoRelatorioComponent implements OnInit {
     if (localStorage.getItem('token')) {
       this.alteracaoEscolha = this.alteracao[1].toString();
       this.listarAgentes();
-      this.listarEquipes();     
+      this.listarEquipes();
     }
 
     this.breakpointObserver
@@ -306,6 +307,7 @@ export class NovoRelatorioComponent implements OnInit {
       falta: this.agentesFaltosos2.some(agente => agente.id === id),
       justificativaFalta: form.controls['justificativa'].value,
     }
+    this.isLoadingHorario = true;
 
     this.horarioService.salvar(request)
         .pipe(take(1))
@@ -313,6 +315,7 @@ export class NovoRelatorioComponent implements OnInit {
           this.registroDeHoras.push(a);
           this.registroDeHora = a;
           this.agentesComHorarioSalvo.push(id);
+          this.isLoadingHorario = false;
           this.horariosForms[i].controls['justificativa'].setValue('');
           this.equipeSelecionada2.membros = this.equipeSelecionada2.membros.filter((_, index) => index !== i);
           this.cdr.detectChanges();
@@ -331,12 +334,13 @@ export class NovoRelatorioComponent implements OnInit {
       falta: this.agentesFaltosos2.some(agente => agente.id === id),
       justificativaFalta: form.controls['justificativa'].value,
     }
-
+    this.isLoadingHorario = true;
     this.horarioService.salvar(request)
     .pipe(take(1))
     .subscribe((a) => {
       this.registroDeHoras.push(a);
       this.agentesComHorarioSalvo.push(id);
+      this.isLoadingHorario = false;
       this.horariosFolgaForms[i].controls['justificativa'].setValue('');
       this.agentesDeFolgaParaReforco2 = this.agentesDeFolgaParaReforco2.filter((_, index) => index !== i);
       this.cdr.detectChanges();

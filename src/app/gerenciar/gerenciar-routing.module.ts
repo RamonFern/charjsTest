@@ -10,9 +10,9 @@ const routes: Routes = [
       path: 'gerenciar/relatorio-geral-horas',
       component: RelatorioGeralHorasComponent,
       canActivate: [AuthGuard],
-      // data: {
-      //     permissao: PermissaoType.ACESSO_PAGINA_FATURAMENTO,
-      // },
+        data: {
+          permissoes: ['ADMIN', 'DIRETOR']
+        }
   },
   {
     path: 'gerenciar/relatorio-veiculo',
