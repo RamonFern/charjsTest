@@ -6,7 +6,7 @@ import autoTable from 'jspdf-autotable';
 import { HorarioService, ResumoHoras } from 'src/app/services/horario.sevice';
 import { AgenteUser } from 'src/app/models/AgenteUser';
 import { environment } from 'src/environments/environment';
-import { take } from 'rxjs';
+import { map, take } from 'rxjs';
 import { HorarioAgenteResponse } from 'src/app/models/horarioAgenteResponse';
 import { PermutasResumo, RelatorioService } from 'src/app/services/relatorio.service';
 
@@ -103,7 +103,10 @@ export class ResumoHorasComponent implements OnInit {
 
     this.resumoHorasService
         .buscarRegistrosPeloIdAgente(this.agenteId, inicioFormatado, fimFormatado)
-        .pipe(take(1))
+        .pipe(take(1),
+              map(lista => lista.sort((x, y) =>
+                new Date(x.dataHoraInicio).getTime() - new Date(y.dataHoraInicio).getTime()
+              )))
         .subscribe((a) => {
           this.registroHorasPorAgente = a;
         })

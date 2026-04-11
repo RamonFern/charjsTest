@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-
     this.authService.login(this.username, this.password)
       .subscribe({
         next: (res) => {
