@@ -39,7 +39,7 @@ export class EnderecoComponent implements OnInit {
     if (localStorage.getItem('token')) {
       this.buscarRelatorios();
     }
-    
+
   }
 
   onFiltroChange(valor: string) {
@@ -87,8 +87,9 @@ export class EnderecoComponent implements OnInit {
     this.relatorioService.buscarTodos()
         .pipe((take(1)))
         .subscribe((rel) => {
-          this.relatorios = rel;
-          this.relatorios = rel.reverse();
+          this.relatorios = rel.sort((x, y) => {
+            return new Date(x.datadorelatorio).getTime() - new Date(y.datadorelatorio).getTime();
+          });
         })
   }
 
