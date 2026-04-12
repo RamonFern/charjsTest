@@ -1,4 +1,4 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { AgenteUser } from './../../../../../models/AgenteUser';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
@@ -6,8 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as moment from 'moment';
-import { Observable, take } from 'rxjs';
+import { take } from 'rxjs';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { DialogReturn } from 'src/app/models/dialog-return';
 import { HorarioAgenteRequest } from 'src/app/models/horarioAgenteRequest';
@@ -17,6 +16,7 @@ import { AgenteService } from 'src/app/services/agente.service';
 import { EquipeService } from 'src/app/services/equipe.service';
 import { HorarioService } from 'src/app/services/horario.sevice';
 import { RelatorioService } from 'src/app/services/relatorio.service';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-NovoRelatorio',
@@ -135,7 +135,7 @@ export class NovoRelatorioComponent implements OnInit {
   };
 
   atualizaControlDeDatas() {
-    const data = moment(this.dataForm.controls['dataRelatorio'].value);
+    const data = dayjs(this.dataForm.controls['dataRelatorio'].value);
     this.dataRelatorio = data.format("DD/MM/YYYY");
   }
 
@@ -152,8 +152,8 @@ export class NovoRelatorioComponent implements OnInit {
   }
 
   selecionarEquipe(equipe: EquipeResponse) {
-    const data = moment(this.dataForm.controls['dataRelatorio'].value);
-    const d = new Date(data.toISOString());
+    const data = dayjs(this.dataForm.controls['dataRelatorio'].value);
+    const d = data.toDate();
 
     const chegada = this.formatarData(d, 5, 0);   // 08:00
     const saida   = this.formatarData(d, 17, 0);  // 20:00
@@ -247,8 +247,8 @@ export class NovoRelatorioComponent implements OnInit {
     const novoAgente = { ...this.agenteEscolhidoParaReforco };
     this.agentesDeFolgaParaReforco.push(novoAgente);
     this.agentesDeFolgaParaReforco2.push(novoAgente);
-    const data = moment(this.dataForm.controls['dataRelatorio'].value);
-    const d = new Date(data.toISOString());
+    const data = dayjs(this.dataForm.controls['dataRelatorio'].value);
+    const d = data.toDate();
 
     const chegada = this.formatarData(d, 5, 0);   // 08:00
     const saida   = this.formatarData(d, 17, 0);  // 20:00
@@ -358,7 +358,7 @@ export class NovoRelatorioComponent implements OnInit {
                                                       .map(agente => agente.nome).join(", ");
     this.isLoading = true;
 
-    const dataAtual = moment();
+    const dataAtual = dayjs();
     const request: RelatorioRequest = {
       datadorelatorio: this.dataRelatorio,
       datadehoje: dataAtual.format("DD/MM/YYYY"),
