@@ -88,7 +88,8 @@ export class EnderecoComponent implements OnInit {
         .pipe((take(1)))
         .subscribe((rel) => {
           this.relatorios = rel.sort((x, y) => {
-            return new Date(x.datadorelatorio).getTime() - new Date(y.datadorelatorio).getTime();
+            // return new Date(x.datadorelatorio).getTime() - new Date(y.datadorelatorio).getTime();
+              return new Date(y.datadorelatorio).getTime() - new Date(x.datadorelatorio).getTime();
           });
         })
   }
