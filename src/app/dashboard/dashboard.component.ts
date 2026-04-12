@@ -4,10 +4,9 @@ import { take } from 'rxjs';
 import { EscalaServicoResponse } from '../models/escala-servico';
 import { MatDialog } from '@angular/material/dialog';
 import { CriarEscalaComponent } from './dialogs/criar-escala/criar-escala.component';
-
-
-import * as moment from 'moment';
+import dayjs from 'dayjs';
 import { DialogReturn } from '../models/dialog-return';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -29,8 +28,8 @@ export class DashboardComponent implements OnInit {
     if (localStorage.getItem('token')) {
       this.buscarTodasEscalasServicos();
     }
-    //this.buscarTodasEscalasServicos();
-    this.dataHora = moment().format("DD/MM/YYYY");
+
+    this.dataHora = dayjs().format("DD/MM/YYYY");
   }
 
   buscarTodasEscalasServicos() {
@@ -40,16 +39,26 @@ export class DashboardComponent implements OnInit {
         .subscribe((escala) => {
           this.escalasResponse = escala;
           this.escalasResponse.reverse();
-          const dataHoraInicio = moment(this.dataHora, 'DD/MM/YYYY').subtract(7,'day');
-          const dataHoraFim = moment(this.dataHora, 'DD/MM/YYYY').add(7, 'day');
+          // const dataHoraInicio = dayjs(this.dataHora, 'DD/MM/YYYY').subtract(7,'day');
+          // const dataHoraFim = dayjs(this.dataHora, 'DD/MM/YYYY').add(7, 'day');
 
-          this.escalasResponse.filter((es) => {
-            const data = moment(es.data, 'DD/MM/YYYY');
-            const dataNum = data.dayOfYear()
-            if(dataNum > dataHoraInicio.dayOfYear() && dataNum < dataHoraFim.dayOfYear()) {
-              this.escalasFiltradas.push(es);
-            }
-          })
+          // this.escalasResponse.filter((es) => {
+          //   const data = moment(es.data, 'DD/MM/YYYY');
+          //   const dataNum = data.dayOfYear()
+          //   if(dataNum > dataHoraInicio.dayOfYear() && dataNum < dataHoraFim.dayOfYear()) {
+          //     this.escalasFiltradas.push(es);
+          //   }
+          // })
+           const dataBase = dayjs(this.dataHora, 'DD/MM/YYYY');
+           const dataHoraInicio = dataBase.subtract(7, 'day');
+           const dataHoraFim = dataBase.add(7, 'day');
+
+          // 🔥 filtro correto
+           this.escalasFiltradas = this.escalasResponse.filter((es) => {
+           const data = dayjs(es.data, 'DD/MM/YYYY');
+
+           return data.isAfter(dataHoraInicio) && data.isBefore(dataHoraFim);
+          });
 
           this.escalasResponse.filter((a) => {
             a.data === this.dataHora ? this.escalaResponse = a : null;
@@ -79,3 +88,5 @@ export class DashboardComponent implements OnInit {
   }
 
 }
+
+

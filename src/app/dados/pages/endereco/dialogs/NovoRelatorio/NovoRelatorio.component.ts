@@ -17,7 +17,7 @@ import { EquipeService } from 'src/app/services/equipe.service';
 import { HorarioService } from 'src/app/services/horario.sevice';
 import { RelatorioService } from 'src/app/services/relatorio.service';
 import dayjs from 'dayjs';
-// import dayjs = require('dayjs');
+
 
 @Component({
   selector: 'app-NovoRelatorio',

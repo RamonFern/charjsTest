@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { EquipeResponse } from 'src/app/models/EquipeRequest';
 import { EscalaServicoResponse } from 'src/app/models/escala-servico';
-import * as moment from 'moment';
+import dayjs from 'dayjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogReturn } from 'src/app/models/dialog-return';
 import { EditarEscalaComponent } from 'src/app/dashboard/dialogs/editar-escala/editar-escala.component';
@@ -24,10 +24,14 @@ export class DiaComponent implements OnInit {
   constructor(private equipeService: EquipeService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    const dateDia = moment(this.dia.data, "DD/MM/YYYY").locale('pt-br');
+    // const dateDia = moment(this.dia.data, "DD/MM/YYYY").locale('pt-br');
+    // this.diaSemana = dateDia.format('dddd');
+    // // console.log(dateDia.format('dd'))
+    // this.dataAtual = moment().format("DD/MM/YYYY");
+    const dateDia = dayjs(this.dia.data, "DD/MM/YYYY");
     this.diaSemana = dateDia.format('dddd');
-    // console.log(dateDia.format('dd'))
-    this.dataAtual = moment().format("DD/MM/YYYY");
+    this.dataAtual = dayjs().format("DD/MM/YYYY");
+    // this.id = this.dia.equipeid ? this.dia.equipeid : null;
     this.dia.equipeid ? this.id = this.dia.equipeid : null;
     this.buscarEquipe();
   }

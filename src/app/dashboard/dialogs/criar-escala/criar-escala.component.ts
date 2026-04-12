@@ -7,8 +7,8 @@ import { EscalaServicoService } from 'src/app/services/escala-servico.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import dayjs from 'dayjs';
 
-import * as moment from 'moment';
 import { DialogReturn } from 'src/app/models/dialog-return';
 
 
@@ -29,7 +29,7 @@ export class CriarEscalaComponent implements OnInit {
 
   escalaRequest!: EscalaServicoRequest
 
-  currentDate!: moment.Moment;
+  currentDate!: dayjs.Dayjs;
   constructor(
               @Inject(MAT_DIALOG_DATA) public data: string,
               public dialogRef: MatDialogRef<CriarEscalaComponent>,
@@ -38,11 +38,16 @@ export class CriarEscalaComponent implements OnInit {
               private notification: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.currentDate = moment(this.data, "DD/MM/YYYY" , 'br');
-    this.currentDate.add(1, 'd');
+    // this.currentDate = moment(this.data, "DD/MM/YYYY" , 'br');
+    // this.currentDate.add(1, 'd');
 
-    this.escalaForm.controls['data'].setValue(this.currentDate.format("DD/MM/YYYY"));
+    // this.escalaForm.controls['data'].setValue(this.currentDate.format("DD/MM/YYYY"));
 
+    this.currentDate = dayjs(this.data, "DD/MM/YYYY").add(1, 'day');
+
+    this.escalaForm.controls['data'].setValue(
+      this.currentDate.format("DD/MM/YYYY")
+    );
     this.listaEquipes();
   }
 
