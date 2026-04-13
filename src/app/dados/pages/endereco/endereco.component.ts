@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NovoRelatorioComponent } from './dialogs/NovoRelatorio/NovoRelatorio.component';
 import { DialogReturn } from 'src/app/models/dialog-return';
 import { environment } from 'src/environments/environment';
+import dayjs from 'dayjs';
 
 
 @Component({
@@ -87,11 +88,10 @@ export class EnderecoComponent implements OnInit {
     this.relatorioService.buscarTodos()
         .pipe((take(1)))
         .subscribe((rel) => {
-          // this.relatorios = rel.sort((x, y) => {
-          //     return new Date(y.datadorelatorio).getTime() - new Date(x.datadorelatorio).getTime();
-          // });
-          this.relatorios = rel
-              .sort((a, b) => new Date(b.datadorelatorio).getTime() - new Date(a.datadorelatorio).getTime());
+            this.relatorios = rel.sort((a, b) => {
+              return dayjs(b.datadorelatorio, "DD/MM/YYYY").valueOf() -
+                      dayjs(a.datadorelatorio, "DD/MM/YYYY").valueOf();
+            });
         })
   }
 
