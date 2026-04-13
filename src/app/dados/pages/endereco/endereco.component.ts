@@ -88,10 +88,8 @@ export class EnderecoComponent implements OnInit {
     this.relatorioService.buscarTodos()
         .pipe((take(1)))
         .subscribe((rel) => {
-            this.relatorios = rel.sort((a, b) => {
-              return dayjs(b.datadorelatorio, "DD/MM/YYYY").valueOf() -
-                      dayjs(a.datadorelatorio, "DD/MM/YYYY").valueOf();
-            });
+            this.relatorios = rel;
+            return this.relatorios.reverse();
         })
   }
 
