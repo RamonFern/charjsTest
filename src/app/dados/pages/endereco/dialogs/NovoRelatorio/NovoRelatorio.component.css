@@ -223,6 +223,10 @@ mat-list-item {
   margin-top: 40px;
 }
 
+.form__chips {
+  margin-button: 10px;
+}
+
 .equipe__per {
   display: flex;
   align-items: center;

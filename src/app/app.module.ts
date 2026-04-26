@@ -29,6 +29,7 @@ import { DadosRoutingModule } from './dados/dados-routing.module';
 import { GerenciarRoutingModule } from './gerenciar/gerenciar-routing.module';
 import { NotificacoesRoutingModule } from './notificacoes/notificacoes-routing.module';
 import { NotificacoesModule } from './notificacoes/notificacoes.module';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -48,35 +49,34 @@ import { NotificacoesModule } from './notificacoes/notificacoes.module';
     ],
     bootstrap: [AppComponent],
     imports: [
-      BrowserModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      HttpClientModule,
-      FormsModule,
-
-      // Angular Material (ok manter)
-      MatSlideToggleModule,
-      MatIconModule,
-      MatDialogModule,
-      ReactiveFormsModule,
-      MatDatepickerModule,
-      MatFormFieldModule,
-      MatTooltipModule,
-      MatCardModule,
-      MatDividerModule,
-      MatListModule,
-      MatInputModule,
-      MatButtonModule,
-
-      // 👇 SOMENTE módulos NÃO lazy
-      DashboardModule,
-      GerenciarRoutingModule,
-      DadosRoutingModule,
-      DadosModule,
-      NotificacoesRoutingModule,
-      NotificacoesModule,
-      LoginModule
-    ],
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    // Angular Material (ok manter)
+    MatSlideToggleModule,
+    MatIconModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
+    MatInputModule,
+    MatButtonModule,
+    // 👇 SOMENTE módulos NÃO lazy
+    DashboardModule,
+    GerenciarRoutingModule,
+    DadosRoutingModule,
+    DadosModule,
+    NotificacoesRoutingModule,
+    NotificacoesModule,
+    LoginModule,
+    MatProgressSpinnerModule
+],
     exports: [ NoResultsComponent ]
 
 })

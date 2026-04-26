@@ -6,6 +6,11 @@
   background: linear-gradient(135deg, #92588d, #2a5298);
 }
 
+.spinner {
+  display: flex;
+  justify-content: center;
+}
+
 .login-card {
   width: 350px;
   padding: 30px;

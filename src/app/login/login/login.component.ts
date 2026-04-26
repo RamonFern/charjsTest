@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   username!: string;
   password!: string;
   hide = true;
+  isLoading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -26,10 +27,12 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
+    this.isLoading = true;
     this.authService.login(this.username, this.password)
       .subscribe({
         next: (res) => {
           this.authService.salvarToken(res.token);
+          this.isLoading = false;
           this.router.navigate(['/dashboard']);
         },
         error: () => {

@@ -119,8 +119,15 @@ export class NovoRelatorioComponent implements OnInit {
           this.stepperOrientation = result.matches ? 'vertical' : 'horizontal';
           this.cdr.detectChanges(); // força update na tela
         });
+  }
 
+  cancelar() {
+    if (this.textRelatorioForm.dirty) {
+      const confirm = window.confirm('Você tem alterações não salvas. Deseja realmente sair?');
+      if (!confirm) return;
+    }
 
+    this.dialogRef.close({ hasDataChanged: false });
   }
 
   mostraRelatorio() {

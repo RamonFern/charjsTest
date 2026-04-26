@@ -17,15 +17,17 @@
                [(ngModel)]="password"
                name="password"
                required>
-
         <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" class="full-width" type="submit">
+      <button mat-raised-button *ngIf="!isLoading" color="primary" class="full-width" type="submit">
         Entrar
       </button>
+      <div class="spinner">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+      </div>
 
     </form>
 

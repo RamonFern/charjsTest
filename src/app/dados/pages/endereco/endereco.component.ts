@@ -46,6 +46,7 @@ export class EnderecoComponent implements OnInit {
   novoRelatorio() {
     const dialogRef = this.dialog.open(NovoRelatorioComponent, {
             width: '1250px',
+            disableClose: true
           });
 
           dialogRef.afterClosed().subscribe((result: DialogReturn) => {
